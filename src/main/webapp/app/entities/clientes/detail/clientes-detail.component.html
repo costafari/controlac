@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="clientes">
+      <h2 data-cy="clientesDetailsHeading"><span jhiTranslate="controlacApp.clientes.detail.title">Clientes</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="controlacApp.clientes.id">Id</span></dt>
+        <dd>
+          <span>{{ clientes.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.activo">Activo</span></dt>
+        <dd>
+          <span>{{ clientes.activo }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.apellidos">Apellidos</span></dt>
+        <dd>
+          <span>{{ clientes.apellidos }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.direcion">Direcion</span></dt>
+        <dd>
+          <span>{{ clientes.direcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.email">Email</span></dt>
+        <dd>
+          <span>{{ clientes.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.nombreContacto">Nombre Contacto</span></dt>
+        <dd>
+          <span>{{ clientes.nombreContacto }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.nombreEmpresa">Nombre Empresa</span></dt>
+        <dd>
+          <span>{{ clientes.nombreEmpresa }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.nombres">Nombres</span></dt>
+        <dd>
+          <span>{{ clientes.nombres }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.notas">Notas</span></dt>
+        <dd>
+          <span>{{ clientes.notas }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.sitioWeb">Sitio Web</span></dt>
+        <dd>
+          <span>{{ clientes.sitioWeb }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.telefonoFijo">Telefono Fijo</span></dt>
+        <dd>
+          <span>{{ clientes.telefonoFijo }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.telefonoFijo2">Telefono Fijo 2</span></dt>
+        <dd>
+          <span>{{ clientes.telefonoFijo2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.telefonoMovil">Telefono Movil</span></dt>
+        <dd>
+          <span>{{ clientes.telefonoMovil }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientes.telefonoMovil2">Telefono Movil 2</span></dt>
+        <dd>
+          <span>{{ clientes.telefonoMovil2 }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/clientes', clientes.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

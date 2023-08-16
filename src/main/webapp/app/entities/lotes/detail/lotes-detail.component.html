@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="lotes">
+      <h2 data-cy="lotesDetailsHeading"><span jhiTranslate="controlacApp.lotes.detail.title">Lotes</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="controlacApp.lotes.id">Id</span></dt>
+        <dd>
+          <span>{{ lotes.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.lotes.cantidad">Cantidad</span></dt>
+        <dd>
+          <span>{{ lotes.cantidad }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.lotes.fechaEntrada">Fecha Entrada</span></dt>
+        <dd>
+          <span>{{ lotes.fechaEntrada | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.lotes.lote">Lote</span></dt>
+        <dd>
+          <span>{{ lotes.lote }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.lotes.proveedores">Proveedores</span></dt>
+        <dd>
+          <div *ngIf="lotes.proveedores">
+            <a [routerLink]="['/proveedores', lotes.proveedores.id, 'view']">{{ lotes.proveedores.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/lotes', lotes.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

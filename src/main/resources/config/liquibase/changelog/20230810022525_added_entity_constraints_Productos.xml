@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Productos.
+    -->
+    <changeSet id="20230810022525-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="lotes_id"
+                                 baseTableName="productos"
+                                 constraintName="fk_productos__lotes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lotes"
+                                 />
+    </changeSet>
+</databaseChangeLog>

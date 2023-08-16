@@ -1,0 +1,103 @@
+<div>
+  <h2 id="page-heading" data-cy="AbonosHeading">
+    <span jhiTranslate="controlacApp.abonos.home.title">Abonos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="controlacApp.abonos.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-abonos"
+        [routerLink]="['/abonos/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="controlacApp.abonos.home.createLabel"> Crear nuevo Abonos </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="abonos?.length === 0">
+    <span jhiTranslate="controlacApp.abonos.home.notFound">Ningún Abonos encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="abonos && abonos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.abonos.id">Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="saldoAnterior">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.abonos.saldoAnterior">Saldo Anterior</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="abono">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.abonos.abono">Abono</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nuevoSaldo">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.abonos.nuevoSaldo">Nuevo Saldo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="facturas.id">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.abonos.facturas">Facturas</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let abonos of abonos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/abonos', abonos.id, 'view']">{{ abonos.id }}</a>
+          </td>
+          <td>{{ abonos.saldoAnterior }}</td>
+          <td>{{ abonos.abono }}</td>
+          <td>{{ abonos.nuevoSaldo }}</td>
+          <td>
+            <div *ngIf="abonos.facturas">
+              <a [routerLink]="['/facturas', abonos.facturas.id, 'view']">{{ abonos.facturas.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/abonos', abonos.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/abonos', abonos.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(abonos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

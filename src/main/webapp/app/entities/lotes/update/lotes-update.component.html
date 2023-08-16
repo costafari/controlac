@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-lotes-heading" data-cy="LotesCreateUpdateHeading" jhiTranslate="controlacApp.lotes.home.createOrEditLabel">
+        Crear o editar Lotes
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="controlacApp.lotes.id" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.lotes.cantidad" for="field_cantidad">Cantidad</label>
+          <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.lotes.fechaEntrada" for="field_fechaEntrada">Fecha Entrada</label>
+          <div class="input-group">
+            <input
+              id="field_fechaEntrada"
+              data-cy="fechaEntrada"
+              type="text"
+              class="form-control"
+              name="fechaEntrada"
+              ngbDatepicker
+              #fechaEntradaDp="ngbDatepicker"
+              formControlName="fechaEntrada"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaEntradaDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.lotes.lote" for="field_lote">Lote</label>
+          <input type="text" class="form-control" name="lote" id="field_lote" data-cy="lote" formControlName="lote" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.lotes.proveedores" for="field_proveedores">Proveedores</label>
+          <select
+            class="form-control"
+            id="field_proveedores"
+            data-cy="proveedores"
+            name="proveedores"
+            formControlName="proveedores"
+            [compareWith]="compareProveedores"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="proveedoresOption" *ngFor="let proveedoresOption of proveedoresCollection">
+              {{ proveedoresOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

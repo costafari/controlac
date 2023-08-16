@@ -1,0 +1,30 @@
+{
+  "controlacApp": {
+    "facturas": {
+      "home": {
+        "title": "Facturas",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Facturas",
+        "createOrEditLabel": "Crear o editar Facturas",
+        "notFound": "Ningún Facturas encontrado"
+      },
+      "created": "Un nuevo Facturas ha sido creado con el identificador {{ param }}",
+      "updated": "Un Facturas ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Facturas ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Facturas {{ id }}?"
+      },
+      "detail": {
+        "title": "Facturas"
+      },
+      "id": "Id",
+      "numeroFactura": "Numero Factura",
+      "fechaFactura": "Fecha Factura",
+      "condicionPago": "Condicion Pago",
+      "clientes": "Clientes",
+      "lotes": "Lotes",
+      "detalles": "Detalles",
+      "abonos": "Abonos"
+    }
+  }
+}

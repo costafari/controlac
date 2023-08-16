@@ -1,0 +1,144 @@
+<div>
+  <h2 id="page-heading" data-cy="ProveedoresHeading">
+    <span jhiTranslate="controlacApp.proveedores.home.title">Proveedores</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="controlacApp.proveedores.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-proveedores"
+        [routerLink]="['/proveedores/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="controlacApp.proveedores.home.createLabel"> Crear nuevo Proveedores </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="proveedores?.length === 0">
+    <span jhiTranslate="controlacApp.proveedores.home.notFound">Ningún Proveedores encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="proveedores && proveedores.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.id">Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="direccion">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.direccion">Direccion</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nombreContacto">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.nombreContacto">Nombre Contacto</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nombreEmpresa">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.nombreEmpresa">Nombre Empresa</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="notas">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.notas">Notas</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="sitioWeb">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.sitioWeb">Sitio Web</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="telefonoFijo">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.telefonoFijo">Telefono Fijo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="telefonoFijo2">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.telefonoFijo2">Telefono Fijo 2</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="telefonoMovil">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.telefonoMovil">Telefono Movil</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="telefonoMovil2">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.proveedores.telefonoMovil2">Telefono Movil 2</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let proveedores of proveedores; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/proveedores', proveedores.id, 'view']">{{ proveedores.id }}</a>
+          </td>
+          <td>{{ proveedores.direccion }}</td>
+          <td>{{ proveedores.nombreContacto }}</td>
+          <td>{{ proveedores.nombreEmpresa }}</td>
+          <td>{{ proveedores.notas }}</td>
+          <td>{{ proveedores.sitioWeb }}</td>
+          <td>{{ proveedores.telefonoFijo }}</td>
+          <td>{{ proveedores.telefonoFijo2 }}</td>
+          <td>{{ proveedores.telefonoMovil }}</td>
+          <td>{{ proveedores.telefonoMovil2 }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/proveedores', proveedores.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/proveedores', proveedores.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(proveedores)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

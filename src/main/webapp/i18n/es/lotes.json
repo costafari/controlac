@@ -1,0 +1,29 @@
+{
+  "controlacApp": {
+    "lotes": {
+      "home": {
+        "title": "Lotes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Lotes",
+        "createOrEditLabel": "Crear o editar Lotes",
+        "notFound": "Ningún Lotes encontrado"
+      },
+      "created": "Un nuevo Lotes ha sido creado con el identificador {{ param }}",
+      "updated": "Un Lotes ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Lotes ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Lotes {{ id }}?"
+      },
+      "detail": {
+        "title": "Lotes"
+      },
+      "id": "Id",
+      "cantidad": "Cantidad",
+      "fechaEntrada": "Fecha Entrada",
+      "lote": "Lote",
+      "proveedores": "Proveedores",
+      "productos": "Productos",
+      "facturas": "Facturas"
+    }
+  }
+}

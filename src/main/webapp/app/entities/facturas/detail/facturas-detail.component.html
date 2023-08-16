@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="facturas">
+      <h2 data-cy="facturasDetailsHeading"><span jhiTranslate="controlacApp.facturas.detail.title">Facturas</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="controlacApp.facturas.id">Id</span></dt>
+        <dd>
+          <span>{{ facturas.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.facturas.numeroFactura">Numero Factura</span></dt>
+        <dd>
+          <span>{{ facturas.numeroFactura }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.facturas.fechaFactura">Fecha Factura</span></dt>
+        <dd>
+          <span>{{ facturas.fechaFactura | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.facturas.condicionPago">Condicion Pago</span></dt>
+        <dd>
+          <span>{{ facturas.condicionPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.facturas.clientes">Clientes</span></dt>
+        <dd>
+          <div *ngIf="facturas.clientes">
+            <a [routerLink]="['/clientes', facturas.clientes.id, 'view']">{{ facturas.clientes.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.facturas.lotes">Lotes</span></dt>
+        <dd>
+          <div *ngIf="facturas.lotes">
+            <a [routerLink]="['/lotes', facturas.lotes.id, 'view']">{{ facturas.lotes.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.facturas.detalles">Detalles</span></dt>
+        <dd>
+          <div *ngIf="facturas.detalles">
+            <a [routerLink]="['/detalles', facturas.detalles.id, 'view']">{{ facturas.detalles.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/facturas', facturas.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

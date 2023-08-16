@@ -1,0 +1,36 @@
+{
+  "applications": "*",
+  "changelogDate": "20230810022526",
+  "entityTableName": "abonos",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "saldoAnterior",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "abono",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nuevoSaldo",
+      "fieldType": "Long"
+    }
+  ],
+  "name": "Abonos",
+  "relationships": [
+    {
+      "otherEntityName": "facturas",
+      "otherEntityRelationshipName": "abonos",
+      "relationshipName": "facturas",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

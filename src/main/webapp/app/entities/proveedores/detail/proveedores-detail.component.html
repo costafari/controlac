@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="proveedores">
+      <h2 data-cy="proveedoresDetailsHeading"><span jhiTranslate="controlacApp.proveedores.detail.title">Proveedores</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="controlacApp.proveedores.id">Id</span></dt>
+        <dd>
+          <span>{{ proveedores.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.direccion">Direccion</span></dt>
+        <dd>
+          <span>{{ proveedores.direccion }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.nombreContacto">Nombre Contacto</span></dt>
+        <dd>
+          <span>{{ proveedores.nombreContacto }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.nombreEmpresa">Nombre Empresa</span></dt>
+        <dd>
+          <span>{{ proveedores.nombreEmpresa }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.notas">Notas</span></dt>
+        <dd>
+          <span>{{ proveedores.notas }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.sitioWeb">Sitio Web</span></dt>
+        <dd>
+          <span>{{ proveedores.sitioWeb }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.telefonoFijo">Telefono Fijo</span></dt>
+        <dd>
+          <span>{{ proveedores.telefonoFijo }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.telefonoFijo2">Telefono Fijo 2</span></dt>
+        <dd>
+          <span>{{ proveedores.telefonoFijo2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.telefonoMovil">Telefono Movil</span></dt>
+        <dd>
+          <span>{{ proveedores.telefonoMovil }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.proveedores.telefonoMovil2">Telefono Movil 2</span></dt>
+        <dd>
+          <span>{{ proveedores.telefonoMovil2 }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/proveedores', proveedores.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

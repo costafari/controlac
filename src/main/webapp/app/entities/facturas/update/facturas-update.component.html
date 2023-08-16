@@ -1,0 +1,131 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-facturas-heading" data-cy="FacturasCreateUpdateHeading" jhiTranslate="controlacApp.facturas.home.createOrEditLabel">
+        Crear o editar Facturas
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="controlacApp.facturas.id" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.facturas.numeroFactura" for="field_numeroFactura">Numero Factura</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numeroFactura"
+            id="field_numeroFactura"
+            data-cy="numeroFactura"
+            formControlName="numeroFactura"
+          />
+          <div
+            *ngIf="
+              editForm.get('numeroFactura')!.invalid && (editForm.get('numeroFactura')!.dirty || editForm.get('numeroFactura')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('numeroFactura')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('numeroFactura')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.facturas.fechaFactura" for="field_fechaFactura">Fecha Factura</label>
+          <div class="d-flex">
+            <input
+              id="field_fechaFactura"
+              data-cy="fechaFactura"
+              type="datetime-local"
+              class="form-control"
+              name="fechaFactura"
+              formControlName="fechaFactura"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.facturas.condicionPago" for="field_condicionPago">Condicion Pago</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="condicionPago"
+            id="field_condicionPago"
+            data-cy="condicionPago"
+            formControlName="condicionPago"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.facturas.clientes" for="field_clientes">Clientes</label>
+          <select
+            class="form-control"
+            id="field_clientes"
+            data-cy="clientes"
+            name="clientes"
+            formControlName="clientes"
+            [compareWith]="compareClientes"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="clientesOption" *ngFor="let clientesOption of clientesCollection">{{ clientesOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.facturas.lotes" for="field_lotes">Lotes</label>
+          <select class="form-control" id="field_lotes" data-cy="lotes" name="lotes" formControlName="lotes" [compareWith]="compareLotes">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="lotesOption" *ngFor="let lotesOption of lotesSharedCollection">{{ lotesOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.facturas.detalles" for="field_detalles">Detalles</label>
+          <select
+            class="form-control"
+            id="field_detalles"
+            data-cy="detalles"
+            name="detalles"
+            formControlName="detalles"
+            [compareWith]="compareDetalles"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="detallesOption" *ngFor="let detallesOption of detallesSharedCollection">{{ detallesOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

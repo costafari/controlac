@@ -1,0 +1,27 @@
+{
+  "controlacApp": {
+    "abonos": {
+      "home": {
+        "title": "Abonos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Abonos",
+        "createOrEditLabel": "Crear o editar Abonos",
+        "notFound": "Ningún Abonos encontrado"
+      },
+      "created": "Un nuevo Abonos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Abonos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Abonos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Abonos {{ id }}?"
+      },
+      "detail": {
+        "title": "Abonos"
+      },
+      "id": "Id",
+      "saldoAnterior": "Saldo Anterior",
+      "abono": "Abono",
+      "nuevoSaldo": "Nuevo Saldo",
+      "facturas": "Facturas"
+    }
+  }
+}

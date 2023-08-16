@@ -1,0 +1,26 @@
+{
+  "controlacApp": {
+    "detalles": {
+      "home": {
+        "title": "Detalles",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Detalles",
+        "createOrEditLabel": "Crear o editar Detalles",
+        "notFound": "Ningún Detalles encontrado"
+      },
+      "created": "Un nuevo Detalles ha sido creado con el identificador {{ param }}",
+      "updated": "Un Detalles ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Detalles ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Detalles {{ id }}?"
+      },
+      "detail": {
+        "title": "Detalles"
+      },
+      "id": "Id",
+      "cantidad": "Cantidad",
+      "total": "Total",
+      "facturas": "Facturas"
+    }
+  }
+}
