@@ -14,7 +14,7 @@
 #       - SPRING_CLOUD_CONSUL_HOST=host.docker.internal
 #       - SPRING_CLOUD_CONSUL_PORT=8500
 #### Static
-# Add instances to "MyApp"
+# Add instances to "Controlac"
 #       - SPRING_CLOUD_DISCOVERY_CLIENT_SIMPLE_INSTANCES_MYAPP_0_URI=http://host.docker.internal:8081
 #       - SPRING_CLOUD_DISCOVERY_CLIENT_SIMPLE_INSTANCES_MYAPP_1_URI=http://host.docker.internal:8082
 # Or add a new application named MyNewApp

@@ -1,2 +1,2 @@
-org.springframework.test.context.ContextCustomizerFactory = com.mycompany.myapp.\
+org.springframework.test.context.ContextCustomizerFactory = sv.com.genius.controlac.\
     config.SqlTestContainersSpringContextCustomizerFactory

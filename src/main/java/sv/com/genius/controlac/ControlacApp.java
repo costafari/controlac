@@ -1,5 +1,6 @@
 package sv.com.genius.controlac;
 
+import org.springframework.context.annotation.ComponentScan;
 import sv.com.genius.controlac.config.ApplicationProperties;
 import sv.com.genius.controlac.config.CRLFLogConverter;
 import jakarta.annotation.PostConstruct;
@@ -21,6 +22,7 @@ import tech.jhipster.config.JHipsterConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
+@ComponentScan(basePackages = {"sv.com.genius"})
 public class ControlacApp {
 
     private static final Logger log = LoggerFactory.getLogger(ControlacApp.class);
