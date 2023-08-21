@@ -1,5 +1,11 @@
 package sv.com.genius.controlac.web.rest;
 
+import jakarta.validation.Valid;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import sv.com.genius.controlac.domain.User;
 import sv.com.genius.controlac.repository.UserRepository;
 import sv.com.genius.controlac.security.SecurityUtils;
@@ -7,19 +13,13 @@ import sv.com.genius.controlac.service.MailService;
 import sv.com.genius.controlac.service.UserService;
 import sv.com.genius.controlac.service.dto.AdminUserDTO;
 import sv.com.genius.controlac.service.dto.PasswordChangeDTO;
-import com.mycompany.myapp.web.rest.errors.*;
 import sv.com.genius.controlac.web.rest.errors.EmailAlreadyUsedException;
 import sv.com.genius.controlac.web.rest.errors.InvalidPasswordException;
 import sv.com.genius.controlac.web.rest.errors.LoginAlreadyUsedException;
 import sv.com.genius.controlac.web.rest.vm.KeyAndPasswordVM;
 import sv.com.genius.controlac.web.rest.vm.ManagedUserVM;
-import jakarta.validation.Valid;
-import java.util.*;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * REST controller for managing the current user's account.

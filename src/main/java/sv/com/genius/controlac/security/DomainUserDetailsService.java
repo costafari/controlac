@@ -1,9 +1,5 @@
 package sv.com.genius.controlac.security;
 
-import sv.com.genius.controlac.domain.Authority;
-import sv.com.genius.controlac.domain.User;
-import sv.com.genius.controlac.repository.UserRepository;
-import java.util.*;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +9,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import sv.com.genius.controlac.domain.Authority;
+import sv.com.genius.controlac.domain.User;
+import sv.com.genius.controlac.repository.UserRepository;
+
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Authenticate a user from the database.
@@ -21,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class DomainUserDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(DomainUserDetailsService.class);
-
     private final UserRepository userRepository;
 
     public DomainUserDetailsService(UserRepository userRepository) {

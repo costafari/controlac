@@ -1,10 +1,5 @@
 package sv.com.genius.controlac.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
-import com.mycompany.myapp.security.*;
-import sv.com.genius.controlac.security.AuthoritiesConstants;
-import sv.com.genius.controlac.web.filter.SpaWebFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +14,11 @@ import org.springframework.security.oauth2.server.resource.web.access.BearerToke
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
+import sv.com.genius.controlac.security.AuthoritiesConstants;
+import sv.com.genius.controlac.web.filter.SpaWebFilter;
 import tech.jhipster.config.JHipsterProperties;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
