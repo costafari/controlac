@@ -38,21 +38,27 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="activo">
+          <th scope="col" jhiSortBy="estadoCliente">
             <div class="d-flex">
-              <span jhiTranslate="controlacApp.clientes.activo">Activo</span>
+              <span jhiTranslate="controlacApp.clientes.estadoCliente">Estado Cliente</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="apellidos">
+          <th scope="col" jhiSortBy="nombresContacto">
             <div class="d-flex">
-              <span jhiTranslate="controlacApp.clientes.apellidos">Apellidos</span>
+              <span jhiTranslate="controlacApp.clientes.nombresContacto">Nombres Contacto</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="direcion">
+          <th scope="col" jhiSortBy="apellidoContacto">
             <div class="d-flex">
-              <span jhiTranslate="controlacApp.clientes.direcion">Direcion</span>
+              <span jhiTranslate="controlacApp.clientes.apellidoContacto">Apellido Contacto</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="direccion">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientes.direccion">Direccion</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -62,21 +68,21 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="nombreContacto">
-            <div class="d-flex">
-              <span jhiTranslate="controlacApp.clientes.nombreContacto">Nombre Contacto</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="nombreEmpresa">
             <div class="d-flex">
               <span jhiTranslate="controlacApp.clientes.nombreEmpresa">Nombre Empresa</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="nombres">
+          <th scope="col" jhiSortBy="regFiscal">
             <div class="d-flex">
-              <span jhiTranslate="controlacApp.clientes.nombres">Nombres</span>
+              <span jhiTranslate="controlacApp.clientes.regFiscal">Reg Fiscal</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="giro">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientes.giro">Giro</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -116,6 +122,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="fechaRegistro">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientes.fechaRegistro">Fecha Registro</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaUltimaC">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientes.fechaUltimaC">Fecha Ultima C</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -124,19 +142,22 @@
           <td>
             <a [routerLink]="['/clientes', clientes.id, 'view']">{{ clientes.id }}</a>
           </td>
-          <td>{{ clientes.activo }}</td>
-          <td>{{ clientes.apellidos }}</td>
-          <td>{{ clientes.direcion }}</td>
+          <td>{{ clientes.estadoCliente }}</td>
+          <td>{{ clientes.nombresContacto }}</td>
+          <td>{{ clientes.apellidoContacto }}</td>
+          <td>{{ clientes.direccion }}</td>
           <td>{{ clientes.email }}</td>
-          <td>{{ clientes.nombreContacto }}</td>
           <td>{{ clientes.nombreEmpresa }}</td>
-          <td>{{ clientes.nombres }}</td>
+          <td>{{ clientes.regFiscal }}</td>
+          <td>{{ clientes.giro }}</td>
           <td>{{ clientes.notas }}</td>
           <td>{{ clientes.sitioWeb }}</td>
           <td>{{ clientes.telefonoFijo }}</td>
           <td>{{ clientes.telefonoFijo2 }}</td>
           <td>{{ clientes.telefonoMovil }}</td>
           <td>{{ clientes.telefonoMovil2 }}</td>
+          <td>{{ clientes.fechaRegistro }}</td>
+          <td>{{ clientes.fechaUltimaC }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button

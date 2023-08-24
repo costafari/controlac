@@ -2,7 +2,10 @@ package sv.com.genius.controlac.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Clientes.
@@ -20,26 +23,34 @@ public class Clientes implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "activo")
-    private Boolean activo;
+    @NotNull
+    @Column(name = "estado_cliente", nullable = false)
+    private Boolean estadoCliente;
 
-    @Column(name = "apellidos")
-    private String apellidos;
+    @NotNull
+    @Column(name = "nombres_contacto", nullable = false)
+    private String nombresContacto;
 
-    @Column(name = "direcion")
-    private String direcion;
+    @NotNull
+    @Column(name = "apellido_contacto", nullable = false)
+    private String apellidoContacto;
 
-    @Column(name = "email")
+    @NotNull
+    @Column(name = "direccion", nullable = false)
+    private String direccion;
+
+    @NotNull
+    @Column(name = "email", nullable = false)
     private String email;
-
-    @Column(name = "nombre_contacto")
-    private String nombreContacto;
 
     @Column(name = "nombre_empresa")
     private String nombreEmpresa;
 
-    @Column(name = "nombres")
-    private String nombres;
+    @Column(name = "reg_fiscal")
+    private String regFiscal;
+
+    @Column(name = "giro")
+    private String giro;
 
     @Column(name = "notas")
     private String notas;
@@ -47,21 +58,31 @@ public class Clientes implements Serializable {
     @Column(name = "sitio_web")
     private String sitioWeb;
 
-    @Column(name = "telefono_fijo")
+    @NotNull
+    @Column(name = "telefono_fijo", nullable = false)
     private Integer telefonoFijo;
 
     @Column(name = "telefono_fijo_2")
     private Integer telefonoFijo2;
 
-    @Column(name = "telefono_movil")
+    @NotNull
+    @Column(name = "telefono_movil", nullable = false)
     private Integer telefonoMovil;
 
     @Column(name = "telefono_movil_2")
     private Integer telefonoMovil2;
 
-    @JsonIgnoreProperties(value = { "clientes", "lotes", "detalles", "abonos" }, allowSetters = true)
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "clientes")
-    private Facturas facturas;
+    @NotNull
+    @Column(name = "fecha_registro", nullable = false)
+    private String fechaRegistro;
+
+    @NotNull
+    @Column(name = "fecha_ultima_c", nullable = false)
+    private String fechaUltimaC;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "clientes")
+    @JsonIgnoreProperties(value = { "detalles", "clientes", "abonos" }, allowSetters = true)
+    private Set<Facturas> facturas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -78,43 +99,56 @@ public class Clientes implements Serializable {
         this.id = id;
     }
 
-    public Boolean getActivo() {
-        return this.activo;
+    public Boolean getEstadoCliente() {
+        return this.estadoCliente;
     }
 
-    public Clientes activo(Boolean activo) {
-        this.setActivo(activo);
+    public Clientes estadoCliente(Boolean estadoCliente) {
+        this.setEstadoCliente(estadoCliente);
         return this;
     }
 
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
+    public void setEstadoCliente(Boolean estadoCliente) {
+        this.estadoCliente = estadoCliente;
     }
 
-    public String getApellidos() {
-        return this.apellidos;
+    public String getNombresContacto() {
+        return this.nombresContacto;
     }
 
-    public Clientes apellidos(String apellidos) {
-        this.setApellidos(apellidos);
+    public Clientes nombresContacto(String nombresContacto) {
+        this.setNombresContacto(nombresContacto);
         return this;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setNombresContacto(String nombresContacto) {
+        this.nombresContacto = nombresContacto;
     }
 
-    public String getDirecion() {
-        return this.direcion;
+    public String getApellidoContacto() {
+        return this.apellidoContacto;
     }
 
-    public Clientes direcion(String direcion) {
-        this.setDirecion(direcion);
+    public Clientes apellidoContacto(String apellidoContacto) {
+        this.setApellidoContacto(apellidoContacto);
         return this;
     }
 
-    public void setDirecion(String direcion) {
-        this.direcion = direcion;
+    public void setApellidoContacto(String apellidoContacto) {
+        this.apellidoContacto = apellidoContacto;
+    }
+
+    public String getDireccion() {
+        return this.direccion;
+    }
+
+    public Clientes direccion(String direccion) {
+        this.setDireccion(direccion);
+        return this;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public String getEmail() {
@@ -130,19 +164,6 @@ public class Clientes implements Serializable {
         this.email = email;
     }
 
-    public String getNombreContacto() {
-        return this.nombreContacto;
-    }
-
-    public Clientes nombreContacto(String nombreContacto) {
-        this.setNombreContacto(nombreContacto);
-        return this;
-    }
-
-    public void setNombreContacto(String nombreContacto) {
-        this.nombreContacto = nombreContacto;
-    }
-
     public String getNombreEmpresa() {
         return this.nombreEmpresa;
     }
@@ -156,17 +177,30 @@ public class Clientes implements Serializable {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    public String getNombres() {
-        return this.nombres;
+    public String getRegFiscal() {
+        return this.regFiscal;
     }
 
-    public Clientes nombres(String nombres) {
-        this.setNombres(nombres);
+    public Clientes regFiscal(String regFiscal) {
+        this.setRegFiscal(regFiscal);
         return this;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setRegFiscal(String regFiscal) {
+        this.regFiscal = regFiscal;
+    }
+
+    public String getGiro() {
+        return this.giro;
+    }
+
+    public Clientes giro(String giro) {
+        this.setGiro(giro);
+        return this;
+    }
+
+    public void setGiro(String giro) {
+        this.giro = giro;
     }
 
     public String getNotas() {
@@ -247,22 +281,60 @@ public class Clientes implements Serializable {
         this.telefonoMovil2 = telefonoMovil2;
     }
 
-    public Facturas getFacturas() {
+    public String getFechaRegistro() {
+        return this.fechaRegistro;
+    }
+
+    public Clientes fechaRegistro(String fechaRegistro) {
+        this.setFechaRegistro(fechaRegistro);
+        return this;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getFechaUltimaC() {
+        return this.fechaUltimaC;
+    }
+
+    public Clientes fechaUltimaC(String fechaUltimaC) {
+        this.setFechaUltimaC(fechaUltimaC);
+        return this;
+    }
+
+    public void setFechaUltimaC(String fechaUltimaC) {
+        this.fechaUltimaC = fechaUltimaC;
+    }
+
+    public Set<Facturas> getFacturas() {
         return this.facturas;
     }
 
-    public void setFacturas(Facturas facturas) {
+    public void setFacturas(Set<Facturas> facturas) {
         if (this.facturas != null) {
-            this.facturas.setClientes(null);
+            this.facturas.forEach(i -> i.setClientes(null));
         }
         if (facturas != null) {
-            facturas.setClientes(this);
+            facturas.forEach(i -> i.setClientes(this));
         }
         this.facturas = facturas;
     }
 
-    public Clientes facturas(Facturas facturas) {
+    public Clientes facturas(Set<Facturas> facturas) {
         this.setFacturas(facturas);
+        return this;
+    }
+
+    public Clientes addFacturas(Facturas facturas) {
+        this.facturas.add(facturas);
+        facturas.setClientes(this);
+        return this;
+    }
+
+    public Clientes removeFacturas(Facturas facturas) {
+        this.facturas.remove(facturas);
+        facturas.setClientes(null);
         return this;
     }
 
@@ -290,19 +362,22 @@ public class Clientes implements Serializable {
     public String toString() {
         return "Clientes{" +
             "id=" + getId() +
-            ", activo='" + getActivo() + "'" +
-            ", apellidos='" + getApellidos() + "'" +
-            ", direcion='" + getDirecion() + "'" +
+            ", estadoCliente='" + getEstadoCliente() + "'" +
+            ", nombresContacto='" + getNombresContacto() + "'" +
+            ", apellidoContacto='" + getApellidoContacto() + "'" +
+            ", direccion='" + getDireccion() + "'" +
             ", email='" + getEmail() + "'" +
-            ", nombreContacto='" + getNombreContacto() + "'" +
             ", nombreEmpresa='" + getNombreEmpresa() + "'" +
-            ", nombres='" + getNombres() + "'" +
+            ", regFiscal='" + getRegFiscal() + "'" +
+            ", giro='" + getGiro() + "'" +
             ", notas='" + getNotas() + "'" +
             ", sitioWeb='" + getSitioWeb() + "'" +
             ", telefonoFijo=" + getTelefonoFijo() +
             ", telefonoFijo2=" + getTelefonoFijo2() +
             ", telefonoMovil=" + getTelefonoMovil() +
             ", telefonoMovil2=" + getTelefonoMovil2() +
+            ", fechaRegistro='" + getFechaRegistro() + "'" +
+            ", fechaUltimaC='" + getFechaUltimaC() + "'" +
             "}";
     }
 }

@@ -1,0 +1,27 @@
+{
+  "controlacApp": {
+    "productoAudit": {
+      "home": {
+        "title": "Producto Audits",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Producto Audit",
+        "createOrEditLabel": "Crear o editar Producto Audit",
+        "notFound": "Ningún Producto Audits encontrado"
+      },
+      "created": "Un nuevo Producto Audit ha sido creado con el identificador {{ param }}",
+      "updated": "Un Producto Audit ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Producto Audit ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Producto Audit {{ id }}?"
+      },
+      "detail": {
+        "title": "Producto Audit"
+      },
+      "id": "Id",
+      "fechaAudit": "Fecha Audit",
+      "tipoCrud": "Tipo Crud",
+      "idProducto": "Id Producto",
+      "idUSuario": "Id U Suario"
+    }
+  }
+}

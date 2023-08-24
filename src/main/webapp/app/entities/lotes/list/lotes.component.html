@@ -56,6 +56,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="estado">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.lotes.estado">Estado</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="notas">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.lotes.notas">Notas</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="proveedores.id">
             <div class="d-flex">
               <span jhiTranslate="controlacApp.lotes.proveedores">Proveedores</span>
@@ -73,6 +85,8 @@
           <td>{{ lotes.cantidad }}</td>
           <td>{{ lotes.fechaEntrada | formatMediumDate }}</td>
           <td>{{ lotes.lote }}</td>
+          <td>{{ lotes.estado }}</td>
+          <td>{{ lotes.notas }}</td>
           <td>
             <div *ngIf="lotes.proveedores">
               <a [routerLink]="['/proveedores', lotes.proveedores.id, 'view']">{{ lotes.proveedores.id }}</a>

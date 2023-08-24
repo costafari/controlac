@@ -15,13 +15,13 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="direccion" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="nombre_contacto" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="nombre_empresa" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="notas" type="varchar(255)">
                 <constraints nullable="true" />
@@ -30,19 +30,16 @@
                 <constraints nullable="true" />
             </column>
             <column name="telefono_fijo" type="integer">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="telefono_fijo_2" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="telefono_movil" type="integer">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="telefono_movil_2" type="integer">
                 <constraints nullable="true" />
-            </column>
-            <column name="lotes_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_proveedores__lotes_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

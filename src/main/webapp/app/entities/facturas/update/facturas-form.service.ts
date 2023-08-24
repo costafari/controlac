@@ -27,16 +27,16 @@ type FacturasFormRawValue = FormValueOf<IFacturas>;
 
 type NewFacturasFormRawValue = FormValueOf<NewFacturas>;
 
-type FacturasFormDefaults = Pick<NewFacturas, 'id' | 'fechaFactura' | 'condicionPago'>;
+type FacturasFormDefaults = Pick<NewFacturas, 'id' | 'fechaFactura' | 'condicionPago' | 'estadoFactura'>;
 
 type FacturasFormGroupContent = {
   id: FormControl<FacturasFormRawValue['id'] | NewFacturas['id']>;
   numeroFactura: FormControl<FacturasFormRawValue['numeroFactura']>;
   fechaFactura: FormControl<FacturasFormRawValue['fechaFactura']>;
   condicionPago: FormControl<FacturasFormRawValue['condicionPago']>;
-  clientes: FormControl<FacturasFormRawValue['clientes']>;
-  lotes: FormControl<FacturasFormRawValue['lotes']>;
+  estadoFactura: FormControl<FacturasFormRawValue['estadoFactura']>;
   detalles: FormControl<FacturasFormRawValue['detalles']>;
+  clientes: FormControl<FacturasFormRawValue['clientes']>;
 };
 
 export type FacturasFormGroup = FormGroup<FacturasFormGroupContent>;
@@ -59,11 +59,17 @@ export class FacturasFormService {
       numeroFactura: new FormControl(facturasRawValue.numeroFactura, {
         validators: [Validators.required],
       }),
-      fechaFactura: new FormControl(facturasRawValue.fechaFactura),
-      condicionPago: new FormControl(facturasRawValue.condicionPago),
-      clientes: new FormControl(facturasRawValue.clientes),
-      lotes: new FormControl(facturasRawValue.lotes),
+      fechaFactura: new FormControl(facturasRawValue.fechaFactura, {
+        validators: [Validators.required],
+      }),
+      condicionPago: new FormControl(facturasRawValue.condicionPago, {
+        validators: [Validators.required],
+      }),
+      estadoFactura: new FormControl(facturasRawValue.estadoFactura, {
+        validators: [Validators.required],
+      }),
       detalles: new FormControl(facturasRawValue.detalles),
+      clientes: new FormControl(facturasRawValue.clientes),
     });
   }
 
@@ -88,6 +94,7 @@ export class FacturasFormService {
       id: null,
       fechaFactura: currentTime,
       condicionPago: false,
+      estadoFactura: false,
     };
   }
 

@@ -19,8 +19,11 @@
       },
       "id": "Id",
       "cantidad": "Cantidad",
+      "impuestos": "Impuestos",
+      "descuento": "Descuento",
       "total": "Total",
-      "facturas": "Facturas"
+      "facturas": "Facturas",
+      "productos": "Productos"
     }
   }
 }

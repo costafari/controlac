@@ -1,8 +1,5 @@
 package sv.com.genius.controlac.web.rest;
 
-import sv.com.genius.controlac.domain.Detalles;
-import sv.com.genius.controlac.repository.DetallesRepository;
-import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
@@ -16,11 +13,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sv.com.genius.controlac.domain.Detalles;
+import sv.com.genius.controlac.repository.DetallesRepository;
+import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link Detalles}.
+ * REST controller for managing {@link sv.com.genius.controlac.domain.Detalles}.
  */
 @RestController
 @RequestMapping("/api")
@@ -128,6 +128,12 @@ public class DetallesResource {
                 if (detalles.getCantidad() != null) {
                     existingDetalles.setCantidad(detalles.getCantidad());
                 }
+                if (detalles.getImpuestos() != null) {
+                    existingDetalles.setImpuestos(detalles.getImpuestos());
+                }
+                if (detalles.getDescuento() != null) {
+                    existingDetalles.setDescuento(detalles.getDescuento());
+                }
                 if (detalles.getTotal() != null) {
                     existingDetalles.setTotal(detalles.getTotal());
                 }
@@ -145,12 +151,17 @@ public class DetallesResource {
     /**
      * {@code GET  /detalles} : get all the detalles.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of detalles in body.
      */
     @GetMapping("/detalles")
-    public List<Detalles> getAllDetalles() {
+    public List<Detalles> getAllDetalles(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Detalles");
-        return detallesRepository.findAll();
+        if (eagerload) {
+            return detallesRepository.findAllWithEagerRelationships();
+        } else {
+            return detallesRepository.findAll();
+        }
     }
 
     /**
@@ -162,7 +173,7 @@ public class DetallesResource {
     @GetMapping("/detalles/{id}")
     public ResponseEntity<Detalles> getDetalles(@PathVariable Long id) {
         log.debug("REST request to get Detalles : {}", id);
-        Optional<Detalles> detalles = detallesRepository.findById(id);
+        Optional<Detalles> detalles = detallesRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(detalles);
     }
 

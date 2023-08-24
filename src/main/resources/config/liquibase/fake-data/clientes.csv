@@ -1,11 +1,11 @@
-id;activo;apellidos;direcion;email;nombre_contacto;nombre_empresa;nombres;notas;sitio_web;telefono_fijo;telefono_fijo_2;telefono_movil;telefono_movil_2
-1;false;solución Refinado;arquitectura;Raquel.LeyvaSevilla@hotmail.com;tiempo Pantalones Producto;Heredado Operaciones;Multi Gerente;Canarias;Ingeniero;3435;3969;8086;10043
-2;false;Amarillo Director Amarillo;fritas Raton;Ricardo82@gmail.com;Contabilidad nivel;Violeta;Mobilidad;Concepción;Gris incremental;7638;2747;7106;25845
-3;false;Montes Metal cohesiva;Horizontal;JorgeLuis_AlcantarRico86@hotmail.com;Organizado Fantástico;Inversor Olivia;Guapa Inteligente;Ergonómico Aragón Global;codificar tiempo;5221;24155;30424;24656
-4;true;Funcionalidad;Métricas Marcos Adelante;Juana.MayaPalomino@hotmail.com;Hungria;Hormigon Ejecutivo Genérico;Música Ladrillo;Algodón Macao;Futuro Mascotas explícita;23759;10111;17986;12267
-5;false;Gris;Acero Artesanal Torrente;Ramiro_SantacruzDelgado@hotmail.com;Hecho Electrónica;dedicada Sabroso;Negro;Integración;concepto Oficial Investigación;16336;21720;3593;2322
-6;true;Director;Ángela Gorro;Armando.FierroSamaniego37@yahoo.com;Programable;Hormigon;Blanco País;Verde Gabriela;Polarizado Sabroso Atún;11688;2539;16837;24288
-7;false;Sabroso;Algodón;Lucia.deJesusBerrios@yahoo.com;de;Operaciones;Adaptativo;intermedia Juguetería;fases Guapa Acero;8900;16110;9925;5472
-8;true;Violeta;Música Metal;Lucia.OrtizCarrera61@hotmail.com;Granito Pulido interfaz;acceso Sabroso;Acero;Consultor Corporativo;Práctico;6567;24273;22226;30596
-9;false;Guapa Mozambique Pequeño;Humano circuito;Beatriz_DelarosaFigueroa@gmail.com;Sabroso Canarias Electrónica;Datos;Implementación sistemática;en;Increible;31027;20978;20843;7224
-10;false;Baleares Reino;analizada;Julia2@yahoo.com;Relacciones Distrito;Negro Gorro Director;heurística Marroquinería;Oficial;Verde Contabilidad;18787;22264;17664;23796
+id;estado_cliente;nombres_contacto;apellido_contacto;direccion;email;nombre_empresa;reg_fiscal;giro;notas;sitio_web;telefono_fijo;telefono_fijo_2;telefono_movil;telefono_movil_2;fecha_registro;fecha_ultima_c
+1;false;solución Refinado;arquitectura;Blanco jerarquía Amarillo;Josefina.RiveraCuriel24@yahoo.com;Progresivo Producto interactiva;desafío Operaciones;Multi Gerente;Canarias;Ingeniero;3435;3969;8086;10043;Asistente Amarillo;Director
+2;false;fritas Raton Adaptativo;modular;nivel Camerún Noruega;Mayte73@hotmail.com;Concepción Gris;incremental Acero;Blanco;Montes Metal cohesiva;Horizontal;7871;25366;947;25012;Organizado Fantástico Inversor;Olivia Operativo
+3;false;Guapa Inteligente;Ergonómico Aragón Global;codificar tiempo;German52@yahoo.com;Funcionalidad Métricas;Región;Adelante Asistente Librería;Hungria Hormigon;Galicia Genérico Regional;5480;28861;28813;8329;Regional;Macao Futuro
+4;true;Mascotas;producto Plástico;Acero Artesanal Torrente;Ramiro_SantacruzDelgado@hotmail.com;Hecho Electrónica;dedicada Sabroso;Negro;Integración;concepto Oficial Investigación;16336;21720;3593;2322;Amarillo Ángela;Gorro escalable Versatil
+5;true;Morado Programable;Hormigon;Blanco País;Ana81@gmail.com;Gabriela;Polarizado Sabroso Atún;Coche Sabroso;Algodón;Pelota Blanco de;2747;8977;24788;20454;Decoración Adaptativo;intermedia Juguetería
+6;false;fases Guapa Acero;Marroquinería;Violeta;Ana_SegoviaPrieto3@gmail.com;Guapa Granito;Productor;interfaz acceso Sabroso;Acero;Consultor Corporativo;104;10085;23929;31796;Práctico Pescado Representante;Guapa Mozambique
+7;false;Pequeño;Humano circuito;potenciada Interacciones;Jacobo70@yahoo.com;Plástico;Electrónica Datos Implementación;sistemática Cantabria;Increible Inversor;Global;363;28702;17898;17065;Granito;Reino Mariano Digitalizado
+8;true;Relacciones Distrito;Negro Gorro Director;heurística Marroquinería;Fernando.PazBustos17@yahoo.com;Contabilidad Diseñador Salchichas;Genérico Algodón;Camiseta Pescado;Angola;recíproca Azul secundaria;2124;11480;7028;18568;Rojo;Comunicaciones Rústico Ladrillo
+9;true;Ergonómico;Web;Multi Granito Pizza;Federico79@gmail.com;flexibilidad Amarillo;Fantástico;producto;Gráfica;Blanco Morado;12277;21153;8330;18058;Malasia Adelante Tunez;Estratega
+10;false;Intranet;Investigación;Ergonómico Monitorizado;MariaSoledad.IglesiasCarrasquillo9@gmail.com;Baleares Malasia Vasco;array;Verde Descentralizado;Persistente Madera Integración;Javier;15875;21324;26644;23855;Rústico;Música Toallas Factores

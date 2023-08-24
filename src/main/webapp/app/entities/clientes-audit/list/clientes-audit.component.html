@@ -1,0 +1,109 @@
+<div>
+  <h2 id="page-heading" data-cy="ClientesAuditHeading">
+    <span jhiTranslate="controlacApp.clientesAudit.home.title">Clientes Audits</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="controlacApp.clientesAudit.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-clientes-audit"
+        [routerLink]="['/clientes-audit/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="controlacApp.clientesAudit.home.createLabel"> Crear nuevo Clientes Audit </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="clientesAudits?.length === 0">
+    <span jhiTranslate="controlacApp.clientesAudit.home.notFound">Ningún Clientes Audits encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="clientesAudits && clientesAudits.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientesAudit.id">Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaAudit">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientesAudit.fechaAudit">Fecha Audit</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="tipoCrud">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientesAudit.tipoCrud">Tipo Crud</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="idCliente">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientesAudit.idCliente">Id Cliente</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="idUSuario">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.clientesAudit.idUSuario">Id U Suario</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let clientesAudit of clientesAudits; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/clientes-audit', clientesAudit.id, 'view']">{{ clientesAudit.id }}</a>
+          </td>
+          <td>{{ clientesAudit.fechaAudit }}</td>
+          <td>{{ clientesAudit.tipoCrud }}</td>
+          <td>{{ clientesAudit.idCliente }}</td>
+          <td>{{ clientesAudit.idUSuario }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/clientes-audit', clientesAudit.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/clientes-audit', clientesAudit.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(clientesAudit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

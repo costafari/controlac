@@ -5,9 +5,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import sv.com.genius.controlac.IntegrationTest;
-import sv.com.genius.controlac.domain.Facturas;
-import sv.com.genius.controlac.repository.FacturasRepository;
 import jakarta.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -22,6 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import sv.com.genius.controlac.IntegrationTest;
+import sv.com.genius.controlac.domain.Facturas;
+import sv.com.genius.controlac.repository.FacturasRepository;
 
 /**
  * Integration tests for the {@link FacturasResource} REST controller.
@@ -39,6 +39,9 @@ class FacturasResourceIT {
 
     private static final Boolean DEFAULT_CONDICION_PAGO = false;
     private static final Boolean UPDATED_CONDICION_PAGO = true;
+
+    private static final Boolean DEFAULT_ESTADO_FACTURA = false;
+    private static final Boolean UPDATED_ESTADO_FACTURA = true;
 
     private static final String ENTITY_API_URL = "/api/facturas";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -67,7 +70,8 @@ class FacturasResourceIT {
         Facturas facturas = new Facturas()
             .numeroFactura(DEFAULT_NUMERO_FACTURA)
             .fechaFactura(DEFAULT_FECHA_FACTURA)
-            .condicionPago(DEFAULT_CONDICION_PAGO);
+            .condicionPago(DEFAULT_CONDICION_PAGO)
+            .estadoFactura(DEFAULT_ESTADO_FACTURA);
         return facturas;
     }
 
@@ -81,7 +85,8 @@ class FacturasResourceIT {
         Facturas facturas = new Facturas()
             .numeroFactura(UPDATED_NUMERO_FACTURA)
             .fechaFactura(UPDATED_FECHA_FACTURA)
-            .condicionPago(UPDATED_CONDICION_PAGO);
+            .condicionPago(UPDATED_CONDICION_PAGO)
+            .estadoFactura(UPDATED_ESTADO_FACTURA);
         return facturas;
     }
 
@@ -106,6 +111,7 @@ class FacturasResourceIT {
         assertThat(testFacturas.getNumeroFactura()).isEqualTo(DEFAULT_NUMERO_FACTURA);
         assertThat(testFacturas.getFechaFactura()).isEqualTo(DEFAULT_FECHA_FACTURA);
         assertThat(testFacturas.getCondicionPago()).isEqualTo(DEFAULT_CONDICION_PAGO);
+        assertThat(testFacturas.getEstadoFactura()).isEqualTo(DEFAULT_ESTADO_FACTURA);
     }
 
     @Test
@@ -145,6 +151,57 @@ class FacturasResourceIT {
 
     @Test
     @Transactional
+    void checkFechaFacturaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = facturasRepository.findAll().size();
+        // set the field null
+        facturas.setFechaFactura(null);
+
+        // Create the Facturas, which fails.
+
+        restFacturasMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(facturas)))
+            .andExpect(status().isBadRequest());
+
+        List<Facturas> facturasList = facturasRepository.findAll();
+        assertThat(facturasList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkCondicionPagoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = facturasRepository.findAll().size();
+        // set the field null
+        facturas.setCondicionPago(null);
+
+        // Create the Facturas, which fails.
+
+        restFacturasMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(facturas)))
+            .andExpect(status().isBadRequest());
+
+        List<Facturas> facturasList = facturasRepository.findAll();
+        assertThat(facturasList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkEstadoFacturaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = facturasRepository.findAll().size();
+        // set the field null
+        facturas.setEstadoFactura(null);
+
+        // Create the Facturas, which fails.
+
+        restFacturasMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(facturas)))
+            .andExpect(status().isBadRequest());
+
+        List<Facturas> facturasList = facturasRepository.findAll();
+        assertThat(facturasList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllFacturas() throws Exception {
         // Initialize the database
         facturasRepository.saveAndFlush(facturas);
@@ -157,7 +214,8 @@ class FacturasResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(facturas.getId().intValue())))
             .andExpect(jsonPath("$.[*].numeroFactura").value(hasItem(DEFAULT_NUMERO_FACTURA.intValue())))
             .andExpect(jsonPath("$.[*].fechaFactura").value(hasItem(DEFAULT_FECHA_FACTURA.toString())))
-            .andExpect(jsonPath("$.[*].condicionPago").value(hasItem(DEFAULT_CONDICION_PAGO.booleanValue())));
+            .andExpect(jsonPath("$.[*].condicionPago").value(hasItem(DEFAULT_CONDICION_PAGO.booleanValue())))
+            .andExpect(jsonPath("$.[*].estadoFactura").value(hasItem(DEFAULT_ESTADO_FACTURA.booleanValue())));
     }
 
     @Test
@@ -174,7 +232,8 @@ class FacturasResourceIT {
             .andExpect(jsonPath("$.id").value(facturas.getId().intValue()))
             .andExpect(jsonPath("$.numeroFactura").value(DEFAULT_NUMERO_FACTURA.intValue()))
             .andExpect(jsonPath("$.fechaFactura").value(DEFAULT_FECHA_FACTURA.toString()))
-            .andExpect(jsonPath("$.condicionPago").value(DEFAULT_CONDICION_PAGO.booleanValue()));
+            .andExpect(jsonPath("$.condicionPago").value(DEFAULT_CONDICION_PAGO.booleanValue()))
+            .andExpect(jsonPath("$.estadoFactura").value(DEFAULT_ESTADO_FACTURA.booleanValue()));
     }
 
     @Test
@@ -196,7 +255,11 @@ class FacturasResourceIT {
         Facturas updatedFacturas = facturasRepository.findById(facturas.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedFacturas are not directly saved in db
         em.detach(updatedFacturas);
-        updatedFacturas.numeroFactura(UPDATED_NUMERO_FACTURA).fechaFactura(UPDATED_FECHA_FACTURA).condicionPago(UPDATED_CONDICION_PAGO);
+        updatedFacturas
+            .numeroFactura(UPDATED_NUMERO_FACTURA)
+            .fechaFactura(UPDATED_FECHA_FACTURA)
+            .condicionPago(UPDATED_CONDICION_PAGO)
+            .estadoFactura(UPDATED_ESTADO_FACTURA);
 
         restFacturasMockMvc
             .perform(
@@ -213,6 +276,7 @@ class FacturasResourceIT {
         assertThat(testFacturas.getNumeroFactura()).isEqualTo(UPDATED_NUMERO_FACTURA);
         assertThat(testFacturas.getFechaFactura()).isEqualTo(UPDATED_FECHA_FACTURA);
         assertThat(testFacturas.getCondicionPago()).isEqualTo(UPDATED_CONDICION_PAGO);
+        assertThat(testFacturas.getEstadoFactura()).isEqualTo(UPDATED_ESTADO_FACTURA);
     }
 
     @Test
@@ -283,7 +347,7 @@ class FacturasResourceIT {
         Facturas partialUpdatedFacturas = new Facturas();
         partialUpdatedFacturas.setId(facturas.getId());
 
-        partialUpdatedFacturas.numeroFactura(UPDATED_NUMERO_FACTURA);
+        partialUpdatedFacturas.estadoFactura(UPDATED_ESTADO_FACTURA);
 
         restFacturasMockMvc
             .perform(
@@ -297,9 +361,10 @@ class FacturasResourceIT {
         List<Facturas> facturasList = facturasRepository.findAll();
         assertThat(facturasList).hasSize(databaseSizeBeforeUpdate);
         Facturas testFacturas = facturasList.get(facturasList.size() - 1);
-        assertThat(testFacturas.getNumeroFactura()).isEqualTo(UPDATED_NUMERO_FACTURA);
+        assertThat(testFacturas.getNumeroFactura()).isEqualTo(DEFAULT_NUMERO_FACTURA);
         assertThat(testFacturas.getFechaFactura()).isEqualTo(DEFAULT_FECHA_FACTURA);
         assertThat(testFacturas.getCondicionPago()).isEqualTo(DEFAULT_CONDICION_PAGO);
+        assertThat(testFacturas.getEstadoFactura()).isEqualTo(UPDATED_ESTADO_FACTURA);
     }
 
     @Test
@@ -317,7 +382,8 @@ class FacturasResourceIT {
         partialUpdatedFacturas
             .numeroFactura(UPDATED_NUMERO_FACTURA)
             .fechaFactura(UPDATED_FECHA_FACTURA)
-            .condicionPago(UPDATED_CONDICION_PAGO);
+            .condicionPago(UPDATED_CONDICION_PAGO)
+            .estadoFactura(UPDATED_ESTADO_FACTURA);
 
         restFacturasMockMvc
             .perform(
@@ -334,6 +400,7 @@ class FacturasResourceIT {
         assertThat(testFacturas.getNumeroFactura()).isEqualTo(UPDATED_NUMERO_FACTURA);
         assertThat(testFacturas.getFechaFactura()).isEqualTo(UPDATED_FECHA_FACTURA);
         assertThat(testFacturas.getCondicionPago()).isEqualTo(UPDATED_CONDICION_PAGO);
+        assertThat(testFacturas.getEstadoFactura()).isEqualTo(UPDATED_ESTADO_FACTURA);
     }
 
     @Test

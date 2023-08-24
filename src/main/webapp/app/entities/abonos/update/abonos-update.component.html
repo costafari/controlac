@@ -71,6 +71,52 @@
         </div>
 
         <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.abonos.fechaRegistro" for="field_fechaRegistro">Fecha Registro</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fechaRegistro"
+            id="field_fechaRegistro"
+            data-cy="fechaRegistro"
+            formControlName="fechaRegistro"
+          />
+          <div
+            *ngIf="
+              editForm.get('fechaRegistro')!.invalid && (editForm.get('fechaRegistro')!.dirty || editForm.get('fechaRegistro')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaRegistro')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.abonos.fechaAbono" for="field_fechaAbono">Fecha Abono</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fechaAbono"
+            id="field_fechaAbono"
+            data-cy="fechaAbono"
+            formControlName="fechaAbono"
+          />
+          <div *ngIf="editForm.get('fechaAbono')!.invalid && (editForm.get('fechaAbono')!.dirty || editForm.get('fechaAbono')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaAbono')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="controlacApp.abonos.facturas" for="field_facturas">Facturas</label>
           <select
             class="form-control"

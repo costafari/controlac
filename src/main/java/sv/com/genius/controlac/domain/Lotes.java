@@ -2,10 +2,9 @@ package sv.com.genius.controlac.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A Lotes.
@@ -23,27 +22,29 @@ public class Lotes implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "cantidad")
+    @NotNull
+    @Column(name = "cantidad", nullable = false)
     private Integer cantidad;
 
-    @Column(name = "fecha_entrada")
+    @NotNull
+    @Column(name = "fecha_entrada", nullable = false)
     private LocalDate fechaEntrada;
 
-    @Column(name = "lote")
+    @NotNull
+    @Column(name = "lote", nullable = false)
     private String lote;
 
-    @JsonIgnoreProperties(value = { "lotes" }, allowSetters = true)
+    @NotNull
+    @Column(name = "estado", nullable = false)
+    private String estado;
+
+    @Column(name = "notas")
+    private String notas;
+
+    @JsonIgnoreProperties(value = { "productos", "lotes" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(unique = true)
     private Proveedores proveedores;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lotes")
-    @JsonIgnoreProperties(value = { "lotes" }, allowSetters = true)
-    private Set<Productos> productos = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lotes")
-    @JsonIgnoreProperties(value = { "clientes", "lotes", "detalles", "abonos" }, allowSetters = true)
-    private Set<Facturas> facturas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -99,6 +100,32 @@ public class Lotes implements Serializable {
         this.lote = lote;
     }
 
+    public String getEstado() {
+        return this.estado;
+    }
+
+    public Lotes estado(String estado) {
+        this.setEstado(estado);
+        return this;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getNotas() {
+        return this.notas;
+    }
+
+    public Lotes notas(String notas) {
+        this.setNotas(notas);
+        return this;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+
     public Proveedores getProveedores() {
         return this.proveedores;
     }
@@ -109,68 +136,6 @@ public class Lotes implements Serializable {
 
     public Lotes proveedores(Proveedores proveedores) {
         this.setProveedores(proveedores);
-        return this;
-    }
-
-    public Set<Productos> getProductos() {
-        return this.productos;
-    }
-
-    public void setProductos(Set<Productos> productos) {
-        if (this.productos != null) {
-            this.productos.forEach(i -> i.setLotes(null));
-        }
-        if (productos != null) {
-            productos.forEach(i -> i.setLotes(this));
-        }
-        this.productos = productos;
-    }
-
-    public Lotes productos(Set<Productos> productos) {
-        this.setProductos(productos);
-        return this;
-    }
-
-    public Lotes addProductos(Productos productos) {
-        this.productos.add(productos);
-        productos.setLotes(this);
-        return this;
-    }
-
-    public Lotes removeProductos(Productos productos) {
-        this.productos.remove(productos);
-        productos.setLotes(null);
-        return this;
-    }
-
-    public Set<Facturas> getFacturas() {
-        return this.facturas;
-    }
-
-    public void setFacturas(Set<Facturas> facturas) {
-        if (this.facturas != null) {
-            this.facturas.forEach(i -> i.setLotes(null));
-        }
-        if (facturas != null) {
-            facturas.forEach(i -> i.setLotes(this));
-        }
-        this.facturas = facturas;
-    }
-
-    public Lotes facturas(Set<Facturas> facturas) {
-        this.setFacturas(facturas);
-        return this;
-    }
-
-    public Lotes addFacturas(Facturas facturas) {
-        this.facturas.add(facturas);
-        facturas.setLotes(this);
-        return this;
-    }
-
-    public Lotes removeFacturas(Facturas facturas) {
-        this.facturas.remove(facturas);
-        facturas.setLotes(null);
         return this;
     }
 
@@ -201,6 +166,8 @@ public class Lotes implements Serializable {
             ", cantidad=" + getCantidad() +
             ", fechaEntrada='" + getFechaEntrada() + "'" +
             ", lote='" + getLote() + "'" +
+            ", estado='" + getEstado() + "'" +
+            ", notas='" + getNotas() + "'" +
             "}";
     }
 }

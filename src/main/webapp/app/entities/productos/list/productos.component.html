@@ -50,15 +50,45 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="precioU">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.productos.precioU">Precio U</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="precioC">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.productos.precioC">Precio C</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="notas">
             <div class="d-flex">
               <span jhiTranslate="controlacApp.productos.notas">Notas</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="lotes.id">
+          <th scope="col" jhiSortBy="estadoProducto">
             <div class="d-flex">
-              <span jhiTranslate="controlacApp.productos.lotes">Lotes</span>
+              <span jhiTranslate="controlacApp.productos.estadoProducto">Estado Producto</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaRegistro">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.productos.fechaRegistro">Fecha Registro</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaCaducidad">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.productos.fechaCaducidad">Fecha Caducidad</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="proveedores.id">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.productos.proveedores">Proveedores</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -72,10 +102,15 @@
           </td>
           <td>{{ productos.descipcion }}</td>
           <td>{{ productos.nombre }}</td>
+          <td>{{ productos.precioU }}</td>
+          <td>{{ productos.precioC }}</td>
           <td>{{ productos.notas }}</td>
+          <td>{{ productos.estadoProducto }}</td>
+          <td>{{ productos.fechaRegistro }}</td>
+          <td>{{ productos.fechaCaducidad }}</td>
           <td>
-            <div *ngIf="productos.lotes">
-              <a [routerLink]="['/lotes', productos.lotes.id, 'view']">{{ productos.lotes.id }}</a>
+            <div *ngIf="productos.proveedores">
+              <a [routerLink]="['/proveedores', productos.proveedores.id, 'view']">{{ productos.proveedores.id }}</a>
             </div>
           </td>
           <td class="text-end">

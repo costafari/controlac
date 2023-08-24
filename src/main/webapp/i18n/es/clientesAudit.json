@@ -1,0 +1,27 @@
+{
+  "controlacApp": {
+    "clientesAudit": {
+      "home": {
+        "title": "Clientes Audits",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Clientes Audit",
+        "createOrEditLabel": "Crear o editar Clientes Audit",
+        "notFound": "Ningún Clientes Audits encontrado"
+      },
+      "created": "Un nuevo Clientes Audit ha sido creado con el identificador {{ param }}",
+      "updated": "Un Clientes Audit ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Clientes Audit ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Clientes Audit {{ id }}?"
+      },
+      "detail": {
+        "title": "Clientes Audit"
+      },
+      "id": "Id",
+      "fechaAudit": "Fecha Audit",
+      "tipoCrud": "Tipo Crud",
+      "idCliente": "Id Cliente",
+      "idUSuario": "Id U Suario"
+    }
+  }
+}

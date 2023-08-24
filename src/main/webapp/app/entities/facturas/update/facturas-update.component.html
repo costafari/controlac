@@ -58,6 +58,24 @@
               placeholder="YYYY-MM-DD HH:mm"
             />
           </div>
+          <div
+            *ngIf="editForm.get('fechaFactura')!.invalid && (editForm.get('fechaFactura')!.dirty || editForm.get('fechaFactura')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaFactura')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('fechaFactura')?.errors?.datetimelocal"
+              jhiTranslate="entity.validation.datetimelocal"
+            >
+              Este campo debe ser una fecha y hora.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -70,29 +88,44 @@
             data-cy="condicionPago"
             formControlName="condicionPago"
           />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="controlacApp.facturas.clientes" for="field_clientes">Clientes</label>
-          <select
-            class="form-control"
-            id="field_clientes"
-            data-cy="clientes"
-            name="clientes"
-            formControlName="clientes"
-            [compareWith]="compareClientes"
+          <div
+            *ngIf="
+              editForm.get('condicionPago')!.invalid && (editForm.get('condicionPago')!.dirty || editForm.get('condicionPago')!.touched)
+            "
           >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="clientesOption" *ngFor="let clientesOption of clientesCollection">{{ clientesOption.id }}</option>
-          </select>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('condicionPago')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="controlacApp.facturas.lotes" for="field_lotes">Lotes</label>
-          <select class="form-control" id="field_lotes" data-cy="lotes" name="lotes" formControlName="lotes" [compareWith]="compareLotes">
-            <option [ngValue]="null"></option>
-            <option [ngValue]="lotesOption" *ngFor="let lotesOption of lotesSharedCollection">{{ lotesOption.id }}</option>
-          </select>
+          <label class="form-label" jhiTranslate="controlacApp.facturas.estadoFactura" for="field_estadoFactura">Estado Factura</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="estadoFactura"
+            id="field_estadoFactura"
+            data-cy="estadoFactura"
+            formControlName="estadoFactura"
+          />
+          <div
+            *ngIf="
+              editForm.get('estadoFactura')!.invalid && (editForm.get('estadoFactura')!.dirty || editForm.get('estadoFactura')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estadoFactura')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -107,6 +140,21 @@
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="detallesOption" *ngFor="let detallesOption of detallesSharedCollection">{{ detallesOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.facturas.clientes" for="field_clientes">Clientes</label>
+          <select
+            class="form-control"
+            id="field_clientes"
+            data-cy="clientes"
+            name="clientes"
+            formControlName="clientes"
+            [compareWith]="compareClientes"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="clientesOption" *ngFor="let clientesOption of clientesSharedCollection">{{ clientesOption.id }}</option>
           </select>
         </div>
       </div>

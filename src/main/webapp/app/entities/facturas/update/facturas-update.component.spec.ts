@@ -9,12 +9,10 @@ import { of, Subject, from } from 'rxjs';
 import { FacturasFormService } from './facturas-form.service';
 import { FacturasService } from '../service/facturas.service';
 import { IFacturas } from '../facturas.model';
-import { IClientes } from 'app/entities/clientes/clientes.model';
-import { ClientesService } from 'app/entities/clientes/service/clientes.service';
-import { ILotes } from 'app/entities/lotes/lotes.model';
-import { LotesService } from 'app/entities/lotes/service/lotes.service';
 import { IDetalles } from 'app/entities/detalles/detalles.model';
 import { DetallesService } from 'app/entities/detalles/service/detalles.service';
+import { IClientes } from 'app/entities/clientes/clientes.model';
+import { ClientesService } from 'app/entities/clientes/service/clientes.service';
 
 import { FacturasUpdateComponent } from './facturas-update.component';
 
@@ -24,9 +22,8 @@ describe('Facturas Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let facturasFormService: FacturasFormService;
   let facturasService: FacturasService;
-  let clientesService: ClientesService;
-  let lotesService: LotesService;
   let detallesService: DetallesService;
+  let clientesService: ClientesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,60 +45,19 @@ describe('Facturas Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     facturasFormService = TestBed.inject(FacturasFormService);
     facturasService = TestBed.inject(FacturasService);
-    clientesService = TestBed.inject(ClientesService);
-    lotesService = TestBed.inject(LotesService);
     detallesService = TestBed.inject(DetallesService);
+    clientesService = TestBed.inject(ClientesService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call clientes query and add missing value', () => {
-      const facturas: IFacturas = { id: 456 };
-      const clientes: IClientes = { id: 13897 };
-      facturas.clientes = clientes;
-
-      const clientesCollection: IClientes[] = [{ id: 29835 }];
-      jest.spyOn(clientesService, 'query').mockReturnValue(of(new HttpResponse({ body: clientesCollection })));
-      const expectedCollection: IClientes[] = [clientes, ...clientesCollection];
-      jest.spyOn(clientesService, 'addClientesToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ facturas });
-      comp.ngOnInit();
-
-      expect(clientesService.query).toHaveBeenCalled();
-      expect(clientesService.addClientesToCollectionIfMissing).toHaveBeenCalledWith(clientesCollection, clientes);
-      expect(comp.clientesCollection).toEqual(expectedCollection);
-    });
-
-    it('Should call Lotes query and add missing value', () => {
-      const facturas: IFacturas = { id: 456 };
-      const lotes: ILotes = { id: 29027 };
-      facturas.lotes = lotes;
-
-      const lotesCollection: ILotes[] = [{ id: 25180 }];
-      jest.spyOn(lotesService, 'query').mockReturnValue(of(new HttpResponse({ body: lotesCollection })));
-      const additionalLotes = [lotes];
-      const expectedCollection: ILotes[] = [...additionalLotes, ...lotesCollection];
-      jest.spyOn(lotesService, 'addLotesToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ facturas });
-      comp.ngOnInit();
-
-      expect(lotesService.query).toHaveBeenCalled();
-      expect(lotesService.addLotesToCollectionIfMissing).toHaveBeenCalledWith(
-        lotesCollection,
-        ...additionalLotes.map(expect.objectContaining)
-      );
-      expect(comp.lotesSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should call Detalles query and add missing value', () => {
       const facturas: IFacturas = { id: 456 };
-      const detalles: IDetalles = { id: 22088 };
+      const detalles: IDetalles = { id: 16932 };
       facturas.detalles = detalles;
 
-      const detallesCollection: IDetalles[] = [{ id: 22271 }];
+      const detallesCollection: IDetalles[] = [{ id: 30404 }];
       jest.spyOn(detallesService, 'query').mockReturnValue(of(new HttpResponse({ body: detallesCollection })));
       const additionalDetalles = [detalles];
       const expectedCollection: IDetalles[] = [...additionalDetalles, ...detallesCollection];
@@ -118,21 +74,40 @@ describe('Facturas Management Update Component', () => {
       expect(comp.detallesSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should update editForm', () => {
+    it('Should call Clientes query and add missing value', () => {
       const facturas: IFacturas = { id: 456 };
-      const clientes: IClientes = { id: 29147 };
+      const clientes: IClientes = { id: 25353 };
       facturas.clientes = clientes;
-      const lotes: ILotes = { id: 13688 };
-      facturas.lotes = lotes;
-      const detalles: IDetalles = { id: 14723 };
-      facturas.detalles = detalles;
+
+      const clientesCollection: IClientes[] = [{ id: 25040 }];
+      jest.spyOn(clientesService, 'query').mockReturnValue(of(new HttpResponse({ body: clientesCollection })));
+      const additionalClientes = [clientes];
+      const expectedCollection: IClientes[] = [...additionalClientes, ...clientesCollection];
+      jest.spyOn(clientesService, 'addClientesToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ facturas });
       comp.ngOnInit();
 
-      expect(comp.clientesCollection).toContain(clientes);
-      expect(comp.lotesSharedCollection).toContain(lotes);
+      expect(clientesService.query).toHaveBeenCalled();
+      expect(clientesService.addClientesToCollectionIfMissing).toHaveBeenCalledWith(
+        clientesCollection,
+        ...additionalClientes.map(expect.objectContaining)
+      );
+      expect(comp.clientesSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const facturas: IFacturas = { id: 456 };
+      const detalles: IDetalles = { id: 14402 };
+      facturas.detalles = detalles;
+      const clientes: IClientes = { id: 23735 };
+      facturas.clientes = clientes;
+
+      activatedRoute.data = of({ facturas });
+      comp.ngOnInit();
+
       expect(comp.detallesSharedCollection).toContain(detalles);
+      expect(comp.clientesSharedCollection).toContain(clientes);
       expect(comp.facturas).toEqual(facturas);
     });
   });
@@ -206,26 +181,6 @@ describe('Facturas Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareClientes', () => {
-      it('Should forward to clientesService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(clientesService, 'compareClientes');
-        comp.compareClientes(entity, entity2);
-        expect(clientesService.compareClientes).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareLotes', () => {
-      it('Should forward to lotesService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(lotesService, 'compareLotes');
-        comp.compareLotes(entity, entity2);
-        expect(lotesService.compareLotes).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
     describe('compareDetalles', () => {
       it('Should forward to detallesService', () => {
         const entity = { id: 123 };
@@ -233,6 +188,16 @@ describe('Facturas Management Update Component', () => {
         jest.spyOn(detallesService, 'compareDetalles');
         comp.compareDetalles(entity, entity2);
         expect(detallesService.compareDetalles).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareClientes', () => {
+      it('Should forward to clientesService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(clientesService, 'compareClientes');
+        comp.compareClientes(entity, entity2);
+        expect(clientesService.compareClientes).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

@@ -1,0 +1,115 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-clientes-audit-heading"
+        data-cy="ClientesAuditCreateUpdateHeading"
+        jhiTranslate="controlacApp.clientesAudit.home.createOrEditLabel"
+      >
+        Crear o editar Clientes Audit
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="controlacApp.clientesAudit.id" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.clientesAudit.fechaAudit" for="field_fechaAudit">Fecha Audit</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fechaAudit"
+            id="field_fechaAudit"
+            data-cy="fechaAudit"
+            formControlName="fechaAudit"
+          />
+          <div *ngIf="editForm.get('fechaAudit')!.invalid && (editForm.get('fechaAudit')!.dirty || editForm.get('fechaAudit')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaAudit')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.clientesAudit.tipoCrud" for="field_tipoCrud">Tipo Crud</label>
+          <input type="text" class="form-control" name="tipoCrud" id="field_tipoCrud" data-cy="tipoCrud" formControlName="tipoCrud" />
+          <div *ngIf="editForm.get('tipoCrud')!.invalid && (editForm.get('tipoCrud')!.dirty || editForm.get('tipoCrud')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('tipoCrud')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.clientesAudit.idCliente" for="field_idCliente">Id Cliente</label>
+          <input type="number" class="form-control" name="idCliente" id="field_idCliente" data-cy="idCliente" formControlName="idCliente" />
+          <div *ngIf="editForm.get('idCliente')!.invalid && (editForm.get('idCliente')!.dirty || editForm.get('idCliente')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('idCliente')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('idCliente')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.clientesAudit.idUSuario" for="field_idUSuario">Id U Suario</label>
+          <input type="number" class="form-control" name="idUSuario" id="field_idUSuario" data-cy="idUSuario" formControlName="idUSuario" />
+          <div *ngIf="editForm.get('idUSuario')!.invalid && (editForm.get('idUSuario')!.dirty || editForm.get('idUSuario')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('idUSuario')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('idUSuario')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

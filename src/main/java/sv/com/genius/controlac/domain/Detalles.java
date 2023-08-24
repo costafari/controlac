@@ -27,12 +27,29 @@ public class Detalles implements Serializable {
     @Column(name = "cantidad", nullable = false)
     private Long cantidad;
 
+    @NotNull
+    @Column(name = "impuestos", nullable = false)
+    private Long impuestos;
+
+    @NotNull
+    @Column(name = "descuento", nullable = false)
+    private Long descuento;
+
     @Column(name = "total")
     private Long total;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "detalles")
-    @JsonIgnoreProperties(value = { "clientes", "lotes", "detalles", "abonos" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "detalles", "clientes", "abonos" }, allowSetters = true)
     private Set<Facturas> facturas = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rel_detalles__productos",
+        joinColumns = @JoinColumn(name = "detalles_id"),
+        inverseJoinColumns = @JoinColumn(name = "productos_id")
+    )
+    @JsonIgnoreProperties(value = { "proveedores", "detalles" }, allowSetters = true)
+    private Set<Productos> productos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -60,6 +77,32 @@ public class Detalles implements Serializable {
 
     public void setCantidad(Long cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Long getImpuestos() {
+        return this.impuestos;
+    }
+
+    public Detalles impuestos(Long impuestos) {
+        this.setImpuestos(impuestos);
+        return this;
+    }
+
+    public void setImpuestos(Long impuestos) {
+        this.impuestos = impuestos;
+    }
+
+    public Long getDescuento() {
+        return this.descuento;
+    }
+
+    public Detalles descuento(Long descuento) {
+        this.setDescuento(descuento);
+        return this;
+    }
+
+    public void setDescuento(Long descuento) {
+        this.descuento = descuento;
     }
 
     public Long getTotal() {
@@ -106,6 +149,31 @@ public class Detalles implements Serializable {
         return this;
     }
 
+    public Set<Productos> getProductos() {
+        return this.productos;
+    }
+
+    public void setProductos(Set<Productos> productos) {
+        this.productos = productos;
+    }
+
+    public Detalles productos(Set<Productos> productos) {
+        this.setProductos(productos);
+        return this;
+    }
+
+    public Detalles addProductos(Productos productos) {
+        this.productos.add(productos);
+        productos.getDetalles().add(this);
+        return this;
+    }
+
+    public Detalles removeProductos(Productos productos) {
+        this.productos.remove(productos);
+        productos.getDetalles().remove(this);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -131,6 +199,8 @@ public class Detalles implements Serializable {
         return "Detalles{" +
             "id=" + getId() +
             ", cantidad=" + getCantidad() +
+            ", impuestos=" + getImpuestos() +
+            ", descuento=" + getDescuento() +
             ", total=" + getTotal() +
             "}";
     }

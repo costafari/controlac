@@ -14,23 +14,26 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type ClientesFormGroupInput = IClientes | PartialWithRequiredKeyOf<NewClientes>;
 
-type ClientesFormDefaults = Pick<NewClientes, 'id' | 'activo'>;
+type ClientesFormDefaults = Pick<NewClientes, 'id' | 'estadoCliente'>;
 
 type ClientesFormGroupContent = {
   id: FormControl<IClientes['id'] | NewClientes['id']>;
-  activo: FormControl<IClientes['activo']>;
-  apellidos: FormControl<IClientes['apellidos']>;
-  direcion: FormControl<IClientes['direcion']>;
+  estadoCliente: FormControl<IClientes['estadoCliente']>;
+  nombresContacto: FormControl<IClientes['nombresContacto']>;
+  apellidoContacto: FormControl<IClientes['apellidoContacto']>;
+  direccion: FormControl<IClientes['direccion']>;
   email: FormControl<IClientes['email']>;
-  nombreContacto: FormControl<IClientes['nombreContacto']>;
   nombreEmpresa: FormControl<IClientes['nombreEmpresa']>;
-  nombres: FormControl<IClientes['nombres']>;
+  regFiscal: FormControl<IClientes['regFiscal']>;
+  giro: FormControl<IClientes['giro']>;
   notas: FormControl<IClientes['notas']>;
   sitioWeb: FormControl<IClientes['sitioWeb']>;
   telefonoFijo: FormControl<IClientes['telefonoFijo']>;
   telefonoFijo2: FormControl<IClientes['telefonoFijo2']>;
   telefonoMovil: FormControl<IClientes['telefonoMovil']>;
   telefonoMovil2: FormControl<IClientes['telefonoMovil2']>;
+  fechaRegistro: FormControl<IClientes['fechaRegistro']>;
+  fechaUltimaC: FormControl<IClientes['fechaUltimaC']>;
 };
 
 export type ClientesFormGroup = FormGroup<ClientesFormGroupContent>;
@@ -50,19 +53,40 @@ export class ClientesFormService {
           validators: [Validators.required],
         }
       ),
-      activo: new FormControl(clientesRawValue.activo),
-      apellidos: new FormControl(clientesRawValue.apellidos),
-      direcion: new FormControl(clientesRawValue.direcion),
-      email: new FormControl(clientesRawValue.email),
-      nombreContacto: new FormControl(clientesRawValue.nombreContacto),
+      estadoCliente: new FormControl(clientesRawValue.estadoCliente, {
+        validators: [Validators.required],
+      }),
+      nombresContacto: new FormControl(clientesRawValue.nombresContacto, {
+        validators: [Validators.required],
+      }),
+      apellidoContacto: new FormControl(clientesRawValue.apellidoContacto, {
+        validators: [Validators.required],
+      }),
+      direccion: new FormControl(clientesRawValue.direccion, {
+        validators: [Validators.required],
+      }),
+      email: new FormControl(clientesRawValue.email, {
+        validators: [Validators.required],
+      }),
       nombreEmpresa: new FormControl(clientesRawValue.nombreEmpresa),
-      nombres: new FormControl(clientesRawValue.nombres),
+      regFiscal: new FormControl(clientesRawValue.regFiscal),
+      giro: new FormControl(clientesRawValue.giro),
       notas: new FormControl(clientesRawValue.notas),
       sitioWeb: new FormControl(clientesRawValue.sitioWeb),
-      telefonoFijo: new FormControl(clientesRawValue.telefonoFijo),
+      telefonoFijo: new FormControl(clientesRawValue.telefonoFijo, {
+        validators: [Validators.required],
+      }),
       telefonoFijo2: new FormControl(clientesRawValue.telefonoFijo2),
-      telefonoMovil: new FormControl(clientesRawValue.telefonoMovil),
+      telefonoMovil: new FormControl(clientesRawValue.telefonoMovil, {
+        validators: [Validators.required],
+      }),
       telefonoMovil2: new FormControl(clientesRawValue.telefonoMovil2),
+      fechaRegistro: new FormControl(clientesRawValue.fechaRegistro, {
+        validators: [Validators.required],
+      }),
+      fechaUltimaC: new FormControl(clientesRawValue.fechaUltimaC, {
+        validators: [Validators.required],
+      }),
     });
   }
 
@@ -83,7 +107,7 @@ export class ClientesFormService {
   private getFormDefaults(): ClientesFormDefaults {
     return {
       id: null,
-      activo: false,
+      estadoCliente: false,
     };
   }
 }

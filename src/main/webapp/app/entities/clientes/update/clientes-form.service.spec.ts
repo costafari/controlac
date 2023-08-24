@@ -20,19 +20,22 @@ describe('Clientes Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            activo: expect.any(Object),
-            apellidos: expect.any(Object),
-            direcion: expect.any(Object),
+            estadoCliente: expect.any(Object),
+            nombresContacto: expect.any(Object),
+            apellidoContacto: expect.any(Object),
+            direccion: expect.any(Object),
             email: expect.any(Object),
-            nombreContacto: expect.any(Object),
             nombreEmpresa: expect.any(Object),
-            nombres: expect.any(Object),
+            regFiscal: expect.any(Object),
+            giro: expect.any(Object),
             notas: expect.any(Object),
             sitioWeb: expect.any(Object),
             telefonoFijo: expect.any(Object),
             telefonoFijo2: expect.any(Object),
             telefonoMovil: expect.any(Object),
             telefonoMovil2: expect.any(Object),
+            fechaRegistro: expect.any(Object),
+            fechaUltimaC: expect.any(Object),
           })
         );
       });
@@ -43,19 +46,22 @@ describe('Clientes Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            activo: expect.any(Object),
-            apellidos: expect.any(Object),
-            direcion: expect.any(Object),
+            estadoCliente: expect.any(Object),
+            nombresContacto: expect.any(Object),
+            apellidoContacto: expect.any(Object),
+            direccion: expect.any(Object),
             email: expect.any(Object),
-            nombreContacto: expect.any(Object),
             nombreEmpresa: expect.any(Object),
-            nombres: expect.any(Object),
+            regFiscal: expect.any(Object),
+            giro: expect.any(Object),
             notas: expect.any(Object),
             sitioWeb: expect.any(Object),
             telefonoFijo: expect.any(Object),
             telefonoFijo2: expect.any(Object),
             telefonoMovil: expect.any(Object),
             telefonoMovil2: expect.any(Object),
+            fechaRegistro: expect.any(Object),
+            fechaUltimaC: expect.any(Object),
           })
         );
       });

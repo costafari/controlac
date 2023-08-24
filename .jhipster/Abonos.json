@@ -20,6 +20,16 @@
     {
       "fieldName": "nuevoSaldo",
       "fieldType": "Long"
+    },
+    {
+      "fieldName": "fechaRegistro",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaAbono",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "name": "Abonos",

@@ -1,8 +1,7 @@
 package sv.com.genius.controlac.web.rest;
 
-import sv.com.genius.controlac.domain.Productos;
-import sv.com.genius.controlac.repository.ProductosRepository;
-import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -14,11 +13,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sv.com.genius.controlac.domain.Productos;
+import sv.com.genius.controlac.repository.ProductosRepository;
+import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link Productos}.
+ * REST controller for managing {@link sv.com.genius.controlac.domain.Productos}.
  */
 @RestController
 @RequestMapping("/api")
@@ -46,7 +48,7 @@ public class ProductosResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/productos")
-    public ResponseEntity<Productos> createProductos(@RequestBody Productos productos) throws URISyntaxException {
+    public ResponseEntity<Productos> createProductos(@Valid @RequestBody Productos productos) throws URISyntaxException {
         log.debug("REST request to save Productos : {}", productos);
         if (productos.getId() != null) {
             throw new BadRequestAlertException("A new productos cannot already have an ID", ENTITY_NAME, "idexists");
@@ -71,7 +73,7 @@ public class ProductosResource {
     @PutMapping("/productos/{id}")
     public ResponseEntity<Productos> updateProductos(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Productos productos
+        @Valid @RequestBody Productos productos
     ) throws URISyntaxException {
         log.debug("REST request to update Productos : {}, {}", id, productos);
         if (productos.getId() == null) {
@@ -106,7 +108,7 @@ public class ProductosResource {
     @PatchMapping(value = "/productos/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Productos> partialUpdateProductos(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Productos productos
+        @NotNull @RequestBody Productos productos
     ) throws URISyntaxException {
         log.debug("REST request to partial update Productos partially : {}, {}", id, productos);
         if (productos.getId() == null) {
@@ -129,8 +131,23 @@ public class ProductosResource {
                 if (productos.getNombre() != null) {
                     existingProductos.setNombre(productos.getNombre());
                 }
+                if (productos.getPrecioU() != null) {
+                    existingProductos.setPrecioU(productos.getPrecioU());
+                }
+                if (productos.getPrecioC() != null) {
+                    existingProductos.setPrecioC(productos.getPrecioC());
+                }
                 if (productos.getNotas() != null) {
                     existingProductos.setNotas(productos.getNotas());
+                }
+                if (productos.getEstadoProducto() != null) {
+                    existingProductos.setEstadoProducto(productos.getEstadoProducto());
+                }
+                if (productos.getFechaRegistro() != null) {
+                    existingProductos.setFechaRegistro(productos.getFechaRegistro());
+                }
+                if (productos.getFechaCaducidad() != null) {
+                    existingProductos.setFechaCaducidad(productos.getFechaCaducidad());
                 }
 
                 return existingProductos;

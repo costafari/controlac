@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="clientesAudit">
+      <h2 data-cy="clientesAuditDetailsHeading"><span jhiTranslate="controlacApp.clientesAudit.detail.title">Clientes Audit</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="controlacApp.clientesAudit.id">Id</span></dt>
+        <dd>
+          <span>{{ clientesAudit.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientesAudit.fechaAudit">Fecha Audit</span></dt>
+        <dd>
+          <span>{{ clientesAudit.fechaAudit }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientesAudit.tipoCrud">Tipo Crud</span></dt>
+        <dd>
+          <span>{{ clientesAudit.tipoCrud }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientesAudit.idCliente">Id Cliente</span></dt>
+        <dd>
+          <span>{{ clientesAudit.idCliente }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.clientesAudit.idUSuario">Id U Suario</span></dt>
+        <dd>
+          <span>{{ clientesAudit.idUSuario }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/clientes-audit', clientesAudit.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

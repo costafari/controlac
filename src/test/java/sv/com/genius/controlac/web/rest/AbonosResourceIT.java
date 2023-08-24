@@ -5,9 +5,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import sv.com.genius.controlac.IntegrationTest;
-import sv.com.genius.controlac.domain.Abonos;
-import sv.com.genius.controlac.repository.AbonosRepository;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import sv.com.genius.controlac.IntegrationTest;
+import sv.com.genius.controlac.domain.Abonos;
+import sv.com.genius.controlac.repository.AbonosRepository;
 
 /**
  * Integration tests for the {@link AbonosResource} REST controller.
@@ -37,6 +37,12 @@ class AbonosResourceIT {
 
     private static final Long DEFAULT_NUEVO_SALDO = 1L;
     private static final Long UPDATED_NUEVO_SALDO = 2L;
+
+    private static final String DEFAULT_FECHA_REGISTRO = "AAAAAAAAAA";
+    private static final String UPDATED_FECHA_REGISTRO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_FECHA_ABONO = "AAAAAAAAAA";
+    private static final String UPDATED_FECHA_ABONO = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/abonos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -62,7 +68,12 @@ class AbonosResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Abonos createEntity(EntityManager em) {
-        Abonos abonos = new Abonos().saldoAnterior(DEFAULT_SALDO_ANTERIOR).abono(DEFAULT_ABONO).nuevoSaldo(DEFAULT_NUEVO_SALDO);
+        Abonos abonos = new Abonos()
+            .saldoAnterior(DEFAULT_SALDO_ANTERIOR)
+            .abono(DEFAULT_ABONO)
+            .nuevoSaldo(DEFAULT_NUEVO_SALDO)
+            .fechaRegistro(DEFAULT_FECHA_REGISTRO)
+            .fechaAbono(DEFAULT_FECHA_ABONO);
         return abonos;
     }
 
@@ -73,7 +84,12 @@ class AbonosResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Abonos createUpdatedEntity(EntityManager em) {
-        Abonos abonos = new Abonos().saldoAnterior(UPDATED_SALDO_ANTERIOR).abono(UPDATED_ABONO).nuevoSaldo(UPDATED_NUEVO_SALDO);
+        Abonos abonos = new Abonos()
+            .saldoAnterior(UPDATED_SALDO_ANTERIOR)
+            .abono(UPDATED_ABONO)
+            .nuevoSaldo(UPDATED_NUEVO_SALDO)
+            .fechaRegistro(UPDATED_FECHA_REGISTRO)
+            .fechaAbono(UPDATED_FECHA_ABONO);
         return abonos;
     }
 
@@ -98,6 +114,8 @@ class AbonosResourceIT {
         assertThat(testAbonos.getSaldoAnterior()).isEqualTo(DEFAULT_SALDO_ANTERIOR);
         assertThat(testAbonos.getAbono()).isEqualTo(DEFAULT_ABONO);
         assertThat(testAbonos.getNuevoSaldo()).isEqualTo(DEFAULT_NUEVO_SALDO);
+        assertThat(testAbonos.getFechaRegistro()).isEqualTo(DEFAULT_FECHA_REGISTRO);
+        assertThat(testAbonos.getFechaAbono()).isEqualTo(DEFAULT_FECHA_ABONO);
     }
 
     @Test
@@ -154,6 +172,40 @@ class AbonosResourceIT {
 
     @Test
     @Transactional
+    void checkFechaRegistroIsRequired() throws Exception {
+        int databaseSizeBeforeTest = abonosRepository.findAll().size();
+        // set the field null
+        abonos.setFechaRegistro(null);
+
+        // Create the Abonos, which fails.
+
+        restAbonosMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(abonos)))
+            .andExpect(status().isBadRequest());
+
+        List<Abonos> abonosList = abonosRepository.findAll();
+        assertThat(abonosList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkFechaAbonoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = abonosRepository.findAll().size();
+        // set the field null
+        abonos.setFechaAbono(null);
+
+        // Create the Abonos, which fails.
+
+        restAbonosMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(abonos)))
+            .andExpect(status().isBadRequest());
+
+        List<Abonos> abonosList = abonosRepository.findAll();
+        assertThat(abonosList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllAbonos() throws Exception {
         // Initialize the database
         abonosRepository.saveAndFlush(abonos);
@@ -166,7 +218,9 @@ class AbonosResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(abonos.getId().intValue())))
             .andExpect(jsonPath("$.[*].saldoAnterior").value(hasItem(DEFAULT_SALDO_ANTERIOR.intValue())))
             .andExpect(jsonPath("$.[*].abono").value(hasItem(DEFAULT_ABONO.intValue())))
-            .andExpect(jsonPath("$.[*].nuevoSaldo").value(hasItem(DEFAULT_NUEVO_SALDO.intValue())));
+            .andExpect(jsonPath("$.[*].nuevoSaldo").value(hasItem(DEFAULT_NUEVO_SALDO.intValue())))
+            .andExpect(jsonPath("$.[*].fechaRegistro").value(hasItem(DEFAULT_FECHA_REGISTRO)))
+            .andExpect(jsonPath("$.[*].fechaAbono").value(hasItem(DEFAULT_FECHA_ABONO)));
     }
 
     @Test
@@ -183,7 +237,9 @@ class AbonosResourceIT {
             .andExpect(jsonPath("$.id").value(abonos.getId().intValue()))
             .andExpect(jsonPath("$.saldoAnterior").value(DEFAULT_SALDO_ANTERIOR.intValue()))
             .andExpect(jsonPath("$.abono").value(DEFAULT_ABONO.intValue()))
-            .andExpect(jsonPath("$.nuevoSaldo").value(DEFAULT_NUEVO_SALDO.intValue()));
+            .andExpect(jsonPath("$.nuevoSaldo").value(DEFAULT_NUEVO_SALDO.intValue()))
+            .andExpect(jsonPath("$.fechaRegistro").value(DEFAULT_FECHA_REGISTRO))
+            .andExpect(jsonPath("$.fechaAbono").value(DEFAULT_FECHA_ABONO));
     }
 
     @Test
@@ -205,7 +261,12 @@ class AbonosResourceIT {
         Abonos updatedAbonos = abonosRepository.findById(abonos.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedAbonos are not directly saved in db
         em.detach(updatedAbonos);
-        updatedAbonos.saldoAnterior(UPDATED_SALDO_ANTERIOR).abono(UPDATED_ABONO).nuevoSaldo(UPDATED_NUEVO_SALDO);
+        updatedAbonos
+            .saldoAnterior(UPDATED_SALDO_ANTERIOR)
+            .abono(UPDATED_ABONO)
+            .nuevoSaldo(UPDATED_NUEVO_SALDO)
+            .fechaRegistro(UPDATED_FECHA_REGISTRO)
+            .fechaAbono(UPDATED_FECHA_ABONO);
 
         restAbonosMockMvc
             .perform(
@@ -222,6 +283,8 @@ class AbonosResourceIT {
         assertThat(testAbonos.getSaldoAnterior()).isEqualTo(UPDATED_SALDO_ANTERIOR);
         assertThat(testAbonos.getAbono()).isEqualTo(UPDATED_ABONO);
         assertThat(testAbonos.getNuevoSaldo()).isEqualTo(UPDATED_NUEVO_SALDO);
+        assertThat(testAbonos.getFechaRegistro()).isEqualTo(UPDATED_FECHA_REGISTRO);
+        assertThat(testAbonos.getFechaAbono()).isEqualTo(UPDATED_FECHA_ABONO);
     }
 
     @Test
@@ -292,7 +355,7 @@ class AbonosResourceIT {
         Abonos partialUpdatedAbonos = new Abonos();
         partialUpdatedAbonos.setId(abonos.getId());
 
-        partialUpdatedAbonos.abono(UPDATED_ABONO).nuevoSaldo(UPDATED_NUEVO_SALDO);
+        partialUpdatedAbonos.saldoAnterior(UPDATED_SALDO_ANTERIOR).nuevoSaldo(UPDATED_NUEVO_SALDO);
 
         restAbonosMockMvc
             .perform(
@@ -306,9 +369,11 @@ class AbonosResourceIT {
         List<Abonos> abonosList = abonosRepository.findAll();
         assertThat(abonosList).hasSize(databaseSizeBeforeUpdate);
         Abonos testAbonos = abonosList.get(abonosList.size() - 1);
-        assertThat(testAbonos.getSaldoAnterior()).isEqualTo(DEFAULT_SALDO_ANTERIOR);
-        assertThat(testAbonos.getAbono()).isEqualTo(UPDATED_ABONO);
+        assertThat(testAbonos.getSaldoAnterior()).isEqualTo(UPDATED_SALDO_ANTERIOR);
+        assertThat(testAbonos.getAbono()).isEqualTo(DEFAULT_ABONO);
         assertThat(testAbonos.getNuevoSaldo()).isEqualTo(UPDATED_NUEVO_SALDO);
+        assertThat(testAbonos.getFechaRegistro()).isEqualTo(DEFAULT_FECHA_REGISTRO);
+        assertThat(testAbonos.getFechaAbono()).isEqualTo(DEFAULT_FECHA_ABONO);
     }
 
     @Test
@@ -323,7 +388,12 @@ class AbonosResourceIT {
         Abonos partialUpdatedAbonos = new Abonos();
         partialUpdatedAbonos.setId(abonos.getId());
 
-        partialUpdatedAbonos.saldoAnterior(UPDATED_SALDO_ANTERIOR).abono(UPDATED_ABONO).nuevoSaldo(UPDATED_NUEVO_SALDO);
+        partialUpdatedAbonos
+            .saldoAnterior(UPDATED_SALDO_ANTERIOR)
+            .abono(UPDATED_ABONO)
+            .nuevoSaldo(UPDATED_NUEVO_SALDO)
+            .fechaRegistro(UPDATED_FECHA_REGISTRO)
+            .fechaAbono(UPDATED_FECHA_ABONO);
 
         restAbonosMockMvc
             .perform(
@@ -340,6 +410,8 @@ class AbonosResourceIT {
         assertThat(testAbonos.getSaldoAnterior()).isEqualTo(UPDATED_SALDO_ANTERIOR);
         assertThat(testAbonos.getAbono()).isEqualTo(UPDATED_ABONO);
         assertThat(testAbonos.getNuevoSaldo()).isEqualTo(UPDATED_NUEVO_SALDO);
+        assertThat(testAbonos.getFechaRegistro()).isEqualTo(UPDATED_FECHA_REGISTRO);
+        assertThat(testAbonos.getFechaAbono()).isEqualTo(UPDATED_FECHA_ABONO);
     }
 
     @Test

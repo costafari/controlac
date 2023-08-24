@@ -14,33 +14,33 @@
     },
     {
       "fieldName": "fechaFactura",
-      "fieldType": "Instant"
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "condicionPago",
-      "fieldType": "Boolean"
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estadoFactura",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
     }
   ],
   "name": "Facturas",
   "relationships": [
     {
-      "otherEntityName": "clientes",
-      "otherEntityRelationshipName": "facturas",
-      "relationshipName": "clientes",
-      "relationshipSide": "left",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "lotes",
-      "otherEntityRelationshipName": "facturas",
-      "relationshipName": "lotes",
-      "relationshipSide": "left",
-      "relationshipType": "many-to-one"
-    },
-    {
       "otherEntityName": "detalles",
       "otherEntityRelationshipName": "facturas",
       "relationshipName": "detalles",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "clientes",
+      "otherEntityRelationshipName": "facturas",
+      "relationshipName": "clientes",
       "relationshipSide": "right",
       "relationshipType": "many-to-one"
     },

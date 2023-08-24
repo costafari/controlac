@@ -9,8 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { ProductosFormService } from './productos-form.service';
 import { ProductosService } from '../service/productos.service';
 import { IProductos } from '../productos.model';
-import { ILotes } from 'app/entities/lotes/lotes.model';
-import { LotesService } from 'app/entities/lotes/service/lotes.service';
+import { IProveedores } from 'app/entities/proveedores/proveedores.model';
+import { ProveedoresService } from 'app/entities/proveedores/service/proveedores.service';
 
 import { ProductosUpdateComponent } from './productos-update.component';
 
@@ -20,7 +20,7 @@ describe('Productos Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let productosFormService: ProductosFormService;
   let productosService: ProductosService;
-  let lotesService: LotesService;
+  let proveedoresService: ProveedoresService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,43 +42,43 @@ describe('Productos Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     productosFormService = TestBed.inject(ProductosFormService);
     productosService = TestBed.inject(ProductosService);
-    lotesService = TestBed.inject(LotesService);
+    proveedoresService = TestBed.inject(ProveedoresService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Lotes query and add missing value', () => {
+    it('Should call Proveedores query and add missing value', () => {
       const productos: IProductos = { id: 456 };
-      const lotes: ILotes = { id: 6233 };
-      productos.lotes = lotes;
+      const proveedores: IProveedores = { id: 4384 };
+      productos.proveedores = proveedores;
 
-      const lotesCollection: ILotes[] = [{ id: 15688 }];
-      jest.spyOn(lotesService, 'query').mockReturnValue(of(new HttpResponse({ body: lotesCollection })));
-      const additionalLotes = [lotes];
-      const expectedCollection: ILotes[] = [...additionalLotes, ...lotesCollection];
-      jest.spyOn(lotesService, 'addLotesToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const proveedoresCollection: IProveedores[] = [{ id: 15086 }];
+      jest.spyOn(proveedoresService, 'query').mockReturnValue(of(new HttpResponse({ body: proveedoresCollection })));
+      const additionalProveedores = [proveedores];
+      const expectedCollection: IProveedores[] = [...additionalProveedores, ...proveedoresCollection];
+      jest.spyOn(proveedoresService, 'addProveedoresToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ productos });
       comp.ngOnInit();
 
-      expect(lotesService.query).toHaveBeenCalled();
-      expect(lotesService.addLotesToCollectionIfMissing).toHaveBeenCalledWith(
-        lotesCollection,
-        ...additionalLotes.map(expect.objectContaining)
+      expect(proveedoresService.query).toHaveBeenCalled();
+      expect(proveedoresService.addProveedoresToCollectionIfMissing).toHaveBeenCalledWith(
+        proveedoresCollection,
+        ...additionalProveedores.map(expect.objectContaining)
       );
-      expect(comp.lotesSharedCollection).toEqual(expectedCollection);
+      expect(comp.proveedoresSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const productos: IProductos = { id: 456 };
-      const lotes: ILotes = { id: 20388 };
-      productos.lotes = lotes;
+      const proveedores: IProveedores = { id: 6719 };
+      productos.proveedores = proveedores;
 
       activatedRoute.data = of({ productos });
       comp.ngOnInit();
 
-      expect(comp.lotesSharedCollection).toContain(lotes);
+      expect(comp.proveedoresSharedCollection).toContain(proveedores);
       expect(comp.productos).toEqual(productos);
     });
   });
@@ -152,13 +152,13 @@ describe('Productos Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareLotes', () => {
-      it('Should forward to lotesService', () => {
+    describe('compareProveedores', () => {
+      it('Should forward to proveedoresService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(lotesService, 'compareLotes');
-        comp.compareLotes(entity, entity2);
-        expect(lotesService.compareLotes).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(proveedoresService, 'compareProveedores');
+        comp.compareProveedores(entity, entity2);
+        expect(proveedoresService.compareProveedores).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

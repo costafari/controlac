@@ -18,19 +18,22 @@
         "title": "Clientes"
       },
       "id": "Id",
-      "activo": "Activo",
-      "apellidos": "Apellidos",
-      "direcion": "Direcion",
+      "estadoCliente": "Estado Cliente",
+      "nombresContacto": "Nombres Contacto",
+      "apellidoContacto": "Apellido Contacto",
+      "direccion": "Direccion",
       "email": "Email",
-      "nombreContacto": "Nombre Contacto",
       "nombreEmpresa": "Nombre Empresa",
-      "nombres": "Nombres",
+      "regFiscal": "Reg Fiscal",
+      "giro": "Giro",
       "notas": "Notas",
       "sitioWeb": "Sitio Web",
       "telefonoFijo": "Telefono Fijo",
       "telefonoFijo2": "Telefono Fijo 2",
       "telefonoMovil": "Telefono Movil",
       "telefonoMovil2": "Telefono Movil 2",
+      "fechaRegistro": "Fecha Registro",
+      "fechaUltimaC": "Fecha Ultima C",
       "facturas": "Facturas"
     }
   }

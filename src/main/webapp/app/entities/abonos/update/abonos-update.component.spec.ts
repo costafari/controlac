@@ -50,10 +50,10 @@ describe('Abonos Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Facturas query and add missing value', () => {
       const abonos: IAbonos = { id: 456 };
-      const facturas: IFacturas = { id: 17091 };
+      const facturas: IFacturas = { id: 12502 };
       abonos.facturas = facturas;
 
-      const facturasCollection: IFacturas[] = [{ id: 10815 }];
+      const facturasCollection: IFacturas[] = [{ id: 3004 }];
       jest.spyOn(facturasService, 'query').mockReturnValue(of(new HttpResponse({ body: facturasCollection })));
       const additionalFacturas = [facturas];
       const expectedCollection: IFacturas[] = [...additionalFacturas, ...facturasCollection];
@@ -72,7 +72,7 @@ describe('Abonos Management Update Component', () => {
 
     it('Should update editForm', () => {
       const abonos: IAbonos = { id: 456 };
-      const facturas: IFacturas = { id: 6287 };
+      const facturas: IFacturas = { id: 4789 };
       abonos.facturas = facturas;
 
       activatedRoute.data = of({ abonos });

@@ -23,6 +23,8 @@ describe('Abonos Form Service', () => {
             saldoAnterior: expect.any(Object),
             abono: expect.any(Object),
             nuevoSaldo: expect.any(Object),
+            fechaRegistro: expect.any(Object),
+            fechaAbono: expect.any(Object),
             facturas: expect.any(Object),
           })
         );
@@ -37,6 +39,8 @@ describe('Abonos Form Service', () => {
             saldoAnterior: expect.any(Object),
             abono: expect.any(Object),
             nuevoSaldo: expect.any(Object),
+            fechaRegistro: expect.any(Object),
+            fechaAbono: expect.any(Object),
             facturas: expect.any(Object),
           })
         );

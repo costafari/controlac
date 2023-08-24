@@ -2,7 +2,10 @@ package sv.com.genius.controlac.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Proveedores.
@@ -20,13 +23,16 @@ public class Proveedores implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "direccion")
+    @NotNull
+    @Column(name = "direccion", nullable = false)
     private String direccion;
 
-    @Column(name = "nombre_contacto")
+    @NotNull
+    @Column(name = "nombre_contacto", nullable = false)
     private String nombreContacto;
 
-    @Column(name = "nombre_empresa")
+    @NotNull
+    @Column(name = "nombre_empresa", nullable = false)
     private String nombreEmpresa;
 
     @Column(name = "notas")
@@ -35,19 +41,25 @@ public class Proveedores implements Serializable {
     @Column(name = "sitio_web")
     private String sitioWeb;
 
-    @Column(name = "telefono_fijo")
+    @NotNull
+    @Column(name = "telefono_fijo", nullable = false)
     private Integer telefonoFijo;
 
     @Column(name = "telefono_fijo_2")
     private Integer telefonoFijo2;
 
-    @Column(name = "telefono_movil")
+    @NotNull
+    @Column(name = "telefono_movil", nullable = false)
     private Integer telefonoMovil;
 
     @Column(name = "telefono_movil_2")
     private Integer telefonoMovil2;
 
-    @JsonIgnoreProperties(value = { "proveedores", "productos", "facturas" }, allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedores")
+    @JsonIgnoreProperties(value = { "proveedores", "detalles" }, allowSetters = true)
+    private Set<Productos> productos = new HashSet<>();
+
+    @JsonIgnoreProperties(value = { "proveedores" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "proveedores")
     private Lotes lotes;
 
@@ -181,6 +193,37 @@ public class Proveedores implements Serializable {
 
     public void setTelefonoMovil2(Integer telefonoMovil2) {
         this.telefonoMovil2 = telefonoMovil2;
+    }
+
+    public Set<Productos> getProductos() {
+        return this.productos;
+    }
+
+    public void setProductos(Set<Productos> productos) {
+        if (this.productos != null) {
+            this.productos.forEach(i -> i.setProveedores(null));
+        }
+        if (productos != null) {
+            productos.forEach(i -> i.setProveedores(this));
+        }
+        this.productos = productos;
+    }
+
+    public Proveedores productos(Set<Productos> productos) {
+        this.setProductos(productos);
+        return this;
+    }
+
+    public Proveedores addProductos(Productos productos) {
+        this.productos.add(productos);
+        productos.setProveedores(this);
+        return this;
+    }
+
+    public Proveedores removeProductos(Productos productos) {
+        this.productos.remove(productos);
+        productos.setProveedores(null);
+        return this;
     }
 
     public Lotes getLotes() {

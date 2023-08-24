@@ -21,7 +21,10 @@ describe('Detalles Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             cantidad: expect.any(Object),
+            impuestos: expect.any(Object),
+            descuento: expect.any(Object),
             total: expect.any(Object),
+            productos: expect.any(Object),
           })
         );
       });
@@ -33,7 +36,10 @@ describe('Detalles Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             cantidad: expect.any(Object),
+            impuestos: expect.any(Object),
+            descuento: expect.any(Object),
             total: expect.any(Object),
+            productos: expect.any(Object),
           })
         );
       });

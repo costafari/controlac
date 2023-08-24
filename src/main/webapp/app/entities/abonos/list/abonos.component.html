@@ -56,6 +56,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="fechaRegistro">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.abonos.fechaRegistro">Fecha Registro</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaAbono">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.abonos.fechaAbono">Fecha Abono</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col" jhiSortBy="facturas.id">
             <div class="d-flex">
               <span jhiTranslate="controlacApp.abonos.facturas">Facturas</span>
@@ -73,6 +85,8 @@
           <td>{{ abonos.saldoAnterior }}</td>
           <td>{{ abonos.abono }}</td>
           <td>{{ abonos.nuevoSaldo }}</td>
+          <td>{{ abonos.fechaRegistro }}</td>
+          <td>{{ abonos.fechaAbono }}</td>
           <td>
             <div *ngIf="abonos.facturas">
               <a [routerLink]="['/facturas', abonos.facturas.id, 'view']">{{ abonos.facturas.id }}</a>

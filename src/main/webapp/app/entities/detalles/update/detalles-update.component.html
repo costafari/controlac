@@ -35,8 +35,65 @@
         </div>
 
         <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.detalles.impuestos" for="field_impuestos">Impuestos</label>
+          <input type="number" class="form-control" name="impuestos" id="field_impuestos" data-cy="impuestos" formControlName="impuestos" />
+          <div *ngIf="editForm.get('impuestos')!.invalid && (editForm.get('impuestos')!.dirty || editForm.get('impuestos')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('impuestos')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('impuestos')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.detalles.descuento" for="field_descuento">Descuento</label>
+          <input type="number" class="form-control" name="descuento" id="field_descuento" data-cy="descuento" formControlName="descuento" />
+          <div *ngIf="editForm.get('descuento')!.invalid && (editForm.get('descuento')!.dirty || editForm.get('descuento')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descuento')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('descuento')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" jhiTranslate="controlacApp.detalles.total" for="field_total">Total</label>
           <input type="number" class="form-control" name="total" id="field_total" data-cy="total" formControlName="total" />
+        </div>
+
+        <div class="mb-3">
+          <label jhiTranslate="controlacApp.detalles.productos" for="field_productos">Productos</label>
+          <select
+            class="form-control"
+            id="field_productos"
+            data-cy="productos"
+            multiple
+            name="productos"
+            formControlName="productos"
+            [compareWith]="compareProductos"
+          >
+            <option [ngValue]="productosOption" *ngFor="let productosOption of productosSharedCollection">{{ productosOption.id }}</option>
+          </select>
         </div>
       </div>
 

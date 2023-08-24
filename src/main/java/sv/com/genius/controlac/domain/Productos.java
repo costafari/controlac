@@ -2,7 +2,10 @@ package sv.com.genius.controlac.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Productos.
@@ -20,18 +23,44 @@ public class Productos implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "descipcion")
+    @NotNull
+    @Column(name = "descipcion", nullable = false)
     private String descipcion;
 
-    @Column(name = "nombre")
+    @NotNull
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @NotNull
+    @Column(name = "precio_u", nullable = false)
+    private Long precioU;
+
+    @NotNull
+    @Column(name = "precio_c", nullable = false)
+    private Long precioC;
 
     @Column(name = "notas")
     private String notas;
 
+    @NotNull
+    @Column(name = "estado_producto", nullable = false)
+    private String estadoProducto;
+
+    @NotNull
+    @Column(name = "fecha_registro", nullable = false)
+    private String fechaRegistro;
+
+    @NotNull
+    @Column(name = "fecha_caducidad", nullable = false)
+    private String fechaCaducidad;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "proveedores", "productos", "facturas" }, allowSetters = true)
-    private Lotes lotes;
+    @JsonIgnoreProperties(value = { "productos", "lotes" }, allowSetters = true)
+    private Proveedores proveedores;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "productos")
+    @JsonIgnoreProperties(value = { "facturas", "productos" }, allowSetters = true)
+    private Set<Detalles> detalles = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -74,6 +103,32 @@ public class Productos implements Serializable {
         this.nombre = nombre;
     }
 
+    public Long getPrecioU() {
+        return this.precioU;
+    }
+
+    public Productos precioU(Long precioU) {
+        this.setPrecioU(precioU);
+        return this;
+    }
+
+    public void setPrecioU(Long precioU) {
+        this.precioU = precioU;
+    }
+
+    public Long getPrecioC() {
+        return this.precioC;
+    }
+
+    public Productos precioC(Long precioC) {
+        this.setPrecioC(precioC);
+        return this;
+    }
+
+    public void setPrecioC(Long precioC) {
+        this.precioC = precioC;
+    }
+
     public String getNotas() {
         return this.notas;
     }
@@ -87,16 +142,86 @@ public class Productos implements Serializable {
         this.notas = notas;
     }
 
-    public Lotes getLotes() {
-        return this.lotes;
+    public String getEstadoProducto() {
+        return this.estadoProducto;
     }
 
-    public void setLotes(Lotes lotes) {
-        this.lotes = lotes;
+    public Productos estadoProducto(String estadoProducto) {
+        this.setEstadoProducto(estadoProducto);
+        return this;
     }
 
-    public Productos lotes(Lotes lotes) {
-        this.setLotes(lotes);
+    public void setEstadoProducto(String estadoProducto) {
+        this.estadoProducto = estadoProducto;
+    }
+
+    public String getFechaRegistro() {
+        return this.fechaRegistro;
+    }
+
+    public Productos fechaRegistro(String fechaRegistro) {
+        this.setFechaRegistro(fechaRegistro);
+        return this;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getFechaCaducidad() {
+        return this.fechaCaducidad;
+    }
+
+    public Productos fechaCaducidad(String fechaCaducidad) {
+        this.setFechaCaducidad(fechaCaducidad);
+        return this;
+    }
+
+    public void setFechaCaducidad(String fechaCaducidad) {
+        this.fechaCaducidad = fechaCaducidad;
+    }
+
+    public Proveedores getProveedores() {
+        return this.proveedores;
+    }
+
+    public void setProveedores(Proveedores proveedores) {
+        this.proveedores = proveedores;
+    }
+
+    public Productos proveedores(Proveedores proveedores) {
+        this.setProveedores(proveedores);
+        return this;
+    }
+
+    public Set<Detalles> getDetalles() {
+        return this.detalles;
+    }
+
+    public void setDetalles(Set<Detalles> detalles) {
+        if (this.detalles != null) {
+            this.detalles.forEach(i -> i.removeProductos(this));
+        }
+        if (detalles != null) {
+            detalles.forEach(i -> i.addProductos(this));
+        }
+        this.detalles = detalles;
+    }
+
+    public Productos detalles(Set<Detalles> detalles) {
+        this.setDetalles(detalles);
+        return this;
+    }
+
+    public Productos addDetalles(Detalles detalles) {
+        this.detalles.add(detalles);
+        detalles.getProductos().add(this);
+        return this;
+    }
+
+    public Productos removeDetalles(Detalles detalles) {
+        this.detalles.remove(detalles);
+        detalles.getProductos().remove(this);
         return this;
     }
 
@@ -126,7 +251,12 @@ public class Productos implements Serializable {
             "id=" + getId() +
             ", descipcion='" + getDescipcion() + "'" +
             ", nombre='" + getNombre() + "'" +
+            ", precioU=" + getPrecioU() +
+            ", precioC=" + getPrecioC() +
             ", notas='" + getNotas() + "'" +
+            ", estadoProducto='" + getEstadoProducto() + "'" +
+            ", fechaRegistro='" + getFechaRegistro() + "'" +
+            ", fechaCaducidad='" + getFechaCaducidad() + "'" +
             "}";
     }
 }

@@ -1,0 +1,27 @@
+{
+  "controlacApp": {
+    "proveedorAudit": {
+      "home": {
+        "title": "Proveedor Audits",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Proveedor Audit",
+        "createOrEditLabel": "Crear o editar Proveedor Audit",
+        "notFound": "Ningún Proveedor Audits encontrado"
+      },
+      "created": "Un nuevo Proveedor Audit ha sido creado con el identificador {{ param }}",
+      "updated": "Un Proveedor Audit ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Proveedor Audit ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Proveedor Audit {{ id }}?"
+      },
+      "detail": {
+        "title": "Proveedor Audit"
+      },
+      "id": "Id",
+      "fechaAudit": "Fecha Audit",
+      "tipoCrud": "Tipo Crud",
+      "idProveedor": "Id Proveedor",
+      "idUSuario": "Id U Suario"
+    }
+  }
+}

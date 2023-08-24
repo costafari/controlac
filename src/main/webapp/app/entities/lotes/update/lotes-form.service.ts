@@ -21,6 +21,8 @@ type LotesFormGroupContent = {
   cantidad: FormControl<ILotes['cantidad']>;
   fechaEntrada: FormControl<ILotes['fechaEntrada']>;
   lote: FormControl<ILotes['lote']>;
+  estado: FormControl<ILotes['estado']>;
+  notas: FormControl<ILotes['notas']>;
   proveedores: FormControl<ILotes['proveedores']>;
 };
 
@@ -41,9 +43,19 @@ export class LotesFormService {
           validators: [Validators.required],
         }
       ),
-      cantidad: new FormControl(lotesRawValue.cantidad),
-      fechaEntrada: new FormControl(lotesRawValue.fechaEntrada),
-      lote: new FormControl(lotesRawValue.lote),
+      cantidad: new FormControl(lotesRawValue.cantidad, {
+        validators: [Validators.required],
+      }),
+      fechaEntrada: new FormControl(lotesRawValue.fechaEntrada, {
+        validators: [Validators.required],
+      }),
+      lote: new FormControl(lotesRawValue.lote, {
+        validators: [Validators.required],
+      }),
+      estado: new FormControl(lotesRawValue.estado, {
+        validators: [Validators.required],
+      }),
+      notas: new FormControl(lotesRawValue.notas),
       proveedores: new FormControl(lotesRawValue.proveedores),
     });
   }

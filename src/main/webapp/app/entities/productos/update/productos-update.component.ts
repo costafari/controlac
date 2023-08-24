@@ -10,8 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductosFormService, ProductosFormGroup } from './productos-form.service';
 import { IProductos } from '../productos.model';
 import { ProductosService } from '../service/productos.service';
-import { ILotes } from 'app/entities/lotes/lotes.model';
-import { LotesService } from 'app/entities/lotes/service/lotes.service';
+import { IProveedores } from 'app/entities/proveedores/proveedores.model';
+import { ProveedoresService } from 'app/entities/proveedores/service/proveedores.service';
 
 @Component({
   standalone: true,
@@ -23,18 +23,18 @@ export class ProductosUpdateComponent implements OnInit {
   isSaving = false;
   productos: IProductos | null = null;
 
-  lotesSharedCollection: ILotes[] = [];
+  proveedoresSharedCollection: IProveedores[] = [];
 
   editForm: ProductosFormGroup = this.productosFormService.createProductosFormGroup();
 
   constructor(
     protected productosService: ProductosService,
     protected productosFormService: ProductosFormService,
-    protected lotesService: LotesService,
+    protected proveedoresService: ProveedoresService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareLotes = (o1: ILotes | null, o2: ILotes | null): boolean => this.lotesService.compareLotes(o1, o2);
+  compareProveedores = (o1: IProveedores | null, o2: IProveedores | null): boolean => this.proveedoresService.compareProveedores(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ productos }) => {
@@ -84,14 +84,21 @@ export class ProductosUpdateComponent implements OnInit {
     this.productos = productos;
     this.productosFormService.resetForm(this.editForm, productos);
 
-    this.lotesSharedCollection = this.lotesService.addLotesToCollectionIfMissing<ILotes>(this.lotesSharedCollection, productos.lotes);
+    this.proveedoresSharedCollection = this.proveedoresService.addProveedoresToCollectionIfMissing<IProveedores>(
+      this.proveedoresSharedCollection,
+      productos.proveedores
+    );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.lotesService
+    this.proveedoresService
       .query()
-      .pipe(map((res: HttpResponse<ILotes[]>) => res.body ?? []))
-      .pipe(map((lotes: ILotes[]) => this.lotesService.addLotesToCollectionIfMissing<ILotes>(lotes, this.productos?.lotes)))
-      .subscribe((lotes: ILotes[]) => (this.lotesSharedCollection = lotes));
+      .pipe(map((res: HttpResponse<IProveedores[]>) => res.body ?? []))
+      .pipe(
+        map((proveedores: IProveedores[]) =>
+          this.proveedoresService.addProveedoresToCollectionIfMissing<IProveedores>(proveedores, this.productos?.proveedores)
+        )
+      )
+      .subscribe((proveedores: IProveedores[]) => (this.proveedoresSharedCollection = proveedores));
   }
 }

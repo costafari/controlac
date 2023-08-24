@@ -1,0 +1,27 @@
+{
+  "controlacApp": {
+    "clientesAudit": {
+      "home": {
+        "title": "Clientes Audits",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Clientes Audit",
+        "createOrEditLabel": "Create or edit a Clientes Audit",
+        "notFound": "No Clientes Audits found"
+      },
+      "created": "A new Clientes Audit is created with identifier {{ param }}",
+      "updated": "A Clientes Audit is updated with identifier {{ param }}",
+      "deleted": "A Clientes Audit is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Clientes Audit {{ id }}?"
+      },
+      "detail": {
+        "title": "Clientes Audit"
+      },
+      "id": "Id",
+      "fechaAudit": "Fecha Audit",
+      "tipoCrud": "Tipo Crud",
+      "idCliente": "Id Cliente",
+      "idUSuario": "Id U Suario"
+    }
+  }
+}

@@ -21,6 +21,8 @@
       "saldoAnterior": "Saldo Anterior",
       "abono": "Abono",
       "nuevoSaldo": "Nuevo Saldo",
+      "fechaRegistro": "Fecha Registro",
+      "fechaAbono": "Fecha Abono",
       "facturas": "Facturas"
     }
   }

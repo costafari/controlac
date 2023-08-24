@@ -20,6 +20,15 @@
         <div class="mb-3">
           <label class="form-label" jhiTranslate="controlacApp.proveedores.direccion" for="field_direccion">Direccion</label>
           <input type="text" class="form-control" name="direccion" id="field_direccion" data-cy="direccion" formControlName="direccion" />
+          <div *ngIf="editForm.get('direccion')!.invalid && (editForm.get('direccion')!.dirty || editForm.get('direccion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('direccion')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -34,6 +43,19 @@
             data-cy="nombreContacto"
             formControlName="nombreContacto"
           />
+          <div
+            *ngIf="
+              editForm.get('nombreContacto')!.invalid && (editForm.get('nombreContacto')!.dirty || editForm.get('nombreContacto')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreContacto')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -46,6 +68,19 @@
             data-cy="nombreEmpresa"
             formControlName="nombreEmpresa"
           />
+          <div
+            *ngIf="
+              editForm.get('nombreEmpresa')!.invalid && (editForm.get('nombreEmpresa')!.dirty || editForm.get('nombreEmpresa')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombreEmpresa')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -68,6 +103,24 @@
             data-cy="telefonoFijo"
             formControlName="telefonoFijo"
           />
+          <div
+            *ngIf="editForm.get('telefonoFijo')!.invalid && (editForm.get('telefonoFijo')!.dirty || editForm.get('telefonoFijo')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telefonoFijo')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('telefonoFijo')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -92,6 +145,26 @@
             data-cy="telefonoMovil"
             formControlName="telefonoMovil"
           />
+          <div
+            *ngIf="
+              editForm.get('telefonoMovil')!.invalid && (editForm.get('telefonoMovil')!.dirty || editForm.get('telefonoMovil')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telefonoMovil')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('telefonoMovil')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">

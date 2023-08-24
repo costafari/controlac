@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { DetallesFormService } from './detalles-form.service';
 import { DetallesService } from '../service/detalles.service';
 import { IDetalles } from '../detalles.model';
+import { IProductos } from 'app/entities/productos/productos.model';
+import { ProductosService } from 'app/entities/productos/service/productos.service';
 
 import { DetallesUpdateComponent } from './detalles-update.component';
 
@@ -18,6 +20,7 @@ describe('Detalles Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let detallesFormService: DetallesFormService;
   let detallesService: DetallesService;
+  let productosService: ProductosService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -39,17 +42,43 @@ describe('Detalles Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     detallesFormService = TestBed.inject(DetallesFormService);
     detallesService = TestBed.inject(DetallesService);
+    productosService = TestBed.inject(ProductosService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call Productos query and add missing value', () => {
       const detalles: IDetalles = { id: 456 };
+      const productos: IProductos[] = [{ id: 19287 }];
+      detalles.productos = productos;
+
+      const productosCollection: IProductos[] = [{ id: 783 }];
+      jest.spyOn(productosService, 'query').mockReturnValue(of(new HttpResponse({ body: productosCollection })));
+      const additionalProductos = [...productos];
+      const expectedCollection: IProductos[] = [...additionalProductos, ...productosCollection];
+      jest.spyOn(productosService, 'addProductosToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ detalles });
       comp.ngOnInit();
 
+      expect(productosService.query).toHaveBeenCalled();
+      expect(productosService.addProductosToCollectionIfMissing).toHaveBeenCalledWith(
+        productosCollection,
+        ...additionalProductos.map(expect.objectContaining)
+      );
+      expect(comp.productosSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const detalles: IDetalles = { id: 456 };
+      const productos: IProductos = { id: 6585 };
+      detalles.productos = [productos];
+
+      activatedRoute.data = of({ detalles });
+      comp.ngOnInit();
+
+      expect(comp.productosSharedCollection).toContain(productos);
       expect(comp.detalles).toEqual(detalles);
     });
   });
@@ -119,6 +148,18 @@ describe('Detalles Management Update Component', () => {
       expect(detallesService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareProductos', () => {
+      it('Should forward to productosService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(productosService, 'compareProductos');
+        comp.compareProductos(entity, entity2);
+        expect(productosService.compareProductos).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

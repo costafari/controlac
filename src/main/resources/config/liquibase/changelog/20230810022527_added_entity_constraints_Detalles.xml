@@ -8,11 +8,18 @@
     -->
     <changeSet id="20230810022527-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="facturas_id"
-                                 baseTableName="detalles"
-                                 constraintName="fk_detalles__facturas_id"
+        <addForeignKeyConstraint baseColumnNames="detalles_id"
+                                 baseTableName="rel_detalles__productos"
+                                 constraintName="fk_rel_detalles__productos__detalles_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="facturas"
+                                 referencedTableName="detalles"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="productos_id"
+                                 baseTableName="rel_detalles__productos"
+                                 constraintName="fk_rel_detalles__productos__productos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="productos"
                                  />
     </changeSet>
 </databaseChangeLog>

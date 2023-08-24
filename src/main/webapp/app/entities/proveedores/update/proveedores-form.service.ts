@@ -46,14 +46,24 @@ export class ProveedoresFormService {
           validators: [Validators.required],
         }
       ),
-      direccion: new FormControl(proveedoresRawValue.direccion),
-      nombreContacto: new FormControl(proveedoresRawValue.nombreContacto),
-      nombreEmpresa: new FormControl(proveedoresRawValue.nombreEmpresa),
+      direccion: new FormControl(proveedoresRawValue.direccion, {
+        validators: [Validators.required],
+      }),
+      nombreContacto: new FormControl(proveedoresRawValue.nombreContacto, {
+        validators: [Validators.required],
+      }),
+      nombreEmpresa: new FormControl(proveedoresRawValue.nombreEmpresa, {
+        validators: [Validators.required],
+      }),
       notas: new FormControl(proveedoresRawValue.notas),
       sitioWeb: new FormControl(proveedoresRawValue.sitioWeb),
-      telefonoFijo: new FormControl(proveedoresRawValue.telefonoFijo),
+      telefonoFijo: new FormControl(proveedoresRawValue.telefonoFijo, {
+        validators: [Validators.required],
+      }),
       telefonoFijo2: new FormControl(proveedoresRawValue.telefonoFijo2),
-      telefonoMovil: new FormControl(proveedoresRawValue.telefonoMovil),
+      telefonoMovil: new FormControl(proveedoresRawValue.telefonoMovil, {
+        validators: [Validators.required],
+      }),
       telefonoMovil2: new FormControl(proveedoresRawValue.telefonoMovil2),
     });
   }

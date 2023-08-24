@@ -14,6 +14,9 @@
         "productos": "Productos",
         "abonos": "Abonos",
         "detalles": "Detalles",
+        "proveedorAudit": "Proveedor Audit",
+        "clientesAudit": "Clientes Audit",
+        "productoAudit": "Producto Audit",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

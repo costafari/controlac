@@ -21,6 +21,8 @@ type AbonosFormGroupContent = {
   saldoAnterior: FormControl<IAbonos['saldoAnterior']>;
   abono: FormControl<IAbonos['abono']>;
   nuevoSaldo: FormControl<IAbonos['nuevoSaldo']>;
+  fechaRegistro: FormControl<IAbonos['fechaRegistro']>;
+  fechaAbono: FormControl<IAbonos['fechaAbono']>;
   facturas: FormControl<IAbonos['facturas']>;
 };
 
@@ -48,6 +50,12 @@ export class AbonosFormService {
         validators: [Validators.required],
       }),
       nuevoSaldo: new FormControl(abonosRawValue.nuevoSaldo),
+      fechaRegistro: new FormControl(abonosRawValue.fechaRegistro, {
+        validators: [Validators.required],
+      }),
+      fechaAbono: new FormControl(abonosRawValue.fechaAbono, {
+        validators: [Validators.required],
+      }),
       facturas: new FormControl(abonosRawValue.facturas),
     });
   }

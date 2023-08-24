@@ -5,9 +5,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import sv.com.genius.controlac.IntegrationTest;
-import sv.com.genius.controlac.domain.Proveedores;
-import sv.com.genius.controlac.repository.ProveedoresRepository;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import sv.com.genius.controlac.IntegrationTest;
+import sv.com.genius.controlac.domain.Proveedores;
+import sv.com.genius.controlac.repository.ProveedoresRepository;
 
 /**
  * Integration tests for the {@link ProveedoresResource} REST controller.
@@ -158,6 +158,91 @@ class ProveedoresResourceIT {
         // Validate the Proveedores in the database
         List<Proveedores> proveedoresList = proveedoresRepository.findAll();
         assertThat(proveedoresList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void checkDireccionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = proveedoresRepository.findAll().size();
+        // set the field null
+        proveedores.setDireccion(null);
+
+        // Create the Proveedores, which fails.
+
+        restProveedoresMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(proveedores)))
+            .andExpect(status().isBadRequest());
+
+        List<Proveedores> proveedoresList = proveedoresRepository.findAll();
+        assertThat(proveedoresList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkNombreContactoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = proveedoresRepository.findAll().size();
+        // set the field null
+        proveedores.setNombreContacto(null);
+
+        // Create the Proveedores, which fails.
+
+        restProveedoresMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(proveedores)))
+            .andExpect(status().isBadRequest());
+
+        List<Proveedores> proveedoresList = proveedoresRepository.findAll();
+        assertThat(proveedoresList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkNombreEmpresaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = proveedoresRepository.findAll().size();
+        // set the field null
+        proveedores.setNombreEmpresa(null);
+
+        // Create the Proveedores, which fails.
+
+        restProveedoresMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(proveedores)))
+            .andExpect(status().isBadRequest());
+
+        List<Proveedores> proveedoresList = proveedoresRepository.findAll();
+        assertThat(proveedoresList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkTelefonoFijoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = proveedoresRepository.findAll().size();
+        // set the field null
+        proveedores.setTelefonoFijo(null);
+
+        // Create the Proveedores, which fails.
+
+        restProveedoresMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(proveedores)))
+            .andExpect(status().isBadRequest());
+
+        List<Proveedores> proveedoresList = proveedoresRepository.findAll();
+        assertThat(proveedoresList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkTelefonoMovilIsRequired() throws Exception {
+        int databaseSizeBeforeTest = proveedoresRepository.findAll().size();
+        // set the field null
+        proveedores.setTelefonoMovil(null);
+
+        // Create the Proveedores, which fails.
+
+        restProveedoresMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(proveedores)))
+            .andExpect(status().isBadRequest());
+
+        List<Proveedores> proveedoresList = proveedoresRepository.findAll();
+        assertThat(proveedoresList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -327,11 +412,7 @@ class ProveedoresResourceIT {
         Proveedores partialUpdatedProveedores = new Proveedores();
         partialUpdatedProveedores.setId(proveedores.getId());
 
-        partialUpdatedProveedores
-            .nombreContacto(UPDATED_NOMBRE_CONTACTO)
-            .nombreEmpresa(UPDATED_NOMBRE_EMPRESA)
-            .telefonoFijo2(UPDATED_TELEFONO_FIJO_2)
-            .telefonoMovil(UPDATED_TELEFONO_MOVIL);
+        partialUpdatedProveedores.direccion(UPDATED_DIRECCION).telefonoFijo(UPDATED_TELEFONO_FIJO).telefonoFijo2(UPDATED_TELEFONO_FIJO_2);
 
         restProveedoresMockMvc
             .perform(
@@ -345,14 +426,14 @@ class ProveedoresResourceIT {
         List<Proveedores> proveedoresList = proveedoresRepository.findAll();
         assertThat(proveedoresList).hasSize(databaseSizeBeforeUpdate);
         Proveedores testProveedores = proveedoresList.get(proveedoresList.size() - 1);
-        assertThat(testProveedores.getDireccion()).isEqualTo(DEFAULT_DIRECCION);
-        assertThat(testProveedores.getNombreContacto()).isEqualTo(UPDATED_NOMBRE_CONTACTO);
-        assertThat(testProveedores.getNombreEmpresa()).isEqualTo(UPDATED_NOMBRE_EMPRESA);
+        assertThat(testProveedores.getDireccion()).isEqualTo(UPDATED_DIRECCION);
+        assertThat(testProveedores.getNombreContacto()).isEqualTo(DEFAULT_NOMBRE_CONTACTO);
+        assertThat(testProveedores.getNombreEmpresa()).isEqualTo(DEFAULT_NOMBRE_EMPRESA);
         assertThat(testProveedores.getNotas()).isEqualTo(DEFAULT_NOTAS);
         assertThat(testProveedores.getSitioWeb()).isEqualTo(DEFAULT_SITIO_WEB);
-        assertThat(testProveedores.getTelefonoFijo()).isEqualTo(DEFAULT_TELEFONO_FIJO);
+        assertThat(testProveedores.getTelefonoFijo()).isEqualTo(UPDATED_TELEFONO_FIJO);
         assertThat(testProveedores.getTelefonoFijo2()).isEqualTo(UPDATED_TELEFONO_FIJO_2);
-        assertThat(testProveedores.getTelefonoMovil()).isEqualTo(UPDATED_TELEFONO_MOVIL);
+        assertThat(testProveedores.getTelefonoMovil()).isEqualTo(DEFAULT_TELEFONO_MOVIL);
         assertThat(testProveedores.getTelefonoMovil2()).isEqualTo(DEFAULT_TELEFONO_MOVIL_2);
     }
 

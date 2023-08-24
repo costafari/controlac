@@ -6,6 +6,8 @@ export interface ILotes {
   cantidad?: number | null;
   fechaEntrada?: dayjs.Dayjs | null;
   lote?: string | null;
+  estado?: string | null;
+  notas?: string | null;
   proveedores?: Pick<IProveedores, 'id'> | null;
 }
 

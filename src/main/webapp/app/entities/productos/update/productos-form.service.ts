@@ -14,14 +14,20 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type ProductosFormGroupInput = IProductos | PartialWithRequiredKeyOf<NewProductos>;
 
-type ProductosFormDefaults = Pick<NewProductos, 'id'>;
+type ProductosFormDefaults = Pick<NewProductos, 'id' | 'detalles'>;
 
 type ProductosFormGroupContent = {
   id: FormControl<IProductos['id'] | NewProductos['id']>;
   descipcion: FormControl<IProductos['descipcion']>;
   nombre: FormControl<IProductos['nombre']>;
+  precioU: FormControl<IProductos['precioU']>;
+  precioC: FormControl<IProductos['precioC']>;
   notas: FormControl<IProductos['notas']>;
-  lotes: FormControl<IProductos['lotes']>;
+  estadoProducto: FormControl<IProductos['estadoProducto']>;
+  fechaRegistro: FormControl<IProductos['fechaRegistro']>;
+  fechaCaducidad: FormControl<IProductos['fechaCaducidad']>;
+  proveedores: FormControl<IProductos['proveedores']>;
+  detalles: FormControl<IProductos['detalles']>;
 };
 
 export type ProductosFormGroup = FormGroup<ProductosFormGroupContent>;
@@ -41,10 +47,30 @@ export class ProductosFormService {
           validators: [Validators.required],
         }
       ),
-      descipcion: new FormControl(productosRawValue.descipcion),
-      nombre: new FormControl(productosRawValue.nombre),
+      descipcion: new FormControl(productosRawValue.descipcion, {
+        validators: [Validators.required],
+      }),
+      nombre: new FormControl(productosRawValue.nombre, {
+        validators: [Validators.required],
+      }),
+      precioU: new FormControl(productosRawValue.precioU, {
+        validators: [Validators.required],
+      }),
+      precioC: new FormControl(productosRawValue.precioC, {
+        validators: [Validators.required],
+      }),
       notas: new FormControl(productosRawValue.notas),
-      lotes: new FormControl(productosRawValue.lotes),
+      estadoProducto: new FormControl(productosRawValue.estadoProducto, {
+        validators: [Validators.required],
+      }),
+      fechaRegistro: new FormControl(productosRawValue.fechaRegistro, {
+        validators: [Validators.required],
+      }),
+      fechaCaducidad: new FormControl(productosRawValue.fechaCaducidad, {
+        validators: [Validators.required],
+      }),
+      proveedores: new FormControl(productosRawValue.proveedores),
+      detalles: new FormControl(productosRawValue.detalles ?? []),
     });
   }
 
@@ -65,6 +91,7 @@ export class ProductosFormService {
   private getFormDefaults(): ProductosFormDefaults {
     return {
       id: null,
+      detalles: [],
     };
   }
 }

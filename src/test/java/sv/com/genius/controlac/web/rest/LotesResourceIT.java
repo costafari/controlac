@@ -5,9 +5,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import sv.com.genius.controlac.IntegrationTest;
-import sv.com.genius.controlac.domain.Lotes;
-import sv.com.genius.controlac.repository.LotesRepository;
 import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -22,6 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import sv.com.genius.controlac.IntegrationTest;
+import sv.com.genius.controlac.domain.Lotes;
+import sv.com.genius.controlac.repository.LotesRepository;
 
 /**
  * Integration tests for the {@link LotesResource} REST controller.
@@ -39,6 +39,12 @@ class LotesResourceIT {
 
     private static final String DEFAULT_LOTE = "AAAAAAAAAA";
     private static final String UPDATED_LOTE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_ESTADO = "AAAAAAAAAA";
+    private static final String UPDATED_ESTADO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_NOTAS = "AAAAAAAAAA";
+    private static final String UPDATED_NOTAS = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/lotes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -64,7 +70,12 @@ class LotesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Lotes createEntity(EntityManager em) {
-        Lotes lotes = new Lotes().cantidad(DEFAULT_CANTIDAD).fechaEntrada(DEFAULT_FECHA_ENTRADA).lote(DEFAULT_LOTE);
+        Lotes lotes = new Lotes()
+            .cantidad(DEFAULT_CANTIDAD)
+            .fechaEntrada(DEFAULT_FECHA_ENTRADA)
+            .lote(DEFAULT_LOTE)
+            .estado(DEFAULT_ESTADO)
+            .notas(DEFAULT_NOTAS);
         return lotes;
     }
 
@@ -75,7 +86,12 @@ class LotesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Lotes createUpdatedEntity(EntityManager em) {
-        Lotes lotes = new Lotes().cantidad(UPDATED_CANTIDAD).fechaEntrada(UPDATED_FECHA_ENTRADA).lote(UPDATED_LOTE);
+        Lotes lotes = new Lotes()
+            .cantidad(UPDATED_CANTIDAD)
+            .fechaEntrada(UPDATED_FECHA_ENTRADA)
+            .lote(UPDATED_LOTE)
+            .estado(UPDATED_ESTADO)
+            .notas(UPDATED_NOTAS);
         return lotes;
     }
 
@@ -100,6 +116,8 @@ class LotesResourceIT {
         assertThat(testLotes.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
         assertThat(testLotes.getFechaEntrada()).isEqualTo(DEFAULT_FECHA_ENTRADA);
         assertThat(testLotes.getLote()).isEqualTo(DEFAULT_LOTE);
+        assertThat(testLotes.getEstado()).isEqualTo(DEFAULT_ESTADO);
+        assertThat(testLotes.getNotas()).isEqualTo(DEFAULT_NOTAS);
     }
 
     @Test
@@ -122,6 +140,74 @@ class LotesResourceIT {
 
     @Test
     @Transactional
+    void checkCantidadIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lotesRepository.findAll().size();
+        // set the field null
+        lotes.setCantidad(null);
+
+        // Create the Lotes, which fails.
+
+        restLotesMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(lotes)))
+            .andExpect(status().isBadRequest());
+
+        List<Lotes> lotesList = lotesRepository.findAll();
+        assertThat(lotesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkFechaEntradaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lotesRepository.findAll().size();
+        // set the field null
+        lotes.setFechaEntrada(null);
+
+        // Create the Lotes, which fails.
+
+        restLotesMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(lotes)))
+            .andExpect(status().isBadRequest());
+
+        List<Lotes> lotesList = lotesRepository.findAll();
+        assertThat(lotesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkLoteIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lotesRepository.findAll().size();
+        // set the field null
+        lotes.setLote(null);
+
+        // Create the Lotes, which fails.
+
+        restLotesMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(lotes)))
+            .andExpect(status().isBadRequest());
+
+        List<Lotes> lotesList = lotesRepository.findAll();
+        assertThat(lotesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkEstadoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = lotesRepository.findAll().size();
+        // set the field null
+        lotes.setEstado(null);
+
+        // Create the Lotes, which fails.
+
+        restLotesMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(lotes)))
+            .andExpect(status().isBadRequest());
+
+        List<Lotes> lotesList = lotesRepository.findAll();
+        assertThat(lotesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllLotes() throws Exception {
         // Initialize the database
         lotesRepository.saveAndFlush(lotes);
@@ -134,7 +220,9 @@ class LotesResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(lotes.getId().intValue())))
             .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)))
             .andExpect(jsonPath("$.[*].fechaEntrada").value(hasItem(DEFAULT_FECHA_ENTRADA.toString())))
-            .andExpect(jsonPath("$.[*].lote").value(hasItem(DEFAULT_LOTE)));
+            .andExpect(jsonPath("$.[*].lote").value(hasItem(DEFAULT_LOTE)))
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
+            .andExpect(jsonPath("$.[*].notas").value(hasItem(DEFAULT_NOTAS)));
     }
 
     @Test
@@ -151,7 +239,9 @@ class LotesResourceIT {
             .andExpect(jsonPath("$.id").value(lotes.getId().intValue()))
             .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD))
             .andExpect(jsonPath("$.fechaEntrada").value(DEFAULT_FECHA_ENTRADA.toString()))
-            .andExpect(jsonPath("$.lote").value(DEFAULT_LOTE));
+            .andExpect(jsonPath("$.lote").value(DEFAULT_LOTE))
+            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO))
+            .andExpect(jsonPath("$.notas").value(DEFAULT_NOTAS));
     }
 
     @Test
@@ -173,7 +263,12 @@ class LotesResourceIT {
         Lotes updatedLotes = lotesRepository.findById(lotes.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedLotes are not directly saved in db
         em.detach(updatedLotes);
-        updatedLotes.cantidad(UPDATED_CANTIDAD).fechaEntrada(UPDATED_FECHA_ENTRADA).lote(UPDATED_LOTE);
+        updatedLotes
+            .cantidad(UPDATED_CANTIDAD)
+            .fechaEntrada(UPDATED_FECHA_ENTRADA)
+            .lote(UPDATED_LOTE)
+            .estado(UPDATED_ESTADO)
+            .notas(UPDATED_NOTAS);
 
         restLotesMockMvc
             .perform(
@@ -190,6 +285,8 @@ class LotesResourceIT {
         assertThat(testLotes.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
         assertThat(testLotes.getFechaEntrada()).isEqualTo(UPDATED_FECHA_ENTRADA);
         assertThat(testLotes.getLote()).isEqualTo(UPDATED_LOTE);
+        assertThat(testLotes.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testLotes.getNotas()).isEqualTo(UPDATED_NOTAS);
     }
 
     @Test
@@ -260,7 +357,7 @@ class LotesResourceIT {
         Lotes partialUpdatedLotes = new Lotes();
         partialUpdatedLotes.setId(lotes.getId());
 
-        partialUpdatedLotes.fechaEntrada(UPDATED_FECHA_ENTRADA).lote(UPDATED_LOTE);
+        partialUpdatedLotes.fechaEntrada(UPDATED_FECHA_ENTRADA).lote(UPDATED_LOTE).estado(UPDATED_ESTADO).notas(UPDATED_NOTAS);
 
         restLotesMockMvc
             .perform(
@@ -277,6 +374,8 @@ class LotesResourceIT {
         assertThat(testLotes.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
         assertThat(testLotes.getFechaEntrada()).isEqualTo(UPDATED_FECHA_ENTRADA);
         assertThat(testLotes.getLote()).isEqualTo(UPDATED_LOTE);
+        assertThat(testLotes.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testLotes.getNotas()).isEqualTo(UPDATED_NOTAS);
     }
 
     @Test
@@ -291,7 +390,12 @@ class LotesResourceIT {
         Lotes partialUpdatedLotes = new Lotes();
         partialUpdatedLotes.setId(lotes.getId());
 
-        partialUpdatedLotes.cantidad(UPDATED_CANTIDAD).fechaEntrada(UPDATED_FECHA_ENTRADA).lote(UPDATED_LOTE);
+        partialUpdatedLotes
+            .cantidad(UPDATED_CANTIDAD)
+            .fechaEntrada(UPDATED_FECHA_ENTRADA)
+            .lote(UPDATED_LOTE)
+            .estado(UPDATED_ESTADO)
+            .notas(UPDATED_NOTAS);
 
         restLotesMockMvc
             .perform(
@@ -308,6 +412,8 @@ class LotesResourceIT {
         assertThat(testLotes.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
         assertThat(testLotes.getFechaEntrada()).isEqualTo(UPDATED_FECHA_ENTRADA);
         assertThat(testLotes.getLote()).isEqualTo(UPDATED_LOTE);
+        assertThat(testLotes.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testLotes.getNotas()).isEqualTo(UPDATED_NOTAS);
     }
 
     @Test

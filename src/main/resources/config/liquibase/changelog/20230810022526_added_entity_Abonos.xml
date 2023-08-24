@@ -23,6 +23,12 @@
             <column name="nuevo_saldo" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="fecha_registro" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="fecha_abono" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
             <column name="facturas_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -50,6 +56,8 @@
             <column name="saldo_anterior" type="numeric"/>
             <column name="abono" type="numeric"/>
             <column name="nuevo_saldo" type="numeric"/>
+            <column name="fecha_registro" type="string"/>
+            <column name="fecha_abono" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

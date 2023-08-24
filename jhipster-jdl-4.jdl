@@ -1,0 +1,125 @@
+entity Clientes {
+	id Long 
+    estadoCliente Boolean required
+    nombresContacto String required
+    apellidoContacto String required
+    direccion String required
+    email String required
+    nombreEmpresa String 
+    regFiscal String 
+    giro String
+    notas String 
+    sitioWeb String
+    telefonoFijo Integer required
+    telefonoFijo2 Integer
+    telefonoMovil Integer required
+    telefonoMovil2 Integer 
+    fechaRegistro String required
+    fechaUltimaC String required
+}
+
+entity Lotes {
+	id Long 
+    cantidad Integer required
+    fechaEntrada LocalDate required
+    lote String required
+    estado String required
+    notas String
+}
+
+entity Productos {
+	id Long 
+    descipcion String required
+    nombre String required
+    precioU Long required
+    precioC Long required
+    notas String
+    estadoProducto String required
+    fechaRegistro String required
+    fechaCaducidad String required
+}
+
+entity Proveedores {
+	id Long 
+    direccion String required
+    nombreContacto String required
+    nombreEmpresa String required
+    notas String
+    sitioWeb String
+    telefonoFijo Integer required
+    telefonoFijo2 Integer
+    telefonoMovil Integer required
+    telefonoMovil2 Integer
+}
+
+entity Facturas {
+	id Long 
+    numeroFactura Long required
+    fechaFactura Instant required
+    condicionPago Boolean required
+    estadoFactura Boolean required
+}
+
+entity Detalles {
+	id Long 
+    cantidad Long required
+    impuestos Long required
+    descuento Long required
+    total Long
+}
+
+entity Abonos {
+	id Long 
+    saldoAnterior Long required
+    abono Long required
+    nuevoSaldo Long
+    fechaRegistro String required
+    fechaAbono String required
+}
+
+entity ClientesAudit{
+	id Long
+    fechaAudit String required
+    tipoCrud String required
+    idCliente Long required
+    idUSuario Long required
+}
+
+entity ProveedorAudit{
+	id Long
+    fechaAudit String required
+    tipoCrud String required
+    idProveedor Long required
+    idUSuario Long required
+}
+
+entity ProductoAudit{
+	id Long
+    fechaAudit String required
+    tipoCrud String required
+    idProducto Long required
+    idUSuario Long required
+}
+
+relationship OneToMany { 
+    Detalles to Facturas
+    Proveedores to Productos
+    Clientes to Facturas
+}
+
+relationship ManyToOne {
+    Abonos to Facturas
+}
+
+relationship OneToOne {
+	Lotes to Proveedores
+}
+
+relationship ManyToMany {
+	Detalles to Productos
+
+}
+
+
+
+

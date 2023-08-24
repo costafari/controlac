@@ -56,21 +56,21 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="clientes.id">
+          <th scope="col" jhiSortBy="estadoFactura">
             <div class="d-flex">
-              <span jhiTranslate="controlacApp.facturas.clientes">Clientes</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="lotes.id">
-            <div class="d-flex">
-              <span jhiTranslate="controlacApp.facturas.lotes">Lotes</span>
+              <span jhiTranslate="controlacApp.facturas.estadoFactura">Estado Factura</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
           <th scope="col" jhiSortBy="detalles.id">
             <div class="d-flex">
               <span jhiTranslate="controlacApp.facturas.detalles">Detalles</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="clientes.id">
+            <div class="d-flex">
+              <span jhiTranslate="controlacApp.facturas.clientes">Clientes</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -85,19 +85,15 @@
           <td>{{ facturas.numeroFactura }}</td>
           <td>{{ facturas.fechaFactura | formatMediumDatetime }}</td>
           <td>{{ facturas.condicionPago }}</td>
-          <td>
-            <div *ngIf="facturas.clientes">
-              <a [routerLink]="['/clientes', facturas.clientes.id, 'view']">{{ facturas.clientes.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="facturas.lotes">
-              <a [routerLink]="['/lotes', facturas.lotes.id, 'view']">{{ facturas.lotes.id }}</a>
-            </div>
-          </td>
+          <td>{{ facturas.estadoFactura }}</td>
           <td>
             <div *ngIf="facturas.detalles">
               <a [routerLink]="['/detalles', facturas.detalles.id, 'view']">{{ facturas.detalles.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="facturas.clientes">
+              <a [routerLink]="['/clientes', facturas.clientes.id, 'view']">{{ facturas.clientes.id }}</a>
             </div>
           </td>
           <td class="text-end">

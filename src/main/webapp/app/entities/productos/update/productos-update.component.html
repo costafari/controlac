@@ -23,11 +23,67 @@
             data-cy="descipcion"
             formControlName="descipcion"
           />
+          <div *ngIf="editForm.get('descipcion')!.invalid && (editForm.get('descipcion')!.dirty || editForm.get('descipcion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('descipcion')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="controlacApp.productos.nombre" for="field_nombre">Nombre</label>
           <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          <div *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nombre')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.productos.precioU" for="field_precioU">Precio U</label>
+          <input type="number" class="form-control" name="precioU" id="field_precioU" data-cy="precioU" formControlName="precioU" />
+          <div *ngIf="editForm.get('precioU')!.invalid && (editForm.get('precioU')!.dirty || editForm.get('precioU')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('precioU')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('precioU')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.productos.precioC" for="field_precioC">Precio C</label>
+          <input type="number" class="form-control" name="precioC" id="field_precioC" data-cy="precioC" formControlName="precioC" />
+          <div *ngIf="editForm.get('precioC')!.invalid && (editForm.get('precioC')!.dirty || editForm.get('precioC')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('precioC')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('precioC')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -36,10 +92,94 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="controlacApp.productos.lotes" for="field_lotes">Lotes</label>
-          <select class="form-control" id="field_lotes" data-cy="lotes" name="lotes" formControlName="lotes" [compareWith]="compareLotes">
+          <label class="form-label" jhiTranslate="controlacApp.productos.estadoProducto" for="field_estadoProducto">Estado Producto</label>
+          <input
+            type="text"
+            class="form-control"
+            name="estadoProducto"
+            id="field_estadoProducto"
+            data-cy="estadoProducto"
+            formControlName="estadoProducto"
+          />
+          <div
+            *ngIf="
+              editForm.get('estadoProducto')!.invalid && (editForm.get('estadoProducto')!.dirty || editForm.get('estadoProducto')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estadoProducto')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.productos.fechaRegistro" for="field_fechaRegistro">Fecha Registro</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fechaRegistro"
+            id="field_fechaRegistro"
+            data-cy="fechaRegistro"
+            formControlName="fechaRegistro"
+          />
+          <div
+            *ngIf="
+              editForm.get('fechaRegistro')!.invalid && (editForm.get('fechaRegistro')!.dirty || editForm.get('fechaRegistro')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaRegistro')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.productos.fechaCaducidad" for="field_fechaCaducidad">Fecha Caducidad</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fechaCaducidad"
+            id="field_fechaCaducidad"
+            data-cy="fechaCaducidad"
+            formControlName="fechaCaducidad"
+          />
+          <div
+            *ngIf="
+              editForm.get('fechaCaducidad')!.invalid && (editForm.get('fechaCaducidad')!.dirty || editForm.get('fechaCaducidad')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaCaducidad')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.productos.proveedores" for="field_proveedores">Proveedores</label>
+          <select
+            class="form-control"
+            id="field_proveedores"
+            data-cy="proveedores"
+            name="proveedores"
+            formControlName="proveedores"
+            [compareWith]="compareProveedores"
+          >
             <option [ngValue]="null"></option>
-            <option [ngValue]="lotesOption" *ngFor="let lotesOption of lotesSharedCollection">{{ lotesOption.id }}</option>
+            <option [ngValue]="proveedoresOption" *ngFor="let proveedoresOption of proveedoresSharedCollection">
+              {{ proveedoresOption.id }}
+            </option>
           </select>
         </div>
       </div>

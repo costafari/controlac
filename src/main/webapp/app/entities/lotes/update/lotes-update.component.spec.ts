@@ -50,10 +50,10 @@ describe('Lotes Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call proveedores query and add missing value', () => {
       const lotes: ILotes = { id: 456 };
-      const proveedores: IProveedores = { id: 7938 };
+      const proveedores: IProveedores = { id: 13684 };
       lotes.proveedores = proveedores;
 
-      const proveedoresCollection: IProveedores[] = [{ id: 681 }];
+      const proveedoresCollection: IProveedores[] = [{ id: 24779 }];
       jest.spyOn(proveedoresService, 'query').mockReturnValue(of(new HttpResponse({ body: proveedoresCollection })));
       const expectedCollection: IProveedores[] = [proveedores, ...proveedoresCollection];
       jest.spyOn(proveedoresService, 'addProveedoresToCollectionIfMissing').mockReturnValue(expectedCollection);
@@ -68,7 +68,7 @@ describe('Lotes Management Update Component', () => {
 
     it('Should update editForm', () => {
       const lotes: ILotes = { id: 456 };
-      const proveedores: IProveedores = { id: 369 };
+      const proveedores: IProveedores = { id: 30501 };
       lotes.proveedores = proveedores;
 
       activatedRoute.data = of({ lotes });

@@ -32,8 +32,16 @@ public class Abonos implements Serializable {
     @Column(name = "nuevo_saldo")
     private Long nuevoSaldo;
 
+    @NotNull
+    @Column(name = "fecha_registro", nullable = false)
+    private String fechaRegistro;
+
+    @NotNull
+    @Column(name = "fecha_abono", nullable = false)
+    private String fechaAbono;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "clientes", "lotes", "detalles", "abonos" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "detalles", "clientes", "abonos" }, allowSetters = true)
     private Facturas facturas;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -90,6 +98,32 @@ public class Abonos implements Serializable {
         this.nuevoSaldo = nuevoSaldo;
     }
 
+    public String getFechaRegistro() {
+        return this.fechaRegistro;
+    }
+
+    public Abonos fechaRegistro(String fechaRegistro) {
+        this.setFechaRegistro(fechaRegistro);
+        return this;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getFechaAbono() {
+        return this.fechaAbono;
+    }
+
+    public Abonos fechaAbono(String fechaAbono) {
+        this.setFechaAbono(fechaAbono);
+        return this;
+    }
+
+    public void setFechaAbono(String fechaAbono) {
+        this.fechaAbono = fechaAbono;
+    }
+
     public Facturas getFacturas() {
         return this.facturas;
     }
@@ -130,6 +164,8 @@ public class Abonos implements Serializable {
             ", saldoAnterior=" + getSaldoAnterior() +
             ", abono=" + getAbono() +
             ", nuevoSaldo=" + getNuevoSaldo() +
+            ", fechaRegistro='" + getFechaRegistro() + "'" +
+            ", fechaAbono='" + getFechaAbono() + "'" +
             "}";
     }
 }

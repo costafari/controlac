@@ -14,35 +14,108 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="controlacApp.clientes.activo" for="field_activo">Activo</label>
-          <input type="checkbox" class="form-check" name="activo" id="field_activo" data-cy="activo" formControlName="activo" />
+          <label class="form-label" jhiTranslate="controlacApp.clientes.estadoCliente" for="field_estadoCliente">Estado Cliente</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="estadoCliente"
+            id="field_estadoCliente"
+            data-cy="estadoCliente"
+            formControlName="estadoCliente"
+          />
+          <div
+            *ngIf="
+              editForm.get('estadoCliente')!.invalid && (editForm.get('estadoCliente')!.dirty || editForm.get('estadoCliente')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('estadoCliente')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="controlacApp.clientes.apellidos" for="field_apellidos">Apellidos</label>
-          <input type="text" class="form-control" name="apellidos" id="field_apellidos" data-cy="apellidos" formControlName="apellidos" />
+          <label class="form-label" jhiTranslate="controlacApp.clientes.nombresContacto" for="field_nombresContacto"
+            >Nombres Contacto</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nombresContacto"
+            id="field_nombresContacto"
+            data-cy="nombresContacto"
+            formControlName="nombresContacto"
+          />
+          <div
+            *ngIf="
+              editForm.get('nombresContacto')!.invalid &&
+              (editForm.get('nombresContacto')!.dirty || editForm.get('nombresContacto')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('nombresContacto')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="controlacApp.clientes.direcion" for="field_direcion">Direcion</label>
-          <input type="text" class="form-control" name="direcion" id="field_direcion" data-cy="direcion" formControlName="direcion" />
+          <label class="form-label" jhiTranslate="controlacApp.clientes.apellidoContacto" for="field_apellidoContacto"
+            >Apellido Contacto</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="apellidoContacto"
+            id="field_apellidoContacto"
+            data-cy="apellidoContacto"
+            formControlName="apellidoContacto"
+          />
+          <div
+            *ngIf="
+              editForm.get('apellidoContacto')!.invalid &&
+              (editForm.get('apellidoContacto')!.dirty || editForm.get('apellidoContacto')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('apellidoContacto')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.clientes.direccion" for="field_direccion">Direccion</label>
+          <input type="text" class="form-control" name="direccion" id="field_direccion" data-cy="direccion" formControlName="direccion" />
+          <div *ngIf="editForm.get('direccion')!.invalid && (editForm.get('direccion')!.dirty || editForm.get('direccion')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('direccion')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="controlacApp.clientes.email" for="field_email">Email</label>
           <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" jhiTranslate="controlacApp.clientes.nombreContacto" for="field_nombreContacto">Nombre Contacto</label>
-          <input
-            type="text"
-            class="form-control"
-            name="nombreContacto"
-            id="field_nombreContacto"
-            data-cy="nombreContacto"
-            formControlName="nombreContacto"
-          />
+          <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -58,8 +131,13 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" jhiTranslate="controlacApp.clientes.nombres" for="field_nombres">Nombres</label>
-          <input type="text" class="form-control" name="nombres" id="field_nombres" data-cy="nombres" formControlName="nombres" />
+          <label class="form-label" jhiTranslate="controlacApp.clientes.regFiscal" for="field_regFiscal">Reg Fiscal</label>
+          <input type="text" class="form-control" name="regFiscal" id="field_regFiscal" data-cy="regFiscal" formControlName="regFiscal" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.clientes.giro" for="field_giro">Giro</label>
+          <input type="text" class="form-control" name="giro" id="field_giro" data-cy="giro" formControlName="giro" />
         </div>
 
         <div class="mb-3">
@@ -82,6 +160,24 @@
             data-cy="telefonoFijo"
             formControlName="telefonoFijo"
           />
+          <div
+            *ngIf="editForm.get('telefonoFijo')!.invalid && (editForm.get('telefonoFijo')!.dirty || editForm.get('telefonoFijo')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telefonoFijo')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('telefonoFijo')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -106,6 +202,26 @@
             data-cy="telefonoMovil"
             formControlName="telefonoMovil"
           />
+          <div
+            *ngIf="
+              editForm.get('telefonoMovil')!.invalid && (editForm.get('telefonoMovil')!.dirty || editForm.get('telefonoMovil')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('telefonoMovil')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('telefonoMovil')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -118,6 +234,54 @@
             data-cy="telefonoMovil2"
             formControlName="telefonoMovil2"
           />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.clientes.fechaRegistro" for="field_fechaRegistro">Fecha Registro</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fechaRegistro"
+            id="field_fechaRegistro"
+            data-cy="fechaRegistro"
+            formControlName="fechaRegistro"
+          />
+          <div
+            *ngIf="
+              editForm.get('fechaRegistro')!.invalid && (editForm.get('fechaRegistro')!.dirty || editForm.get('fechaRegistro')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaRegistro')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.clientes.fechaUltimaC" for="field_fechaUltimaC">Fecha Ultima C</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fechaUltimaC"
+            id="field_fechaUltimaC"
+            data-cy="fechaUltimaC"
+            formControlName="fechaUltimaC"
+          />
+          <div
+            *ngIf="editForm.get('fechaUltimaC')!.invalid && (editForm.get('fechaUltimaC')!.dirty || editForm.get('fechaUltimaC')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaUltimaC')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
       </div>
 

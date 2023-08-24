@@ -21,9 +21,9 @@
       "cantidad": "Cantidad",
       "fechaEntrada": "Fecha Entrada",
       "lote": "Lote",
-      "proveedores": "Proveedores",
-      "productos": "Productos",
-      "facturas": "Facturas"
+      "estado": "Estado",
+      "notas": "Notas",
+      "proveedores": "Proveedores"
     }
   }
 }

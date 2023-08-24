@@ -2,8 +2,8 @@ package sv.com.genius.controlac.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import sv.com.genius.controlac.web.rest.TestUtil;
 import org.junit.jupiter.api.Test;
+import sv.com.genius.controlac.web.rest.TestUtil;
 
 class ProductosTest {
 

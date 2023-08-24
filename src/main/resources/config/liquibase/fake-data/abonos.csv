@@ -1,11 +1,11 @@
-id;saldo_anterior;abono;nuevo_saldo
-1;18662;16867;11076
-2;31615;23860;18262
-3;9983;27234;3007
-4;6576;31837;31254
-5;12758;1194;14023
-6;20555;22194;1764
-7;23131;2246;24443
-8;31562;28640;18783
-9;8338;6744;20640
-10;26274;13225;14376
+id;saldo_anterior;abono;nuevo_saldo;fecha_registro;fecha_abono
+1;18662;16867;11076;fritas Islandia Calidad;Metal
+2;14376;6503;17981;Salud Gris mejora;Mascotas cohesiva Omán
+3;32385;2249;3445;Pollo Oficial;Intranet Cuesta
+4;32638;7302;15865;Central Datos;Reducido Senior
+5;26384;22596;27306;Interacciones Multi;Rojo Equilibrado Verde
+6;32022;20929;19355;Métricas;Algodón hibrida Violeta
+7;16156;29420;32587;Papelería La;Navarra Blanco Intranet
+8;9452;7181;1714;Desarrollador Parafarmacia Administrador;codificar Aragón
+9;219;4803;23917;Negro Azul fritas;terciaria Ingeniería
+10;7713;24399;32166;Diseñador Representante Oficial;Informática Guapa sistemática

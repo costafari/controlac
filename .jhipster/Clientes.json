@@ -8,31 +8,40 @@
       "fieldType": "Long"
     },
     {
-      "fieldName": "activo",
-      "fieldType": "Boolean"
+      "fieldName": "estadoCliente",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "apellidos",
-      "fieldType": "String"
+      "fieldName": "nombresContacto",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "direcion",
-      "fieldType": "String"
+      "fieldName": "apellidoContacto",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "direccion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "email",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "nombreContacto",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "nombreEmpresa",
       "fieldType": "String"
     },
     {
-      "fieldName": "nombres",
+      "fieldName": "regFiscal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "giro",
       "fieldType": "String"
     },
     {
@@ -45,7 +54,8 @@
     },
     {
       "fieldName": "telefonoFijo",
-      "fieldType": "Integer"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "telefonoFijo2",
@@ -53,11 +63,22 @@
     },
     {
       "fieldName": "telefonoMovil",
-      "fieldType": "Integer"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "telefonoMovil2",
       "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fechaRegistro",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaUltimaC",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "name": "Clientes",
@@ -66,8 +87,8 @@
       "otherEntityName": "facturas",
       "otherEntityRelationshipName": "clientes",
       "relationshipName": "facturas",
-      "relationshipSide": "right",
-      "relationshipType": "one-to-one"
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
     }
   ],
   "searchEngine": "no"

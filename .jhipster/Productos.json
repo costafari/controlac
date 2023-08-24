@@ -9,25 +9,59 @@
     },
     {
       "fieldName": "descipcion",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "nombre",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "precioU",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "precioC",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "notas",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "estadoProducto",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaRegistro",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaCaducidad",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "name": "Productos",
   "relationships": [
     {
-      "otherEntityName": "lotes",
+      "otherEntityName": "proveedores",
       "otherEntityRelationshipName": "productos",
-      "relationshipName": "lotes",
+      "relationshipName": "proveedores",
       "relationshipSide": "right",
       "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "detalles",
+      "otherEntityRelationshipName": "productos",
+      "relationshipName": "detalles",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
     }
   ],
   "searchEngine": "no"

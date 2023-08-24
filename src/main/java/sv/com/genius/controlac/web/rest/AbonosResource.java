@@ -1,8 +1,5 @@
 package sv.com.genius.controlac.web.rest;
 
-import sv.com.genius.controlac.domain.Abonos;
-import sv.com.genius.controlac.repository.AbonosRepository;
-import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
@@ -16,11 +13,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sv.com.genius.controlac.domain.Abonos;
+import sv.com.genius.controlac.repository.AbonosRepository;
+import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link Abonos}.
+ * REST controller for managing {@link sv.com.genius.controlac.domain.Abonos}.
  */
 @RestController
 @RequestMapping("/api")
@@ -133,6 +133,12 @@ public class AbonosResource {
                 }
                 if (abonos.getNuevoSaldo() != null) {
                     existingAbonos.setNuevoSaldo(abonos.getNuevoSaldo());
+                }
+                if (abonos.getFechaRegistro() != null) {
+                    existingAbonos.setFechaRegistro(abonos.getFechaRegistro());
+                }
+                if (abonos.getFechaAbono() != null) {
+                    existingAbonos.setFechaAbono(abonos.getFechaAbono());
                 }
 
                 return existingAbonos;

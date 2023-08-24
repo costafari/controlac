@@ -9,14 +9,26 @@
     },
     {
       "fieldName": "cantidad",
-      "fieldType": "Integer"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "fechaEntrada",
-      "fieldType": "LocalDate"
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "lote",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "notas",
       "fieldType": "String"
     }
   ],
@@ -28,20 +40,6 @@
       "relationshipName": "proveedores",
       "relationshipSide": "left",
       "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "productos",
-      "otherEntityRelationshipName": "lotes",
-      "relationshipName": "productos",
-      "relationshipSide": "left",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "facturas",
-      "otherEntityRelationshipName": "lotes",
-      "relationshipName": "facturas",
-      "relationshipSide": "right",
-      "relationshipType": "one-to-many"
     }
   ],
   "searchEngine": "no"

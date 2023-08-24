@@ -18,9 +18,24 @@
         <dd>
           <span>{{ detalles.cantidad }}</span>
         </dd>
+        <dt><span jhiTranslate="controlacApp.detalles.impuestos">Impuestos</span></dt>
+        <dd>
+          <span>{{ detalles.impuestos }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.detalles.descuento">Descuento</span></dt>
+        <dd>
+          <span>{{ detalles.descuento }}</span>
+        </dd>
         <dt><span jhiTranslate="controlacApp.detalles.total">Total</span></dt>
         <dd>
           <span>{{ detalles.total }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.detalles.productos">Productos</span></dt>
+        <dd>
+          <span *ngFor="let productos of detalles.productos; let last = last">
+            <a [routerLink]="['/productos', productos.id, 'view']">{{ productos.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
         </dd>
       </dl>
 

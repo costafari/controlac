@@ -22,8 +22,14 @@ describe('Productos Form Service', () => {
             id: expect.any(Object),
             descipcion: expect.any(Object),
             nombre: expect.any(Object),
+            precioU: expect.any(Object),
+            precioC: expect.any(Object),
             notas: expect.any(Object),
-            lotes: expect.any(Object),
+            estadoProducto: expect.any(Object),
+            fechaRegistro: expect.any(Object),
+            fechaCaducidad: expect.any(Object),
+            proveedores: expect.any(Object),
+            detalles: expect.any(Object),
           })
         );
       });
@@ -36,8 +42,14 @@ describe('Productos Form Service', () => {
             id: expect.any(Object),
             descipcion: expect.any(Object),
             nombre: expect.any(Object),
+            precioU: expect.any(Object),
+            precioC: expect.any(Object),
             notas: expect.any(Object),
-            lotes: expect.any(Object),
+            estadoProducto: expect.any(Object),
+            fechaRegistro: expect.any(Object),
+            fechaCaducidad: expect.any(Object),
+            proveedores: expect.any(Object),
+            detalles: expect.any(Object),
           })
         );
       });

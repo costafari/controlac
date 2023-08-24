@@ -1,8 +1,7 @@
 package sv.com.genius.controlac.web.rest;
 
-import sv.com.genius.controlac.domain.Proveedores;
-import sv.com.genius.controlac.repository.ProveedoresRepository;
-import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -15,11 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sv.com.genius.controlac.domain.Proveedores;
+import sv.com.genius.controlac.repository.ProveedoresRepository;
+import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link Proveedores}.
+ * REST controller for managing {@link sv.com.genius.controlac.domain.Proveedores}.
  */
 @RestController
 @RequestMapping("/api")
@@ -47,7 +49,7 @@ public class ProveedoresResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/proveedores")
-    public ResponseEntity<Proveedores> createProveedores(@RequestBody Proveedores proveedores) throws URISyntaxException {
+    public ResponseEntity<Proveedores> createProveedores(@Valid @RequestBody Proveedores proveedores) throws URISyntaxException {
         log.debug("REST request to save Proveedores : {}", proveedores);
         if (proveedores.getId() != null) {
             throw new BadRequestAlertException("A new proveedores cannot already have an ID", ENTITY_NAME, "idexists");
@@ -72,7 +74,7 @@ public class ProveedoresResource {
     @PutMapping("/proveedores/{id}")
     public ResponseEntity<Proveedores> updateProveedores(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Proveedores proveedores
+        @Valid @RequestBody Proveedores proveedores
     ) throws URISyntaxException {
         log.debug("REST request to update Proveedores : {}, {}", id, proveedores);
         if (proveedores.getId() == null) {
@@ -107,7 +109,7 @@ public class ProveedoresResource {
     @PatchMapping(value = "/proveedores/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Proveedores> partialUpdateProveedores(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Proveedores proveedores
+        @NotNull @RequestBody Proveedores proveedores
     ) throws URISyntaxException {
         log.debug("REST request to partial update Proveedores partially : {}, {}", id, proveedores);
         if (proveedores.getId() == null) {

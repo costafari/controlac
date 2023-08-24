@@ -23,9 +23,9 @@ describe('Facturas Form Service', () => {
             numeroFactura: expect.any(Object),
             fechaFactura: expect.any(Object),
             condicionPago: expect.any(Object),
-            clientes: expect.any(Object),
-            lotes: expect.any(Object),
+            estadoFactura: expect.any(Object),
             detalles: expect.any(Object),
+            clientes: expect.any(Object),
           })
         );
       });
@@ -39,9 +39,9 @@ describe('Facturas Form Service', () => {
             numeroFactura: expect.any(Object),
             fechaFactura: expect.any(Object),
             condicionPago: expect.any(Object),
-            clientes: expect.any(Object),
-            lotes: expect.any(Object),
+            estadoFactura: expect.any(Object),
             detalles: expect.any(Object),
+            clientes: expect.any(Object),
           })
         );
       });

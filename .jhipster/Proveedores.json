@@ -9,15 +9,18 @@
     },
     {
       "fieldName": "direccion",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "nombreContacto",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "nombreEmpresa",
-      "fieldType": "String"
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "notas",
@@ -29,7 +32,8 @@
     },
     {
       "fieldName": "telefonoFijo",
-      "fieldType": "Integer"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "telefonoFijo2",
@@ -37,7 +41,8 @@
     },
     {
       "fieldName": "telefonoMovil",
-      "fieldType": "Integer"
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "telefonoMovil2",
@@ -46,6 +51,13 @@
   ],
   "name": "Proveedores",
   "relationships": [
+    {
+      "otherEntityName": "productos",
+      "otherEntityRelationshipName": "proveedores",
+      "relationshipName": "productos",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
     {
       "otherEntityName": "lotes",
       "otherEntityRelationshipName": "proveedores",

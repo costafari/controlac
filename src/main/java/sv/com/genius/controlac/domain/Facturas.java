@@ -28,24 +28,25 @@ public class Facturas implements Serializable {
     @Column(name = "numero_factura", nullable = false)
     private Long numeroFactura;
 
-    @Column(name = "fecha_factura")
+    @NotNull
+    @Column(name = "fecha_factura", nullable = false)
     private Instant fechaFactura;
 
-    @Column(name = "condicion_pago")
+    @NotNull
+    @Column(name = "condicion_pago", nullable = false)
     private Boolean condicionPago;
 
-    @JsonIgnoreProperties(value = { "facturas" }, allowSetters = true)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(unique = true)
-    private Clientes clientes;
+    @NotNull
+    @Column(name = "estado_factura", nullable = false)
+    private Boolean estadoFactura;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "proveedores", "productos", "facturas" }, allowSetters = true)
-    private Lotes lotes;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "facturas" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "facturas", "productos" }, allowSetters = true)
     private Detalles detalles;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "facturas" }, allowSetters = true)
+    private Clientes clientes;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "facturas")
     @JsonIgnoreProperties(value = { "facturas" }, allowSetters = true)
@@ -105,30 +106,17 @@ public class Facturas implements Serializable {
         this.condicionPago = condicionPago;
     }
 
-    public Clientes getClientes() {
-        return this.clientes;
+    public Boolean getEstadoFactura() {
+        return this.estadoFactura;
     }
 
-    public void setClientes(Clientes clientes) {
-        this.clientes = clientes;
-    }
-
-    public Facturas clientes(Clientes clientes) {
-        this.setClientes(clientes);
+    public Facturas estadoFactura(Boolean estadoFactura) {
+        this.setEstadoFactura(estadoFactura);
         return this;
     }
 
-    public Lotes getLotes() {
-        return this.lotes;
-    }
-
-    public void setLotes(Lotes lotes) {
-        this.lotes = lotes;
-    }
-
-    public Facturas lotes(Lotes lotes) {
-        this.setLotes(lotes);
-        return this;
+    public void setEstadoFactura(Boolean estadoFactura) {
+        this.estadoFactura = estadoFactura;
     }
 
     public Detalles getDetalles() {
@@ -141,6 +129,19 @@ public class Facturas implements Serializable {
 
     public Facturas detalles(Detalles detalles) {
         this.setDetalles(detalles);
+        return this;
+    }
+
+    public Clientes getClientes() {
+        return this.clientes;
+    }
+
+    public void setClientes(Clientes clientes) {
+        this.clientes = clientes;
+    }
+
+    public Facturas clientes(Clientes clientes) {
+        this.setClientes(clientes);
         return this;
     }
 
@@ -202,6 +203,7 @@ public class Facturas implements Serializable {
             ", numeroFactura=" + getNumeroFactura() +
             ", fechaFactura='" + getFechaFactura() + "'" +
             ", condicionPago='" + getCondicionPago() + "'" +
+            ", estadoFactura='" + getEstadoFactura() + "'" +
             "}";
     }
 }

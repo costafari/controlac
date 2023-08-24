@@ -16,6 +16,22 @@
         <div class="mb-3">
           <label class="form-label" jhiTranslate="controlacApp.lotes.cantidad" for="field_cantidad">Cantidad</label>
           <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
+          <div *ngIf="editForm.get('cantidad')!.invalid && (editForm.get('cantidad')!.dirty || editForm.get('cantidad')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('cantidad')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('cantidad')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              Este campo debe ser un número.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -35,11 +51,42 @@
               <fa-icon icon="calendar-alt"></fa-icon>
             </button>
           </div>
+          <div
+            *ngIf="editForm.get('fechaEntrada')!.invalid && (editForm.get('fechaEntrada')!.dirty || editForm.get('fechaEntrada')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fechaEntrada')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              Este campo es obligatorio.
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="controlacApp.lotes.lote" for="field_lote">Lote</label>
           <input type="text" class="form-control" name="lote" id="field_lote" data-cy="lote" formControlName="lote" />
+          <div *ngIf="editForm.get('lote')!.invalid && (editForm.get('lote')!.dirty || editForm.get('lote')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('lote')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.lotes.estado" for="field_estado">Estado</label>
+          <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+          <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
+              Este campo es obligatorio.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="controlacApp.lotes.notas" for="field_notas">Notas</label>
+          <input type="text" class="form-control" name="notas" id="field_notas" data-cy="notas" formControlName="notas" />
         </div>
 
         <div class="mb-3">

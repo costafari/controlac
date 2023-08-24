@@ -23,6 +23,8 @@ describe('Lotes Form Service', () => {
             cantidad: expect.any(Object),
             fechaEntrada: expect.any(Object),
             lote: expect.any(Object),
+            estado: expect.any(Object),
+            notas: expect.any(Object),
             proveedores: expect.any(Object),
           })
         );
@@ -37,6 +39,8 @@ describe('Lotes Form Service', () => {
             cantidad: expect.any(Object),
             fechaEntrada: expect.any(Object),
             lote: expect.any(Object),
+            estado: expect.any(Object),
+            notas: expect.any(Object),
             proveedores: expect.any(Object),
           })
         );

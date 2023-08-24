@@ -14,12 +14,15 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type DetallesFormGroupInput = IDetalles | PartialWithRequiredKeyOf<NewDetalles>;
 
-type DetallesFormDefaults = Pick<NewDetalles, 'id'>;
+type DetallesFormDefaults = Pick<NewDetalles, 'id' | 'productos'>;
 
 type DetallesFormGroupContent = {
   id: FormControl<IDetalles['id'] | NewDetalles['id']>;
   cantidad: FormControl<IDetalles['cantidad']>;
+  impuestos: FormControl<IDetalles['impuestos']>;
+  descuento: FormControl<IDetalles['descuento']>;
   total: FormControl<IDetalles['total']>;
+  productos: FormControl<IDetalles['productos']>;
 };
 
 export type DetallesFormGroup = FormGroup<DetallesFormGroupContent>;
@@ -42,7 +45,14 @@ export class DetallesFormService {
       cantidad: new FormControl(detallesRawValue.cantidad, {
         validators: [Validators.required],
       }),
+      impuestos: new FormControl(detallesRawValue.impuestos, {
+        validators: [Validators.required],
+      }),
+      descuento: new FormControl(detallesRawValue.descuento, {
+        validators: [Validators.required],
+      }),
       total: new FormControl(detallesRawValue.total),
+      productos: new FormControl(detallesRawValue.productos ?? []),
     });
   }
 
@@ -63,6 +73,7 @@ export class DetallesFormService {
   private getFormDefaults(): DetallesFormDefaults {
     return {
       id: null,
+      productos: [],
     };
   }
 }

@@ -1,25 +1,26 @@
 package sv.com.genius.controlac.web.rest;
 
-import sv.com.genius.controlac.domain.Clientes;
-import sv.com.genius.controlac.repository.ClientesRepository;
-import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sv.com.genius.controlac.domain.Clientes;
+import sv.com.genius.controlac.repository.ClientesRepository;
+import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link Clientes}.
+ * REST controller for managing {@link sv.com.genius.controlac.domain.Clientes}.
  */
 @RestController
 @RequestMapping("/api")
@@ -47,7 +48,7 @@ public class ClientesResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/clientes")
-    public ResponseEntity<Clientes> createClientes(@RequestBody Clientes clientes) throws URISyntaxException {
+    public ResponseEntity<Clientes> createClientes(@Valid @RequestBody Clientes clientes) throws URISyntaxException {
         log.debug("REST request to save Clientes : {}", clientes);
         if (clientes.getId() != null) {
             throw new BadRequestAlertException("A new clientes cannot already have an ID", ENTITY_NAME, "idexists");
@@ -72,7 +73,7 @@ public class ClientesResource {
     @PutMapping("/clientes/{id}")
     public ResponseEntity<Clientes> updateClientes(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Clientes clientes
+        @Valid @RequestBody Clientes clientes
     ) throws URISyntaxException {
         log.debug("REST request to update Clientes : {}, {}", id, clientes);
         if (clientes.getId() == null) {
@@ -107,7 +108,7 @@ public class ClientesResource {
     @PatchMapping(value = "/clientes/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Clientes> partialUpdateClientes(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Clientes clientes
+        @NotNull @RequestBody Clientes clientes
     ) throws URISyntaxException {
         log.debug("REST request to partial update Clientes partially : {}, {}", id, clientes);
         if (clientes.getId() == null) {
@@ -124,26 +125,29 @@ public class ClientesResource {
         Optional<Clientes> result = clientesRepository
             .findById(clientes.getId())
             .map(existingClientes -> {
-                if (clientes.getActivo() != null) {
-                    existingClientes.setActivo(clientes.getActivo());
+                if (clientes.getEstadoCliente() != null) {
+                    existingClientes.setEstadoCliente(clientes.getEstadoCliente());
                 }
-                if (clientes.getApellidos() != null) {
-                    existingClientes.setApellidos(clientes.getApellidos());
+                if (clientes.getNombresContacto() != null) {
+                    existingClientes.setNombresContacto(clientes.getNombresContacto());
                 }
-                if (clientes.getDirecion() != null) {
-                    existingClientes.setDirecion(clientes.getDirecion());
+                if (clientes.getApellidoContacto() != null) {
+                    existingClientes.setApellidoContacto(clientes.getApellidoContacto());
+                }
+                if (clientes.getDireccion() != null) {
+                    existingClientes.setDireccion(clientes.getDireccion());
                 }
                 if (clientes.getEmail() != null) {
                     existingClientes.setEmail(clientes.getEmail());
                 }
-                if (clientes.getNombreContacto() != null) {
-                    existingClientes.setNombreContacto(clientes.getNombreContacto());
-                }
                 if (clientes.getNombreEmpresa() != null) {
                     existingClientes.setNombreEmpresa(clientes.getNombreEmpresa());
                 }
-                if (clientes.getNombres() != null) {
-                    existingClientes.setNombres(clientes.getNombres());
+                if (clientes.getRegFiscal() != null) {
+                    existingClientes.setRegFiscal(clientes.getRegFiscal());
+                }
+                if (clientes.getGiro() != null) {
+                    existingClientes.setGiro(clientes.getGiro());
                 }
                 if (clientes.getNotas() != null) {
                     existingClientes.setNotas(clientes.getNotas());
@@ -163,6 +167,12 @@ public class ClientesResource {
                 if (clientes.getTelefonoMovil2() != null) {
                     existingClientes.setTelefonoMovil2(clientes.getTelefonoMovil2());
                 }
+                if (clientes.getFechaRegistro() != null) {
+                    existingClientes.setFechaRegistro(clientes.getFechaRegistro());
+                }
+                if (clientes.getFechaUltimaC() != null) {
+                    existingClientes.setFechaUltimaC(clientes.getFechaUltimaC());
+                }
 
                 return existingClientes;
             })
@@ -177,18 +187,10 @@ public class ClientesResource {
     /**
      * {@code GET  /clientes} : get all the clientes.
      *
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clientes in body.
      */
     @GetMapping("/clientes")
-    public List<Clientes> getAllClientes(@RequestParam(required = false) String filter) {
-        if ("facturas-is-null".equals(filter)) {
-            log.debug("REST request to get all Clientess where facturas is null");
-            return StreamSupport
-                .stream(clientesRepository.findAll().spliterator(), false)
-                .filter(clientes -> clientes.getFacturas() == null)
-                .toList();
-        }
+    public List<Clientes> getAllClientes() {
         log.debug("REST request to get all Clientes");
         return clientesRepository.findAll();
     }

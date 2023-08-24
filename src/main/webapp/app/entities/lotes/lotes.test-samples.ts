@@ -3,24 +3,36 @@ import dayjs from 'dayjs/esm';
 import { ILotes, NewLotes } from './lotes.model';
 
 export const sampleWithRequiredData: ILotes = {
-  id: 25310,
+  id: 1781,
+  cantidad: 32670,
+  fechaEntrada: dayjs('2023-08-09'),
+  lote: 'precios Identidad Camiseta',
+  estado: 'Diseñador',
 };
 
 export const sampleWithPartialData: ILotes = {
-  id: 10327,
-  cantidad: 5698,
+  id: 32158,
+  cantidad: 31372,
   fechaEntrada: dayjs('2023-08-09'),
-  lote: 'Decoración Distrito Corporativo',
+  lote: 'asíncrona Verde',
+  estado: 'Director Andorra Morado',
+  notas: 'Amarillo',
 };
 
 export const sampleWithFullData: ILotes = {
-  id: 11623,
-  cantidad: 8622,
+  id: 14698,
+  cantidad: 24414,
   fechaEntrada: dayjs('2023-08-09'),
-  lote: 'Agente',
+  lote: 'objetos Cantabria',
+  estado: 'Coordinador Relacciones',
+  notas: 'Mejorado',
 };
 
 export const sampleWithNewData: NewLotes = {
+  cantidad: 5025,
+  fechaEntrada: dayjs('2023-08-09'),
+  lote: 'Informática Arrabal Senior',
+  estado: 'Pizza Heredado Baleares',
   id: null,
 };
 

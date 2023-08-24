@@ -3,26 +3,34 @@ import dayjs from 'dayjs/esm';
 import { IFacturas, NewFacturas } from './facturas.model';
 
 export const sampleWithRequiredData: IFacturas = {
-  id: 11928,
-  numeroFactura: 8240,
+  id: 16583,
+  numeroFactura: 9377,
+  fechaFactura: dayjs('2023-08-09T19:27'),
+  condicionPago: false,
+  estadoFactura: true,
 };
 
 export const sampleWithPartialData: IFacturas = {
-  id: 10751,
-  numeroFactura: 20044,
-  fechaFactura: dayjs('2023-08-09T22:38'),
-  condicionPago: false,
+  id: 20803,
+  numeroFactura: 31153,
+  fechaFactura: dayjs('2023-08-09T19:15'),
+  condicionPago: true,
+  estadoFactura: false,
 };
 
 export const sampleWithFullData: IFacturas = {
-  id: 11731,
-  numeroFactura: 14468,
-  fechaFactura: dayjs('2023-08-09T05:21'),
+  id: 4448,
+  numeroFactura: 15655,
+  fechaFactura: dayjs('2023-08-09T12:42'),
   condicionPago: true,
+  estadoFactura: true,
 };
 
 export const sampleWithNewData: NewFacturas = {
-  numeroFactura: 9700,
+  numeroFactura: 8787,
+  fechaFactura: dayjs('2023-08-09T21:05'),
+  condicionPago: true,
+  estadoFactura: false,
   id: null,
 };
 

@@ -1,8 +1,7 @@
 package sv.com.genius.controlac.web.rest;
 
-import sv.com.genius.controlac.domain.Lotes;
-import sv.com.genius.controlac.repository.LotesRepository;
-import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -14,11 +13,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sv.com.genius.controlac.domain.Lotes;
+import sv.com.genius.controlac.repository.LotesRepository;
+import sv.com.genius.controlac.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
- * REST controller for managing {@link Lotes}.
+ * REST controller for managing {@link sv.com.genius.controlac.domain.Lotes}.
  */
 @RestController
 @RequestMapping("/api")
@@ -46,7 +48,7 @@ public class LotesResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/lotes")
-    public ResponseEntity<Lotes> createLotes(@RequestBody Lotes lotes) throws URISyntaxException {
+    public ResponseEntity<Lotes> createLotes(@Valid @RequestBody Lotes lotes) throws URISyntaxException {
         log.debug("REST request to save Lotes : {}", lotes);
         if (lotes.getId() != null) {
             throw new BadRequestAlertException("A new lotes cannot already have an ID", ENTITY_NAME, "idexists");
@@ -69,7 +71,7 @@ public class LotesResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/lotes/{id}")
-    public ResponseEntity<Lotes> updateLotes(@PathVariable(value = "id", required = false) final Long id, @RequestBody Lotes lotes)
+    public ResponseEntity<Lotes> updateLotes(@PathVariable(value = "id", required = false) final Long id, @Valid @RequestBody Lotes lotes)
         throws URISyntaxException {
         log.debug("REST request to update Lotes : {}, {}", id, lotes);
         if (lotes.getId() == null) {
@@ -102,8 +104,10 @@ public class LotesResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/lotes/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Lotes> partialUpdateLotes(@PathVariable(value = "id", required = false) final Long id, @RequestBody Lotes lotes)
-        throws URISyntaxException {
+    public ResponseEntity<Lotes> partialUpdateLotes(
+        @PathVariable(value = "id", required = false) final Long id,
+        @NotNull @RequestBody Lotes lotes
+    ) throws URISyntaxException {
         log.debug("REST request to partial update Lotes partially : {}, {}", id, lotes);
         if (lotes.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -127,6 +131,12 @@ public class LotesResource {
                 }
                 if (lotes.getLote() != null) {
                     existingLotes.setLote(lotes.getLote());
+                }
+                if (lotes.getEstado() != null) {
+                    existingLotes.setEstado(lotes.getEstado());
+                }
+                if (lotes.getNotas() != null) {
+                    existingLotes.setNotas(lotes.getNotas());
                 }
 
                 return existingLotes;

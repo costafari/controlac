@@ -1,11 +1,11 @@
-id;descipcion;nombre;notas
-1;Arquitecto;Martinica;Mesa Pollo Directo
-2;Auto International;Algodón Sabroso;Descentralizado
-3;Analista Rusia;Plástico;Rústico Marca Azul
-4;Bricolaje;Asociado Director;Negro acceso Papelería
-5;Madera proyecto;Granito;Metal
-6;Cuba Verde Distrito;de División;Amarillo
-7;Algodón metodologías Ingeniero;Negro;Baleares Mascotas Virtual
-8;Blanco Contabilidad Morado;Extremadura Aplicaciones Coche;bifurcada Música
-9;Técnico Turquia;Morado;Librería Cataluña Directo
-10;Alicia Lorenzo Producto;Hormigon Guapa;Ergonómico
+id;descipcion;nombre;precio_u;precio_c;notas;estado_producto;fecha_registro;fecha_caducidad
+1;Arquitecto;Martinica;26028;19304;Pollo;Extremadura Blanco;Auto International amplio;Algodón Sabroso
+2;Descentralizado;Analista Rusia;3765;7820;Rústico;Marca Azul;Bricolaje;Asociado Director
+3;Negro acceso Papelería;Madera proyecto;4276;7475;Moda Cuba;presupuestaria;Distrito de División;Amarillo
+4;Algodón metodologías Ingeniero;Negro;24718;31759;Baleares;Mascotas Virtual;Blanco Contabilidad Morado;Extremadura Aplicaciones Coche
+5;bifurcada Música;Técnico Turquia;1481;31816;Blanco Librería Cataluña;Directo Coordinador Alicia;Lorenzo Producto Hormigon;Guapa
+6;Ergonómico;explícita Integración;23197;1940;array codificar;Artesanal Librería Silla;Pelota Configuración productividad;Sopa Organizado
+7;Ordenador;Dinánmico radical;16053;4052;de encriptar Pelota;Cataluña León Negro;Comunidad Total Salida;Violeta
+8;Decoración Valenciana Bicicleta;Adelante Teclado;21634;23753;Guapo Gerente Negro;Diseñador Madrid;Amarillo Andorra Verde;Deportes
+9;Bajada;Cuentas arquitectura;14217;26112;Azul Grupo;Jefe Madera País;presupuestaria Director Seguro;nivel Administrador Gerente
+10;Monroy Director aprovechar;Desarrollador generación Desarrollador;3302;26386;Estratega;Inverso Administrador;móbil China Monitorizado;Navarra Electrónica Canarias

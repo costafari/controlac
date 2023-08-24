@@ -20,8 +20,14 @@
       "id": "Id",
       "descipcion": "Descipcion",
       "nombre": "Nombre",
+      "precioU": "Precio U",
+      "precioC": "Precio C",
       "notas": "Notas",
-      "lotes": "Lotes"
+      "estadoProducto": "Estado Producto",
+      "fechaRegistro": "Fecha Registro",
+      "fechaCaducidad": "Fecha Caducidad",
+      "proveedores": "Proveedores",
+      "detalles": "Detalles"
     }
   }
 }

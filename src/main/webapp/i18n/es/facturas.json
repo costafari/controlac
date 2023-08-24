@@ -21,9 +21,9 @@
       "numeroFactura": "Numero Factura",
       "fechaFactura": "Fecha Factura",
       "condicionPago": "Condicion Pago",
-      "clientes": "Clientes",
-      "lotes": "Lotes",
+      "estadoFactura": "Estado Factura",
       "detalles": "Detalles",
+      "clientes": "Clientes",
       "abonos": "Abonos"
     }
   }

@@ -22,14 +22,34 @@
         <dd>
           <span>{{ productos.nombre }}</span>
         </dd>
+        <dt><span jhiTranslate="controlacApp.productos.precioU">Precio U</span></dt>
+        <dd>
+          <span>{{ productos.precioU }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.productos.precioC">Precio C</span></dt>
+        <dd>
+          <span>{{ productos.precioC }}</span>
+        </dd>
         <dt><span jhiTranslate="controlacApp.productos.notas">Notas</span></dt>
         <dd>
           <span>{{ productos.notas }}</span>
         </dd>
-        <dt><span jhiTranslate="controlacApp.productos.lotes">Lotes</span></dt>
+        <dt><span jhiTranslate="controlacApp.productos.estadoProducto">Estado Producto</span></dt>
         <dd>
-          <div *ngIf="productos.lotes">
-            <a [routerLink]="['/lotes', productos.lotes.id, 'view']">{{ productos.lotes.id }}</a>
+          <span>{{ productos.estadoProducto }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.productos.fechaRegistro">Fecha Registro</span></dt>
+        <dd>
+          <span>{{ productos.fechaRegistro }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.productos.fechaCaducidad">Fecha Caducidad</span></dt>
+        <dd>
+          <span>{{ productos.fechaCaducidad }}</span>
+        </dd>
+        <dt><span jhiTranslate="controlacApp.productos.proveedores">Proveedores</span></dt>
+        <dd>
+          <div *ngIf="productos.proveedores">
+            <a [routerLink]="['/proveedores', productos.proveedores.id, 'view']">{{ productos.proveedores.id }}</a>
           </div>
         </dd>
       </dl>

@@ -10,12 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacturasFormService, FacturasFormGroup } from './facturas-form.service';
 import { IFacturas } from '../facturas.model';
 import { FacturasService } from '../service/facturas.service';
-import { IClientes } from 'app/entities/clientes/clientes.model';
-import { ClientesService } from 'app/entities/clientes/service/clientes.service';
-import { ILotes } from 'app/entities/lotes/lotes.model';
-import { LotesService } from 'app/entities/lotes/service/lotes.service';
 import { IDetalles } from 'app/entities/detalles/detalles.model';
 import { DetallesService } from 'app/entities/detalles/service/detalles.service';
+import { IClientes } from 'app/entities/clientes/clientes.model';
+import { ClientesService } from 'app/entities/clientes/service/clientes.service';
 
 @Component({
   standalone: true,
@@ -27,26 +25,22 @@ export class FacturasUpdateComponent implements OnInit {
   isSaving = false;
   facturas: IFacturas | null = null;
 
-  clientesCollection: IClientes[] = [];
-  lotesSharedCollection: ILotes[] = [];
   detallesSharedCollection: IDetalles[] = [];
+  clientesSharedCollection: IClientes[] = [];
 
   editForm: FacturasFormGroup = this.facturasFormService.createFacturasFormGroup();
 
   constructor(
     protected facturasService: FacturasService,
     protected facturasFormService: FacturasFormService,
-    protected clientesService: ClientesService,
-    protected lotesService: LotesService,
     protected detallesService: DetallesService,
+    protected clientesService: ClientesService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
-  compareClientes = (o1: IClientes | null, o2: IClientes | null): boolean => this.clientesService.compareClientes(o1, o2);
-
-  compareLotes = (o1: ILotes | null, o2: ILotes | null): boolean => this.lotesService.compareLotes(o1, o2);
-
   compareDetalles = (o1: IDetalles | null, o2: IDetalles | null): boolean => this.detallesService.compareDetalles(o1, o2);
+
+  compareClientes = (o1: IClientes | null, o2: IClientes | null): boolean => this.clientesService.compareClientes(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ facturas }) => {
@@ -96,29 +90,17 @@ export class FacturasUpdateComponent implements OnInit {
     this.facturas = facturas;
     this.facturasFormService.resetForm(this.editForm, facturas);
 
-    this.clientesCollection = this.clientesService.addClientesToCollectionIfMissing<IClientes>(this.clientesCollection, facturas.clientes);
-    this.lotesSharedCollection = this.lotesService.addLotesToCollectionIfMissing<ILotes>(this.lotesSharedCollection, facturas.lotes);
     this.detallesSharedCollection = this.detallesService.addDetallesToCollectionIfMissing<IDetalles>(
       this.detallesSharedCollection,
       facturas.detalles
     );
+    this.clientesSharedCollection = this.clientesService.addClientesToCollectionIfMissing<IClientes>(
+      this.clientesSharedCollection,
+      facturas.clientes
+    );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.clientesService
-      .query({ filter: 'facturas-is-null' })
-      .pipe(map((res: HttpResponse<IClientes[]>) => res.body ?? []))
-      .pipe(
-        map((clientes: IClientes[]) => this.clientesService.addClientesToCollectionIfMissing<IClientes>(clientes, this.facturas?.clientes))
-      )
-      .subscribe((clientes: IClientes[]) => (this.clientesCollection = clientes));
-
-    this.lotesService
-      .query()
-      .pipe(map((res: HttpResponse<ILotes[]>) => res.body ?? []))
-      .pipe(map((lotes: ILotes[]) => this.lotesService.addLotesToCollectionIfMissing<ILotes>(lotes, this.facturas?.lotes)))
-      .subscribe((lotes: ILotes[]) => (this.lotesSharedCollection = lotes));
-
     this.detallesService
       .query()
       .pipe(map((res: HttpResponse<IDetalles[]>) => res.body ?? []))
@@ -126,5 +108,13 @@ export class FacturasUpdateComponent implements OnInit {
         map((detalles: IDetalles[]) => this.detallesService.addDetallesToCollectionIfMissing<IDetalles>(detalles, this.facturas?.detalles))
       )
       .subscribe((detalles: IDetalles[]) => (this.detallesSharedCollection = detalles));
+
+    this.clientesService
+      .query()
+      .pipe(map((res: HttpResponse<IClientes[]>) => res.body ?? []))
+      .pipe(
+        map((clientes: IClientes[]) => this.clientesService.addClientesToCollectionIfMissing<IClientes>(clientes, this.facturas?.clientes))
+      )
+      .subscribe((clientes: IClientes[]) => (this.clientesSharedCollection = clientes));
   }
 }

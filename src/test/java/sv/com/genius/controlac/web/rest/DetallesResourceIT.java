@@ -2,35 +2,49 @@ package sv.com.genius.controlac.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import sv.com.genius.controlac.IntegrationTest;
-import sv.com.genius.controlac.domain.Detalles;
-import sv.com.genius.controlac.repository.DetallesRepository;
 import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import sv.com.genius.controlac.IntegrationTest;
+import sv.com.genius.controlac.domain.Detalles;
+import sv.com.genius.controlac.repository.DetallesRepository;
 
 /**
  * Integration tests for the {@link DetallesResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class DetallesResourceIT {
 
     private static final Long DEFAULT_CANTIDAD = 1L;
     private static final Long UPDATED_CANTIDAD = 2L;
+
+    private static final Long DEFAULT_IMPUESTOS = 1L;
+    private static final Long UPDATED_IMPUESTOS = 2L;
+
+    private static final Long DEFAULT_DESCUENTO = 1L;
+    private static final Long UPDATED_DESCUENTO = 2L;
 
     private static final Long DEFAULT_TOTAL = 1L;
     private static final Long UPDATED_TOTAL = 2L;
@@ -43,6 +57,9 @@ class DetallesResourceIT {
 
     @Autowired
     private DetallesRepository detallesRepository;
+
+    @Mock
+    private DetallesRepository detallesRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -59,7 +76,11 @@ class DetallesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Detalles createEntity(EntityManager em) {
-        Detalles detalles = new Detalles().cantidad(DEFAULT_CANTIDAD).total(DEFAULT_TOTAL);
+        Detalles detalles = new Detalles()
+            .cantidad(DEFAULT_CANTIDAD)
+            .impuestos(DEFAULT_IMPUESTOS)
+            .descuento(DEFAULT_DESCUENTO)
+            .total(DEFAULT_TOTAL);
         return detalles;
     }
 
@@ -70,7 +91,11 @@ class DetallesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Detalles createUpdatedEntity(EntityManager em) {
-        Detalles detalles = new Detalles().cantidad(UPDATED_CANTIDAD).total(UPDATED_TOTAL);
+        Detalles detalles = new Detalles()
+            .cantidad(UPDATED_CANTIDAD)
+            .impuestos(UPDATED_IMPUESTOS)
+            .descuento(UPDATED_DESCUENTO)
+            .total(UPDATED_TOTAL);
         return detalles;
     }
 
@@ -93,6 +118,8 @@ class DetallesResourceIT {
         assertThat(detallesList).hasSize(databaseSizeBeforeCreate + 1);
         Detalles testDetalles = detallesList.get(detallesList.size() - 1);
         assertThat(testDetalles.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
+        assertThat(testDetalles.getImpuestos()).isEqualTo(DEFAULT_IMPUESTOS);
+        assertThat(testDetalles.getDescuento()).isEqualTo(DEFAULT_DESCUENTO);
         assertThat(testDetalles.getTotal()).isEqualTo(DEFAULT_TOTAL);
     }
 
@@ -133,6 +160,40 @@ class DetallesResourceIT {
 
     @Test
     @Transactional
+    void checkImpuestosIsRequired() throws Exception {
+        int databaseSizeBeforeTest = detallesRepository.findAll().size();
+        // set the field null
+        detalles.setImpuestos(null);
+
+        // Create the Detalles, which fails.
+
+        restDetallesMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(detalles)))
+            .andExpect(status().isBadRequest());
+
+        List<Detalles> detallesList = detallesRepository.findAll();
+        assertThat(detallesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkDescuentoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = detallesRepository.findAll().size();
+        // set the field null
+        detalles.setDescuento(null);
+
+        // Create the Detalles, which fails.
+
+        restDetallesMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(detalles)))
+            .andExpect(status().isBadRequest());
+
+        List<Detalles> detallesList = detallesRepository.findAll();
+        assertThat(detallesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllDetalles() throws Exception {
         // Initialize the database
         detallesRepository.saveAndFlush(detalles);
@@ -144,7 +205,26 @@ class DetallesResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(detalles.getId().intValue())))
             .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD.intValue())))
+            .andExpect(jsonPath("$.[*].impuestos").value(hasItem(DEFAULT_IMPUESTOS.intValue())))
+            .andExpect(jsonPath("$.[*].descuento").value(hasItem(DEFAULT_DESCUENTO.intValue())))
             .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.intValue())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllDetallesWithEagerRelationshipsIsEnabled() throws Exception {
+        when(detallesRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restDetallesMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(detallesRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllDetallesWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(detallesRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restDetallesMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(detallesRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -160,6 +240,8 @@ class DetallesResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(detalles.getId().intValue()))
             .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD.intValue()))
+            .andExpect(jsonPath("$.impuestos").value(DEFAULT_IMPUESTOS.intValue()))
+            .andExpect(jsonPath("$.descuento").value(DEFAULT_DESCUENTO.intValue()))
             .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL.intValue()));
     }
 
@@ -182,7 +264,7 @@ class DetallesResourceIT {
         Detalles updatedDetalles = detallesRepository.findById(detalles.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedDetalles are not directly saved in db
         em.detach(updatedDetalles);
-        updatedDetalles.cantidad(UPDATED_CANTIDAD).total(UPDATED_TOTAL);
+        updatedDetalles.cantidad(UPDATED_CANTIDAD).impuestos(UPDATED_IMPUESTOS).descuento(UPDATED_DESCUENTO).total(UPDATED_TOTAL);
 
         restDetallesMockMvc
             .perform(
@@ -197,6 +279,8 @@ class DetallesResourceIT {
         assertThat(detallesList).hasSize(databaseSizeBeforeUpdate);
         Detalles testDetalles = detallesList.get(detallesList.size() - 1);
         assertThat(testDetalles.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
+        assertThat(testDetalles.getImpuestos()).isEqualTo(UPDATED_IMPUESTOS);
+        assertThat(testDetalles.getDescuento()).isEqualTo(UPDATED_DESCUENTO);
         assertThat(testDetalles.getTotal()).isEqualTo(UPDATED_TOTAL);
     }
 
@@ -283,6 +367,8 @@ class DetallesResourceIT {
         assertThat(detallesList).hasSize(databaseSizeBeforeUpdate);
         Detalles testDetalles = detallesList.get(detallesList.size() - 1);
         assertThat(testDetalles.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
+        assertThat(testDetalles.getImpuestos()).isEqualTo(DEFAULT_IMPUESTOS);
+        assertThat(testDetalles.getDescuento()).isEqualTo(DEFAULT_DESCUENTO);
         assertThat(testDetalles.getTotal()).isEqualTo(UPDATED_TOTAL);
     }
 
@@ -298,7 +384,7 @@ class DetallesResourceIT {
         Detalles partialUpdatedDetalles = new Detalles();
         partialUpdatedDetalles.setId(detalles.getId());
 
-        partialUpdatedDetalles.cantidad(UPDATED_CANTIDAD).total(UPDATED_TOTAL);
+        partialUpdatedDetalles.cantidad(UPDATED_CANTIDAD).impuestos(UPDATED_IMPUESTOS).descuento(UPDATED_DESCUENTO).total(UPDATED_TOTAL);
 
         restDetallesMockMvc
             .perform(
@@ -313,6 +399,8 @@ class DetallesResourceIT {
         assertThat(detallesList).hasSize(databaseSizeBeforeUpdate);
         Detalles testDetalles = detallesList.get(detallesList.size() - 1);
         assertThat(testDetalles.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
+        assertThat(testDetalles.getImpuestos()).isEqualTo(UPDATED_IMPUESTOS);
+        assertThat(testDetalles.getDescuento()).isEqualTo(UPDATED_DESCUENTO);
         assertThat(testDetalles.getTotal()).isEqualTo(UPDATED_TOTAL);
     }
 

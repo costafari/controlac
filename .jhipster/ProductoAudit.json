@@ -1,0 +1,34 @@
+{
+  "applications": "*",
+  "changelogDate": "20230824175935",
+  "entityTableName": "producto_audit",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "fechaAudit",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tipoCrud",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idProducto",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idUSuario",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "ProductoAudit",
+  "relationships": [],
+  "searchEngine": "no"
+}

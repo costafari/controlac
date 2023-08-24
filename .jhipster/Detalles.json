@@ -13,6 +13,16 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "impuestos",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descuento",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "total",
       "fieldType": "Long"
     }
@@ -25,6 +35,13 @@
       "relationshipName": "facturas",
       "relationshipSide": "left",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "productos",
+      "otherEntityRelationshipName": "detalles",
+      "relationshipName": "productos",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
     }
   ],
   "searchEngine": "no"

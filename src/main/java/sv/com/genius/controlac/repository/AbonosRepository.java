@@ -1,8 +1,8 @@
 package sv.com.genius.controlac.repository;
 
-import sv.com.genius.controlac.domain.Abonos;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+import sv.com.genius.controlac.domain.Abonos;
 
 /**
  * Spring Data JPA repository for the Abonos entity.
